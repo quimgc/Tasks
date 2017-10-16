@@ -6,5 +6,11 @@
 
 @section('main-content')
 
-<tasks></tasks>
+  <tasks></tasks>
+
+  <message title="Error"> </message>
+
+  <message title="Error" message="Ha petat tot company"> </message>
+
+
 @endsection
