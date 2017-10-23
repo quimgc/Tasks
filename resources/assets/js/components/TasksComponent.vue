@@ -191,6 +191,7 @@
                 console.log(response.data)
                 console.log(response.status)
 
+                component.tasks = response.data;
             }).catch(function (error) {
                 flash(error);
             })
