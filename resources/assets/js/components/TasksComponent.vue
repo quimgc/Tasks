@@ -61,6 +61,7 @@
 <script>
 
     var filters = {
+
         all: function (tasks) {
             return tasks
         },
@@ -86,27 +87,27 @@
     export default {
         data() {
             return {
-
                 editedTask: '',
                 filter: 'all',
                 modifyTask: '',
                 newTask: '',
                 isUpdate : false,
-                tasks: []
+                tasks: JSON.parse(this.dataTasks)
             }
 
         },
         watch: {
             tasks: function () {
 
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.tasks))
+    //            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.tasks))
+               // console.log(this.tasks)
 
             }
         },
         computed: {
 
             filteredTasks: function () {
-
+                console.log(this.filter)
                 return filters[this.filter](this.tasks)
             },
             pendingTaskCounter: function(){
@@ -115,7 +116,11 @@
             }
 
         },
-
+        props: {
+            dataTasks: {
+               required: false
+            }
+        },
         methods: {
 
             show(filter){
@@ -171,7 +176,34 @@
 
         mounted() {
 
-            this.tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]')
+            var component = this
+
+            //this.tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]')
+            console.log(component.tasks)
+
+            //TODO connectar-se a internet i agafar la llista de tasques.
+            let url = '/api/tasks'
+
+
+            axios.get(url).then(function (response) {
+                //this.tasks = response;
+                console.log(response)
+                console.log(response.data)
+                console.log(response.status)
+
+            }).catch(function (error) {
+                flash(error);
+            })
+
+
+
+
+            //API HTTP amb JSON <- web service
+            //URL GET http://nom_servidor/api/tasks
+            //URL POST http://nom_servidor/api/tasks
+            //URL EDIT http://nom_servidor/api/tasks
+            //URL DELETE http://nom_servidor/api/tasks
+            //URL PUT/PATH http://nom_servidor/api/tasks
 
 
         }
