@@ -14,3 +14,11 @@ https://adminlte.io/themes/AdminLTE/pages/UI/general.html
 http://php.net/manual/es/book.json.php
 
 json_encode és per passar d'una variable a JSON.
+
+##PROMISES
+
+Si va bé executarà una cosa, i si va malament, una altra.
+
+##npm run watch // npm run watch-poll
+
+Serveix per compilar al instant.
