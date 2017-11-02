@@ -58,6 +58,7 @@
 
 </style>
 
+
 <script>
 
     // visibility filters
@@ -78,6 +79,8 @@
     }
 
     const LOCAL_STORAGE_KEY = 'TASKS'
+//TODO falta el import
+    import { wait }
 
     export default {
         data() {
@@ -140,7 +143,7 @@
             // PROMISES
 
             this.$emit('loading',true)
-            axios.get(url).then().then((response) =>  {
+            axios.get(url).then(wait(5000)).then((response) =>  {
                 this.tasks = response.data;
 
             }).catch((error) => {
