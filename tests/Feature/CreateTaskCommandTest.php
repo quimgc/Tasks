@@ -21,12 +21,11 @@ class CreateTaskCommandTest extends TestCase
         //prepare
 
         //run
-
         $this->artisan('task:create', ['name' => 'Comprar paa']);
 
         $resultAsText = artisan::output();
 
-        $this->assertDatabaseHas('tasks',['name'=>'Comprar pa']);
+        $this->assertDatabaseHas('tasks',['name'=>'Comprar paa']);
 
 //        $this->assertTrue(str_contains($resultAsText, 'Task has been added to database succesfully'));
         $this->assertContains('Task has been added to database succesfully', $resultAsText);

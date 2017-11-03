@@ -42,10 +42,14 @@ class CreateTaskCommand extends Command
     //aqui s'ha de posar que ha de passar quan s'executa la comanda.
     public function handle()
     {
+        //todo fer que aparegui l'error!
+
+
+
         try{
 
             Task::create([
-                $this->argument('name') ? $this->argument('name') : $this->ask('Event name?')
+                'name'=>$this->argument('name') ? $this->argument('name') : $this->ask('Event name?')
             ]);
         } catch ( Exception $e) {
             $this->error('error' . $e);
