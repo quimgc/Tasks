@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Artisan;
+use Mockery;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,7 +22,7 @@ class CreateTaskCommandTest extends TestCase
 
         //run
 
-        $this->artisan('task:create', ['name' => 'Comprar pa']);
+        $this->artisan('task:create', ['name' => 'Comprar paa']);
 
         $resultAsText = artisan::output();
 
@@ -37,10 +38,19 @@ class CreateTaskCommandTest extends TestCase
 
         // 1) Prepare
 
+            $command = Mockery::mock('App\Console\Commands\CreateTaskCommand[ask]');
+
+            $command->shouldReceive('ask')
+                ->once()
+                ->with('Event name?')
+                -> andReturn('Comprar llet');
+
+            $this->app['Illuminate\Contracts\Console\Kernel']->registerCommand($command);
+
         // 2) Execució
         $this->artisan('task:create');
 
-
+        $this->assertDatabaseHas('tasks',['name' => 'Comprar llet']);
         // 3) Assert
         $resultAsText = artisan::output();
 

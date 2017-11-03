@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Task;
 use Illuminate\Console\Command;
+use Mockery\Exception;
 
 class CreateTaskCommand extends Command
 {
@@ -41,13 +42,14 @@ class CreateTaskCommand extends Command
     //aqui s'ha de posar que ha de passar quan s'executa la comanda.
     public function handle()
     {
-        if( ! $name = $this->argument(['name'])){
-            $name = $this->ask('Event name?');
+        try{
+
+            Task::create([
+                $this->argument('name') ? $this->argument('name') : $this->ask('Event name?')
+            ]);
+        } catch ( Exception $e) {
+            $this->error('error' . $e);
         }
-
-//        $name = $this->argument('name') ? $this->argument('name') : $this->ask('Event name?');
-
-        Task::create(['name'=>$name]);
 
         $this->info('Task has been added to database succesfully');
     }
