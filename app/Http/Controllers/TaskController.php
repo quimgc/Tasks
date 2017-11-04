@@ -54,7 +54,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        Task::list([
+        'task'=>$task->name
+    ]);
     }
 
     /**
