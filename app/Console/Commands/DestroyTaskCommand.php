@@ -2,23 +2,26 @@
 
 namespace App\Console\Commands;
 
+use App\Task;
 use Illuminate\Console\Command;
 
-class TaskDestroyCommand extends Command
+class DestroyTaskCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'task:destroy {id? : The Task id}';
+
+
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'This command is used to delete a Task';
 
     /**
      * Create a new command instance.
@@ -37,6 +40,16 @@ class TaskDestroyCommand extends Command
      */
     public function handle()
     {
-        //
+
+        try{
+
+            Task::destroy([
+                'id'=>$this->argument('id') ? $this->argument('id') : $this->ask('Event id?')
+            ]);
+        } catch ( Exception $e) {
+            $this->error('error' . $e);
+        }
+
+        $this->info('Task has been deleted to database succesfully');
     }
 }
