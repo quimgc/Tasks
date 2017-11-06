@@ -17,15 +17,18 @@
                     {{task.name}}
 
                     <i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>
-
-                    <i class="fa fa-times" aria-hidden="true" @click="deleteTask(task)"></i>
+                    <i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>
+                    <i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>
 
                 </div>
 
             </li>
             </ul>
             Nova tasca a afegir: <input type="text" v-model="newTask" id="newTask" @keyup.enter="addTask">
-            <button id="add" @click="addTask"> Afegir Tasca</button>
+            <button id="add" :disabled="creating" @click="addTask">
+                <i class="fa fa-refresh fa-spin fa-lg" v-if="creating"></i>
+                    Afegir Tasca
+            </button>
 
             <h2>Filtres</h2>
             <ul>
@@ -79,8 +82,10 @@
     }
 
     const LOCAL_STORAGE_KEY = 'TASKS'
-//TODO falta el import
-    import { wait }
+
+
+    import { wait } from './utils.js'
+
 
     export default {
         data() {
@@ -88,7 +93,9 @@
                 editedTask: null,
                 filter: 'all',
                 newTask: '',
-                tasks: []
+                tasks: [],
+                creating: false,
+                taskBeingDeleted: null
             }
         },
         computed: {
@@ -111,19 +118,45 @@
                 this.filter = filter
             },
             addTask() {
-                console.log('addTask')
-                this.tasks.push({ name : this.newTask, completed : false})
-                console.log('3')
-                this.newTask=''
+                this.creating = true;
+                //this.newTask=''
+                let url = '/api/tasks'
+                axios.post(url, {name: this.newTask }).then((response) =>  {
+                    this.tasks.push({ name : this.newTask, completed : false})
+                    this.newTask=''
+
+                }).catch((error) => {
+                    flash(error.message)
+                }).then(()=>{
+                    this.$emit('loading',false)
+                    this.creating = false
+
+                })
+
             },
             isCompleted(task) {
                 return task.completed
             },
             deleteTask(task) {
+
+                let url = '/api/tasks'+ task.id;
+                axios.delete(url).then((response)=>({
+
+
+                    })
+
+                ).catch((error)=>{
+
+
+                }).then(
+
+                );
+
+
+
                 this.tasks.splice( this.tasks.indexOf(task) , 1 )
             },
             updateTask(task){
-                console.log('Ok ja editare');
                 this.editedTask = task
             }
         },
@@ -136,9 +169,6 @@
 
             // HTTP CLIENT
             let url = '/api/tasks'
-            //Promises
-            var component = this
-
 
             // PROMISES
 
