@@ -5,11 +5,11 @@
             <li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"
                 @dblclick="editTask(task)">
 
-                <input type="text" v-if="editedTask==task"
+                <input type="text" id="editedTask" v-if="editedTask==task"
                        v-model="modifyTask"
-                       @keydown.enter="updateTask()"
-                       @keyup.esc="cancelEdit()"
-                       @keyup.enter="doneEdit()">
+                       @keydown.enter="updateTask(task)"
+                       @keyup.esc="cancelEdit(task)"
+                       @keyup.enter="doneEdit(task)">
 
 
                 <div v-else>
@@ -95,7 +95,9 @@
                 newTask: '',
                 tasks: [],
                 creating: false,
-                taskBeingDeleted: null
+                updating: false,
+                taskBeingDeleted: null,
+                modifyTask: ''
             }
         },
         computed: {
@@ -139,25 +141,50 @@
             },
             deleteTask(task) {
 
-                let url = '/api/tasks'+ task.id;
-                axios.delete(url).then((response)=>({
+                console.log(task.name)
 
-
-                    })
-
-                ).catch((error)=>{
-
-
+                let url = '/api/tasks/' + task.id
+                this.taskBeingDeleted = task.id
+                axios.delete(url).then( (response) => {
+                    this.tasks.splice( this.tasks.indexOf(task) , 1 )
+                }).catch( (error) => {
+                    flash(error.message)
                 }).then(
-
-                );
-
-
-
-                this.tasks.splice( this.tasks.indexOf(task) , 1 )
+                    this.taskBeingDeleted = null
+                )
             },
             updateTask(task){
-                this.editedTask = task
+                //TODO fer el update correcte
+                // També te fallos d'esborrar tasques
+                this.updating = true
+                console.log('update')
+                console.log(this.modifyTask);
+                task.name = this.modifyTask;
+                this.editedTask = null
+
+                let url = '/api/tasks'
+                axios.put(url, {name: this.modifyTask }).then((response) =>  {
+                    this.tasks.update({ name : this.modifyTask, completed : false})
+                    this.modifyTask = ''
+
+                }).catch((error) => {
+                    flash(error.message)
+                }).then(()=>{
+                    this.$emit('loading',false)
+                    this.creating = false
+
+                })
+
+            },
+            editTask(task){
+                this.editedTask = task;
+                this.modifyTask = task.name;
+            },
+            cancelEdit(){
+                this.editedTask = null;
+                this.modifyTask = ''
+            }, doneEdit(){
+
             }
         },
         mounted() {
@@ -173,7 +200,8 @@
             // PROMISES
 
             this.$emit('loading',true)
-            axios.get(url).then(wait(5000)).then((response) =>  {
+            //.then(wait(5000))
+            axios.get(url).then((response) =>  {
                 this.tasks = response.data;
 
             }).catch((error) => {
