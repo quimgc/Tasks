@@ -174,7 +174,7 @@
                     //this.creating = false
 
                 //})
-                        updateTask(task){
+             updateTask(task){
                 //TODO fer el update correcte
                 // TODO També te fallos d'esborrar tasques
                 this.updating = true
@@ -192,7 +192,7 @@
                 }).then(()=>{
                     this.$emit('loading',false)
                     this.updating = false
-                })
+             })
 
             },
             editTask(task){
