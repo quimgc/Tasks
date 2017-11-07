@@ -157,7 +157,7 @@
                 //TODO fer el update correcte
                 // També te fallos d'esborrar tasques
                 //this.updating = true
-                //console.log('update')
+                //console.log('update2333')
                 //console.log(this.modifyTask);
                 //task.name = this.modifyTask;
                 //this.editedTask = null
@@ -176,23 +176,24 @@
                 //})
              updateTask(task){
                 //TODO fer el update correcte
-                // TODO També te fallos d'esborrar tasques
-                this.updating = true
-                console.log('update')
-                console.log(this.modifyTask);
-               
-                
-                let url = '/api/tasks'
-                axios.put(url, {name: this.modifyTask }).then((response) =>  {
-                    this.tasks.update({ name : this.modifyTask, completed : false})
-                    this.modifyTask = ''
-		    this.editedTask = null                
-		}).catch((error) => {
-                    flash(error.message)
-                }).then(()=>{
-                    this.$emit('loading',false)
-                    this.updating = false
-             })
+                console.log("updateTask");
+//
+//                this.updating = true
+//                console.log('update2')
+//                console.log("this.modifyTask " + this.modifyTask);
+//
+//
+//                let url = '/api/tasks'
+//                axios.put(url, {name: this.modifyTask }).then((response) =>  {
+//                    this.tasks.update({ name : this.modifyTask, completed : false})
+//                    this.modifyTask = ''
+//		    this.editedTask = null
+//		}).catch((error) => {
+//                    flash(error.message)
+//                }).then(()=>{
+//                    this.$emit('loading',false)
+//                    this.updating = false
+//             })
 
             },
             editTask(task){
