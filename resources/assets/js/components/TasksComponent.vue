@@ -153,26 +153,45 @@
                     this.taskBeingDeleted = null
                 )
             },
-            updateTask(task){
+            //updateTask(task){
                 //TODO fer el update correcte
                 // També te fallos d'esborrar tasques
+                //this.updating = true
+                //console.log('update')
+                //console.log(this.modifyTask);
+                //task.name = this.modifyTask;
+                //this.editedTask = null
+
+                //let url = '/api/tasks'
+                //axios.put(url, {name: this.modifyTask }).then((response) =>  {
+                  //  this.tasks.update({ name : this.modifyTask, completed : false})
+                    //this.modifyTask = ''
+
+                //}).catch((error) => {
+                  //  flash(error.message)
+                //}).then(()=>{
+                  //  this.$emit('loading',false)
+                    //this.creating = false
+
+                //})
+                        updateTask(task){
+                //TODO fer el update correcte
+                // TODO També te fallos d'esborrar tasques
                 this.updating = true
                 console.log('update')
                 console.log(this.modifyTask);
-                task.name = this.modifyTask;
-                this.editedTask = null
-
+               
+                
                 let url = '/api/tasks'
                 axios.put(url, {name: this.modifyTask }).then((response) =>  {
                     this.tasks.update({ name : this.modifyTask, completed : false})
                     this.modifyTask = ''
-
-                }).catch((error) => {
+		    this.editedTask = null                
+		}).catch((error) => {
                     flash(error.message)
                 }).then(()=>{
                     this.$emit('loading',false)
-                    this.creating = false
-
+                    this.updating = false
                 })
 
             },
