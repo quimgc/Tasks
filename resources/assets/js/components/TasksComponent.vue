@@ -19,6 +19,7 @@
                     <i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>
                     <i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>
                     <i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>
+                    <i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>
 
                 </div>
 
@@ -141,7 +142,6 @@
             },
             deleteTask(task) {
 
-                console.log(task.name)
 
                 let url = '/api/tasks/' + task.id
                 this.taskBeingDeleted = task.id
@@ -153,58 +153,38 @@
                     this.taskBeingDeleted = null
                 )
             },
-            //updateTask(task){
-                //TODO fer el update correcte
-                // També te fallos d'esborrar tasques
-                //this.updating = true
-                //console.log('update2333')
-                //console.log(this.modifyTask);
-                //task.name = this.modifyTask;
-                //this.editedTask = null
-
-                //let url = '/api/tasks'
-                //axios.put(url, {name: this.modifyTask }).then((response) =>  {
-                  //  this.tasks.update({ name : this.modifyTask, completed : false})
-                    //this.modifyTask = ''
-
-                //}).catch((error) => {
-                  //  flash(error.message)
-                //}).then(()=>{
-                  //  this.$emit('loading',false)
-                    //this.creating = false
-
-                //})
              updateTask(task){
-                //TODO fer el update correcte
-                console.log("updateTask");
-//
-//                this.updating = true
-//                console.log('update2')
-//                console.log("this.modifyTask " + this.modifyTask);
-//
-//
-//                let url = '/api/tasks'
-//                axios.put(url, {name: this.modifyTask }).then((response) =>  {
-//                    this.tasks.update({ name : this.modifyTask, completed : false})
-//                    this.modifyTask = ''
-//		    this.editedTask = null
-//		}).catch((error) => {
-//                    flash(error.message)
-//                }).then(()=>{
-//                    this.$emit('loading',false)
-//                    this.updating = false
-//             })
+
+                this.updating = true
+                let url = '/api/tasks/' + task.id
+                axios.put(url, {name: this.modifyTask }).then((response) =>  {
+                  var pos =   this.tasks.indexOf(task);
+
+                  this.tasks[pos].name = this.modifyTask;
+                  this.modifyTask = ''
+
+		    this.editedTask = null
+		}).catch((error) => {
+                    flash(error.message)
+                }).then(()=>{
+                    this.$emit('loading',false)
+                    this.updating = false
+             })
 
             },
             editTask(task){
                 this.editedTask = task;
                 this.modifyTask = task.name;
-            },
+                },
             cancelEdit(){
                 this.editedTask = null;
                 this.modifyTask = ''
-            }, doneEdit(){
+            }, doneTask(task){
+                 var pos =   this.tasks.indexOf(task);
 
+                    this.tasks[pos].completed = true;
+
+                task.completed = true
             }
         },
         mounted() {
