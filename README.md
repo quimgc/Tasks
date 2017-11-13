@@ -1,25 +1,25 @@
-#Tasks
+# Tasks
 
-##Error de moustachs amb PHP
+## Error de moustachs amb PHP
 
 Per solucionar l'error dels {{ variable }} del vue a l'interior d'un fixer .php, la solució està en posar **@** al devant de {{ variable }}
 
 
-##Enllaç de adminlte alarms
+## Enllaç de adminlte alarms
 
 https://adminlte.io/themes/AdminLTE/pages/UI/general.html 
 
-##JSON amb php
+## JSON amb php
 
 http://php.net/manual/es/book.json.php
 
 json_encode és per passar d'una variable a JSON.
 
-##PROMISES
+## PROMISES
 
 Si va bé executarà una cosa, i si va malament, una altra.
 
-##npm run watch // npm run watch-poll
+## npm run watch // npm run watch-poll
 
 Serveix per compilar al instant.
 
@@ -29,9 +29,9 @@ Per crear una comanda s'ha de fer:
 
     php artisan make:command nomFitxerComanda
 
-#Extres
+# Extres
 
-##Agafar header d'una taula per no implementar-ho hardcoded
+## Agafar header d'una taula per no implementar-ho hardcoded
 
     $tasks = Task::all()->toArray();
     $headers = array_keys($tasks[0]);
