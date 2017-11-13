@@ -40,6 +40,7 @@
                 <ul class="treeview-menu">
                     <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
                     <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
+
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

@@ -5,6 +5,7 @@
 @endsection
 
 @section('main-content')
-<tasks-view></tasks-view>
+<users></users>
+  <tasks-view></tasks-view>
 @endsection
 
