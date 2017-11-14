@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Task;
 use App\User;
 use Faker\Factory;
 use Tests\TestCase;
@@ -40,6 +39,19 @@ use RefreshDatabase;
             'updated_at'
         ]]);
 
+    }
+    
+      public function can_show_a_user()
+    {
+        $user = factory(User::class)->create();
+        $loggedUser = factory(User::class)->create();
+        $this->actingAs($loggedUser);
+        $response = $this->json('GET', '/api/v1/users/' . $user->id);
+        $response->assertSuccessful();
+        $response->assertJson([
+            'id' => $user->id,
+            'name' => $user->name
+        ]);
     }
 
     /**
