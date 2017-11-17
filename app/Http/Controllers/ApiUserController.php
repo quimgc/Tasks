@@ -11,6 +11,12 @@ class ApiUserController extends Controller
     {
         return User::all();
     }
+    
+    
+    public function show(User $user){
+    
+        return $user;
+    }
 
 
     //La funció del request s'anomena injeccio de dependències.
