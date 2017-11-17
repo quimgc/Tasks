@@ -29,14 +29,19 @@ Route::group(['middleware' => 'auth'], function () {
 //
 //    });
 
+
+
     Route::get('/tasks','TaskController@index');
+
     Route::post('/tasks','TaskController@store');
     Route::delete('/tasks','TaskController@destroy');
 
 
     Route::get('api/tasks','ApiTaskController@index');
+
     Route::post('api/tasks','ApiTaskController@store');
     Route::delete('api/tasks/{task}','ApiTaskController@destroy');
+
     Route::put('api/tasks/{task}','ApiTaskController@update');
 
 

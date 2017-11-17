@@ -51,3 +51,7 @@ Ara es pot utilitzar $headers per a retornar alguna cosa en format de table:
         $this->table($headers,$tasks);
 
 D'aquesta forma, no hi ha res hardcoded i si mai es modifica la taula, el codi funcionarà igual. 
+
+# DIRECTORI MENÚ ESQUERRA
+
+
