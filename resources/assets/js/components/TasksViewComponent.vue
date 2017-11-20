@@ -1,45 +1,32 @@
-<template>
-<div>
-    <widget :loading="loading">
-        <p slot="title">Tasques</p>
-        <tasks @loading="load"></tasks>
-        <p slot="Footer">Footer</p>
-    </widget>
+<!--<template>-->
+<!--<div>-->
+    <!--<widget :loading="loading">-->
+        <!--<p slot="title">Tasques</p>-->
+        <!--<tasks @loading="load"></tasks>-->
+        <!--<p slot="Footer">Footer</p>-->
+    <!--</widget>-->
 
-    <message title="Message" message="" color="info"></message>
-</div>
+    <!--<message title="Message" message="" color="info"></message>-->
+<!--</div>-->
 
-</template>
-
-
-<style>
+<!--</template>-->
 
 
-
-</style>
-
-
-<script>
+<!--<style>-->
 
 
 
-    export default {
-        data() {
-            return {
-                loading: false
-            }
-        },
+<!--</style>-->
 
-        methods: {
-            load(load){
-                console.log('loading executed!!')
-                this.loading = load
 
-            }
-        },
-        mounted() {
-            console.log('TasksViewComponent.vue')
-        }
-    }
+<!--<script>-->
 
-</script>
+    <!--export default {-->
+        <!--data() {-->
+            <!--return {-->
+
+            <!--}-->
+        <!--}-->
+    <!--}-->
+
+<!--</script>-->

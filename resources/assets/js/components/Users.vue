@@ -1,11 +1,5 @@
 <template>
     <div>
-        Users ({{numUsers}}):
-        <!--<select>-->
-            <!--<option :value="user.id" v-for="user in users">-->
-                <!--{{user.name}} - {{user.email}}-->
-            <!--</option>-->
-        <!--</select>-->
 
         <multiselect v-model="user" :options="users" :custom-label="customLabel"></multiselect>
 

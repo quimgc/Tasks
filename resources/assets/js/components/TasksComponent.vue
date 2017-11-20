@@ -1,34 +1,51 @@
 <template>
-    <div v-cloak>
+    <div>
+    <widget :loading="loading">
+        <p slot="title">Tasques</p>
+
+        <div v-cloak>
+
 
             <ul>
-            <li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"
-                @dblclick="editTask(task)">
+                <li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"
+                    @dblclick="editTask(task)">
 
-                <input type="text" id="editedTask" v-if="editedTask==task"
-                       v-model="modifyTask"
-                       @keydown.enter="updateTask(task)"
-                       @keyup.esc="cancelEdit(task)"
-                       @keyup.enter="doneEdit(task)">
+                    <input type="text" id="editedTask" v-if="editedTask==task"
+                           v-model="modifyTask"
+                           @keydown.enter="updateTask(task)"
+                           @keyup.esc="cancelEdit(task)"
+                           @keyup.enter="doneEdit(task)">
 
 
-                <div v-else>
+                    <div v-else>
 
-                    {{task.name}}
+                        {{task.name}}
 
-                    <i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>
-                    <i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>
-                    <i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>
-                    <i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>
+                        <i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>
+                        <i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>
+                        <i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>
+                        <i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>
 
-                </div>
+                    </div>
 
-            </li>
+                </li>
             </ul>
-            Nova tasca a afegir: <input type="text" v-model="newTask" id="newTask" @keyup.enter="addTask">
+            <div class="form-group">
+                <label for="exampleInputEmail1">User</label>
+                <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">-->
+                <users></users>
+
+
+            </div>
+
+            <div class="form-group">
+                <label for="newTask">Task Name</label>
+                <input class="form-control" type="text" v-model="newTask" id="newTask" @keyup.enter="addTask">
+            </div>
+
             <button id="add" :disabled="creating" @click="addTask">
                 <i class="fa fa-refresh fa-spin fa-lg" v-if="creating"></i>
-                    Afegir Tasca
+                Afegir Tasca
             </button>
 
             <h2>Filtres</h2>
@@ -38,7 +55,7 @@
                 <li @click="show('pending') " :class="{active: this.filter =='pending'}">Pending</li>
             </ul>
 
-                <h2>Tasques pendents: </h2>
+            <h2>Tasques pendents: </h2>
 
             <ul>
                 {{this.pendingTaskCounter}}
@@ -46,7 +63,13 @@
 
         </div>
 
+        <p slot="Footer">Footer</p>
+    </widget>
 
+    <message title="Message" message="" color="info"></message>
+
+
+    </div>
 </template>
 
 <style>
@@ -64,6 +87,7 @@
 
 
 <script>
+    import Users from './Users'
 
     // visibility filters
     var filters = {
@@ -89,6 +113,8 @@
 
 
     export default {
+      components: { Users },
+
         data() {
             return {
                 editedTask: null,
