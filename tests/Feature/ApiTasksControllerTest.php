@@ -153,7 +153,7 @@ use RefreshDatabase;
         $task = Factory(Task::class)->create();
 
         $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         // EXECUTE
         $response = $this->json('PUT', '/api/tasks/' . $task->id, [

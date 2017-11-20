@@ -54,4 +54,19 @@ D'aquesta forma, no hi ha res hardcoded i si mai es modifica la taula, el codi f
 
 # DIRECTORI MENÚ ESQUERRA
 
+# NPM RUN HOT
+
+S'ha d'executar abans d'arrencar el servidor web, ja que utilitza el port 8080.
+
+
+# API passport
+
+Aquests passos es fan cada cop que es treballi amb API.
+
+https://laravel.com/docs/5.5/passport
+
+
+# VUE multiselect
+
+https://github.com/monterail/vue-multiselect
 

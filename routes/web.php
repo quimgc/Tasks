@@ -30,21 +30,23 @@ Route::group(['middleware' => 'auth'], function () {
 //    });
 
 
+    Route::view('/tasks','tasks');
+
+    Route::view('/tokens','tokens');
 
     Route::get('/tasks','TaskController@index');
 
     Route::post('/tasks','TaskController@store');
     Route::delete('/tasks','TaskController@destroy');
 
-
+//Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats
     Route::get('api/tasks','ApiTaskController@index');
 
-    Route::post('api/tasks','ApiTaskController@store');
-    Route::delete('api/tasks/{task}','ApiTaskController@destroy');
+    Route::post('api/v1/tasks','ApiTaskController@store');
+    Route::delete('api/v1/tasks/{task}','ApiTaskController@destroy');
 
-    Route::put('api/tasks/{task}','ApiTaskController@update');
-
-
+    Route::put('api/v1/tasks/{task}','ApiTaskController@update');
+    Route::get('api/v1/users','ApiUserController@index');
 
 
 });

@@ -1,26 +1,32 @@
 <template>
     <div>
         Users ({{numUsers}}):
-        <select>
-            <option :value="user.id" v-for="user in users">
-                {{user.name}} - {{user.email}}
-            </option>
-        </select>
+        <!--<select>-->
+            <!--<option :value="user.id" v-for="user in users">-->
+                <!--{{user.name}} - {{user.email}}-->
+            <!--</option>-->
+        <!--</select>-->
+
+        <multiselect v-model="user" :options="users" :custom-label="customLabel"></multiselect>
 
     </div>
 </template>
 
-<style>
-
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <script>
 
     import axios from 'axios'
+    import Multiselect from 'vue-multiselect'
+
+
   export default {
+    components: { Multiselect },
+
     name: 'name',
     data () {
       return {
+        user: null,
         users: [],
       }
     },
@@ -30,6 +36,13 @@
       }
 
   },
+
+    methods: {
+      customLabel( user ){
+        return `${user.name} - ${user.email}`
+      }
+
+    },
 
     mounted () {
       console.log('Mounted ok')

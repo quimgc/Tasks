@@ -37,6 +37,9 @@
             <li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>
             <li><a href="/tasks"><i class='fa fa-link'></i> <span>Tasks</span></a></li>
             <li><a href="/api/tasks"><i class='fa fa-link'></i> <span>Api Tasks</span></a></li>
+            <li class="header">Settings</li>
+            <li><a href="/tokens"><i class='fa fa-link'></i> <span>Tokens</span></a></li>
+
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
