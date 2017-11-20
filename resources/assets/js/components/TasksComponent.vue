@@ -31,29 +31,25 @@
                 </li>
             </ul>
             <div class="form-group">
-                <label for="exampleInputEmail1">User</label>
+                <label for="user_id">User</label>
                 <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">-->
-                <users></users>
+                <users id="user_id" name="user_id"></users>
 
 
             </div>
 
-            <div class="form-group">
-                <label for="newTask">Task Name</label>
-                <input class="form-control" type="text" v-model="newTask" id="newTask" @keyup.enter="addTask">
+            <div class="form-group has-feedback" :class="{'has-error': form.errors.has('name')}">
+                <label for="form.name">Task Name</label>
+                <input class="form-control" type="text" v-model="form.name" id="form.name" @keyup.enter="addTask">
             </div>
 
-            <button id="add" :disabled="creating" @click="addTask">
-                <i class="fa fa-refresh fa-spin fa-lg" v-if="creating"></i>
-                Afegir Tasca
-            </button>
 
-            <h2>Filtres</h2>
-            <ul>
-                <li @click="show('all')" :class="{active: this.filter =='all'}">All</li>
-                <li @click="show('completed')" :class="{active: this.filter =='completed'}">Completed</li>
-                <li @click="show('pending') " :class="{active: this.filter =='pending'}">Pending</li>
-            </ul>
+            <div class="btn-group">
+                <button @click="show('all')" :class="{active: this.filter =='all'}"> All</button>
+                <button @click="show('completed')" :class="{active: this.filter =='completed'}">Completed</button>
+                <button @click="show('pending') " :class="{active: this.filter =='pending'}">Pending</button>
+
+            </div>
 
             <h2>Tasques pendents: </h2>
 
@@ -63,7 +59,11 @@
 
         </div>
 
-        <p slot="Footer">Footer</p>
+        <p slot="footer"></p>
+        <button id="add" :disabled="form.submitting" @click="addTask" class="btn btn-primary">
+            <i class="fa fa-refresh fa-spin fa-lg" v-if="form.submitting"></i>
+            Afegir Tasca
+        </button>
     </widget>
 
     <message title="Message" message="" color="info"></message>
@@ -88,6 +88,8 @@
 
 <script>
     import Users from './Users'
+    import Form from 'acacha-forms'
+
 
     // visibility filters
     var filters = {
@@ -120,14 +122,14 @@
               loading: false,
                 editedTask: null,
                 filter: 'all',
-                newTask: '',
                 tasks: [],
-                creating: false,
                 updating: false,
                 taskBeingDeleted: null,
-                modifyTask: ''
+                modifyTask: '',
+              form: new Form({user_id:'', name: ''})
             }
         },
+        props: ['id','name'],
         computed: {
             filteredTasks() {
                 return filters[this.filter](this.tasks)
@@ -148,19 +150,15 @@
                 this.filter = filter
             },
             addTask() {
-                this.creating = true;
-                //this.newTask=''
+
                 let url = '/api/tasks'
-                axios.post(url, {name: this.newTask }).then((response) =>  {
-                    this.tasks.push({ name : this.newTask, completed : false})
-                    this.newTask=''
+
+                this.form.post(url ).then((response) =>  {
+                    this.tasks.push({ name : this.form.name, user_id: this.form.user_id, completed : false})
+                    this.form.name=''
 
                 }).catch((error) => {
                     flash(error.message)
-                }).then(()=>{
-                    this.$emit('loading',false)
-                    this.creating = false
-
                 })
 
             },

@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <multiselect v-model="user" :options="users" :custom-label="customLabel"></multiselect>
+        <multiselect :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
 
     </div>
 </template>
