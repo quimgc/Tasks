@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tasks','TaskController@store');
     Route::delete('/tasks','TaskController@destroy');
 
-//Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats
+//Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
     Route::get('api/tasks','ApiTaskController@index');
 
     Route::post('api/tasks','ApiTaskController@store');

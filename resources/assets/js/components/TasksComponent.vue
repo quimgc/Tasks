@@ -222,11 +222,13 @@
 //        this.tasks = ???
 
             // HTTP CLIENT
+          //TODO refactor url api/v1/tasks
             let url = '/api/tasks'
 
             // PROMISES
+          //this.$emit('loading',true)
 
-            this.$emit('loading',true)
+            this.loading = true;
             //.then(wait(5000))
             axios.get(url).then((response) =>  {
                 this.tasks = response.data;
@@ -234,8 +236,8 @@
             }).catch((error) => {
                  flash(error.message)
             }).then(()=>{
-                this.$emit('loading',false)
-
+                //this.$emit('loading',false)
+                this.loading = false
             })
 
 //        setTimeout( () => {
