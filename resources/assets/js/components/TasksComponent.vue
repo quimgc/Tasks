@@ -117,6 +117,7 @@
 
         data() {
             return {
+              loading: false,
                 editedTask: null,
                 filter: 'all',
                 newTask: '',

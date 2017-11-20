@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 //Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats
     Route::get('api/tasks','ApiTaskController@index');
 
-    Route::post('api/v1/tasks','ApiTaskController@store');
+    Route::post('api/tasks','ApiTaskController@store');
     Route::delete('api/v1/tasks/{task}','ApiTaskController@destroy');
 
     Route::put('api/v1/tasks/{task}','ApiTaskController@update');
