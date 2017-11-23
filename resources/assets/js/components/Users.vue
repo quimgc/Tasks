@@ -17,13 +17,14 @@
   export default {
     components: { Multiselect },
 
-    name: 'name',
+    name: 'users',
     data () {
       return {
         user: null,
         users: [],
       }
     },
+    props: ['id','name'],
     computed: {
       numUsers() {
         return this.users.length
@@ -39,8 +40,6 @@
     },
 
     mounted () {
-      console.log('Mounted ok')
-
 
       //Les promises són codi asincron.
 

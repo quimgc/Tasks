@@ -39,7 +39,6 @@
 
         watch: {
             loading( newValue){
-                console.log("loading has changed")
                 this.internalLoading = newValue
             }
         },
@@ -50,7 +49,6 @@
         }
     },
         mounted() {
-            console.log('Component widget montat')
         }
     }
 </script>

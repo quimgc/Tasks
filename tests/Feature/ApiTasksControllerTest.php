@@ -23,13 +23,17 @@ use RefreshDatabase;
        //$this->withoutExceptionHandling();
     }
 
+    /**
+     * @test
+     */
     public function can_list_tasks()
     {
-        $tasks = factory(Task::class,4)->create();
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        factory(Task::class,3)->create();
 
-        $response = $this->json('GET','/api/tasks');
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        $response = $this->json('GET','/api/v1/tasks');
 
         $response->assertSuccessful();
 
@@ -49,11 +53,10 @@ use RefreshDatabase;
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         //EXECUTE
-
-        $response = $this->json('POST','/api/tasks');
+        $response = $this->json('POST','/api/v1/tasks');
 
         //Assert
         $response->assertStatus(422);
@@ -66,9 +69,10 @@ use RefreshDatabase;
     {
         $faker = Factory::create();
 
+
         //EXECUTE
 
-        $response = $this->json('POST','/api/tasks',[
+        $response = $this->json('POST','/api/v1/tasks',[
             'name' => $name = $faker->word
         ]);
 
@@ -82,27 +86,29 @@ use RefreshDatabase;
      */
     public function can_add_a_task()
     {
-        //PREPARE
+        // PREPARE
         $faker = Factory::create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
-        //EXECUTE
+        $this->actingAs($user,'api');
 
-        $response = $this->json('POST','/api/tasks',[
-            'name' => $name = $faker->word
+        // EXECUTE
+        $response = $this->json('POST', '/api/v1/tasks', [
+            'name' => $name = $faker->word,
+            'user_id' => $user->id
         ]);
 
-        //ASSERT
-
+        // ASSERT
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('tasks', [
-           'name' => $name
+            'name' => $name
         ]);
 
+//        $response->dump();
+
         $response->assertJson([
-           'name'=>$name
+            'name' => $name
         ]);
     }
 
@@ -117,9 +123,9 @@ use RefreshDatabase;
         $task = factory(Task::class)->create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
-        $response = $this->json('DELETE','/api/tasks/' . $task->id);
+        $response = $this->json('DELETE','/api/v1/tasks/' . $task->id);
 
         $response->assertSuccessful();
 
@@ -136,9 +142,9 @@ use RefreshDatabase;
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
-        $response = $this->json('DELETE','/api/tasks/1');
+        $response = $this->json('DELETE','/api/v1/tasks/1');
 
         $response->assertStatus(404);
     }
@@ -150,13 +156,13 @@ use RefreshDatabase;
     public function can_edit_task()
     {
         // PREPARE
-        $task = Factory(Task::class)->create();
+        $task = factory(Task::class)->create();
 
         $user = factory(User::class)->create();
         $this->actingAs($user,'api');
 
         // EXECUTE
-        $response = $this->json('PUT', '/api/tasks/' . $task->id, [
+        $response = $this->json('PUT', '/api/v1/tasks/' . $task->id, [
             'name' => $newName = 'NOU NOM'
         ]);
 
@@ -173,8 +179,8 @@ use RefreshDatabase;
             'name' => $task->name,
         ]);
 
-        $this->assertDatabaseMissing('tasks',[
-            'id' =>  $task->id,
+        $response->assertJson([
+            'id' => $task->id,
             'name' => $newName
         ]);
     }

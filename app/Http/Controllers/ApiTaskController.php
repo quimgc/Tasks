@@ -2,34 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DestroyTask;
+use App\Http\Requests\ListTask;
+use App\Http\Requests\ShowTask;
+use App\Http\Requests\StoreTask;
+use App\Http\Requests\UpdateTask;
 use App\Task;
 use Illuminate\Http\Request;
 
+/**
+ * Class ApiTaskController
+ * @package App\Http\Controllers
+ */
 class ApiTaskController extends Controller
 {
-    public function index()
+    /**
+     * @param ListTask $request
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function index(ListTask $request)
     {
+
+
         return Task::all();
     }
 
-
-    //La funció del request s'anomena injeccio de dependències.
-    public function store(Request $request)
+    /**
+     * @param Task $task
+     * @return Task
+     */
+    public function show(ShowTask $task)
     {
-
-       $request->validate([
-            'name' => 'required'
-        ]);
-
-           $task =  Task::create([
-                'name' => $request->name
-            ]);
-
+        //return $this->Object->show($task); això era per retornar el nom, es fara més avant.
         return $task;
     }
 
 
-    public function destroy(Request $request, Task $task)
+    //La funció del request s'anomena injeccio de dependències.
+
+    /**
+     * @param StoreTask $request
+     * @return mixed
+     */
+    public function store(StoreTask $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $task = Task::create($request->only(['name','user_id']));
+
+        return $task;
+    }
+
+    /**
+     * @param DestroyTask $request
+     * @param Task $task
+     * @return Task
+     */
+    public function destroy(DestroyTask $request, Task $task)
     {
         //el Task $task és equivalent a $task = Task::findOrFail($id)
 
@@ -39,7 +71,12 @@ class ApiTaskController extends Controller
 
     }
 
-    public function update(Request $request, Task $task)
+    /**
+     * @param UpdateTask $request
+     * @param Task $task
+     * @return Task
+     */
+    public function update(UpdateTask $request, Task $task)
     {
         $request->validate([
             'name' => 'required'

@@ -65,8 +65,56 @@ Aquests passos es fan cada cop que es treballi amb API.
 
 https://laravel.com/docs/5.5/passport
 
+per executar automàticament el php artisan passport:install es pot fer:
+
+
+Al fitxer **DatabaseSeeder.php** a la funció run, afegir:
+
+    Artisan::call('passport:install');
+
 
 # VUE multiselect
 
 https://github.com/monterail/vue-multiselect
+
+
+# Paquet laravel
+
+Un paquet laravel ho és perquè té providers.
+Els paquets s'instal·len gràcies als fitxers composer.json.
+
+
+
+# CAN'T CD NODE_MODULES
+
+S'ha de fer un npm install.
+
+    npm install
+    
+# Crear un objecte de tipus REQUEST
+
+Per crear:
+
+    php artisan make:request nom
+    
+
+
+# URL
+
+Enllaç: http://acacha.org/mediawiki/URL#.WhcefU3Wx-U
+
+**User Agent** -> browser.
+
+Paquet es divideix amb dos parts:
+
+- Capçalera-> Metdades.
+
+- Dades -> la informació.
+
+
+Per diferenciar entre URL i URI és:
+
+- Si ens diu com arribar a aquella cosa és URL.
+- Si identifica alguna cosa és URI.
+
 

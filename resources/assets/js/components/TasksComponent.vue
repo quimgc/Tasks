@@ -2,10 +2,7 @@
     <div>
     <widget :loading="loading">
         <p slot="title">Tasques</p>
-
         <div v-cloak>
-
-
             <ul>
                 <li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"
                     @dblclick="editTask(task)">
@@ -34,8 +31,6 @@
                 <label for="user_id">User</label>
                 <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">-->
                 <users id="user_id" name="user_id"></users>
-
-
             </div>
 
             <div class="form-group has-feedback" :class="{'has-error': form.errors.has('name')}">
@@ -60,7 +55,7 @@
         </div>
 
         <p slot="footer"></p>
-        <button id="add" :disabled="form.submitting" @click="addTask" class="btn btn-primary">
+        <button :disabled="form.submitting" id="add" @click="addTask" class="btn btn-primary">
             <i class="fa fa-refresh fa-spin fa-lg" v-if="form.submitting"></i>
             Afegir Tasca
         </button>
@@ -108,7 +103,8 @@
         }
     }
 
-    const LOCAL_STORAGE_KEY = 'TASKS'
+    const API_URL = '/api/v1/tasks';
+    const LOCAL_STORAGE_KEY = 'TASKS';
 
 
     import { wait } from './utils.js'
@@ -123,7 +119,7 @@
                 editedTask: null,
                 filter: 'all',
                 tasks: [],
-                updating: false,
+               // updating: false,
                 taskBeingDeleted: null,
                 modifyTask: '',
               form: new Form({user_id:'', name: ''})
@@ -151,7 +147,7 @@
             },
             addTask() {
 
-                let url = '/api/tasks'
+                let url = '/api/v1/tasks'
 
                 this.form.post(url ).then((response) =>  {
                     this.tasks.push({ name : this.form.name, user_id: this.form.user_id, completed : false})
@@ -168,7 +164,7 @@
             deleteTask(task) {
 
 
-                let url = '/api/tasks/' + task.id
+                let url = '/api/v1/tasks/' + task.id
                 this.taskBeingDeleted = task.id
                 axios.delete(url).then( (response) => {
                     this.tasks.splice( this.tasks.indexOf(task) , 1 )
@@ -181,7 +177,7 @@
              updateTask(task){
 
                 this.updating = true
-                let url = '/api/tasks/' + task.id
+                let url = '/api/v1/tasks/' + task.id
                 axios.put(url, {name: this.modifyTask }).then((response) =>  {
                   var pos =   this.tasks.indexOf(task);
 
@@ -214,14 +210,13 @@
         },
         mounted() {
 //        this.tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]')
-            console.log(this.tasks)
 
             // TODO Connectat a Internet i agafam la llista de tasques
 //        this.tasks = ???
 
             // HTTP CLIENT
           //TODO refactor url api/v1/tasks
-            let url = '/api/tasks'
+            let url = '/api/v1/tasks'
 
             // PROMISES
           //this.$emit('loading',true)
@@ -234,21 +229,10 @@
             }).catch((error) => {
                  flash(error.message)
             }).then(()=>{
-                //this.$emit('loading',false)
+
                 this.loading = false
             })
 
-//        setTimeout( () => {
-//          component.hide()
-//        },3000)
-
-
-
-            // API HTTP amb JSON <- Web service
-            // URL GET http://NOM_SERVIDOR/api/task
-            // URL POST http://NOM_SERVIDOR/api/task
-            // URL DELETE http://NOM_SERVIDOR/api/task/{task}
-            // URL PUT/PATCH http://NOM_SERVIDOR/api/task/{task}
         }
     }
 </script>

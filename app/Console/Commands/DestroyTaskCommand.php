@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Task;
 use Illuminate\Console\Command;
+use Mockery\Exception;
 
 class DestroyTaskCommand extends Command
 {
@@ -43,13 +44,24 @@ class DestroyTaskCommand extends Command
 
         try{
 
-            Task::destroy([
-                'id'=>$this->argument('id') ? $this->argument('id') : $this->ask('Event id?')
-            ]);
+            $id = $this->argument('id') ? $this->argument('id') : $this->ask('Event id?');
+           $count = Task::destroy($id);
+
+
+//            Task::destroy([
+//                'id'=>$this->argument('id') ? $this->argument('id') : $this->ask('Event id?')
+//
+//            ]);
+
+
         } catch ( Exception $e) {
             $this->error('error' . $e);
         }
+        if($count == 0){
+           $this->alert("Task does not exist");
+        }else {
+            $this->info('Task has been deleted to database succesfully');
+        }
 
-        $this->info('Task has been deleted to database succesfully');
     }
 }

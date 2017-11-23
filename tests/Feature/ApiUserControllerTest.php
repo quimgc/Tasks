@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Task;
 use App\User;
 use Faker\Factory;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -22,13 +24,17 @@ use RefreshDatabase;
        //$this->withoutExceptionHandling();
     }
 
+    /**
+     * @test
+     */
     public function can_list_users()
     {
-        $users = factory(Task::class,4)->create();
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        factory(User::class,3)->create();
 
-        $response = $this->json('GET','/api/v1/users');
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        $response = $this->json('GET', '/api/v1/users');
 
         $response->assertSuccessful();
 
@@ -40,12 +46,15 @@ use RefreshDatabase;
         ]]);
 
     }
-    
+
+    /**
+     * @test
+     */
       public function can_show_a_user()
     {
         $user = factory(User::class)->create();
         $loggedUser = factory(User::class)->create();
-        $this->actingAs($loggedUser);
+        $this->actingAs($loggedUser,'api');
         $response = $this->json('GET', '/api/v1/users/' . $user->id);
         $response->assertSuccessful();
         $response->assertJson([
@@ -61,7 +70,7 @@ use RefreshDatabase;
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         //EXECUTE
 
@@ -94,33 +103,42 @@ use RefreshDatabase;
      */
     public function can_add_a_user()
     {
-        //PREPARE
+        // PREPARE
         $faker = Factory::create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
-        //EXECUTE
+        $this->actingAs($user,'api');
 
-        $response = $this->json('POST','/api/v1/users',[
-            'name' => $name = $faker->word
+        // EXECUTE
+        $response = $this->json('POST', '/api/v1/users', [
+            'name' => $name = $faker->word,
+            'email' => $email = $faker->email,
+            'password' => $password = $faker->password
         ]);
 
-        //ASSERT
-
+        // ASSERT
         $response->assertSuccessful();
 
+        try {
+            $user = User::findOrFail(json_decode($response->getContent())->id);
+            $this->assertTrue(Hash::check($password, $user->password));
+        } catch (\Exception $e) {
+            $this->assertTrue(false);
+        }
+
         $this->assertDatabaseHas('users', [
-           'name' => $name
+            'name' => $name,
+            'email' => $email
         ]);
 
+
         $response->assertJson([
-           'name'=>$name
+            'name' => $name,
+            'email' => $email
         ]);
     }
 
-    /**
-     * @test
-     */
+
     /**
      * @test
      */
@@ -129,7 +147,7 @@ use RefreshDatabase;
         $user = factory(Task::class)->create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         $response = $this->json('DELETE','/api/v1/users/' . $user->id);
 
@@ -148,9 +166,9 @@ use RefreshDatabase;
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
-        $response = $this->json('DELETE','/api/v1/users');
+        $response = $this->json('DELETE','/api/v1/users/34556');
 
         $response->assertStatus(404);
     }
@@ -161,32 +179,29 @@ use RefreshDatabase;
      */
     public function can_edit_user()
     {
-        // PREPARE
-        $user = Factory(Task::class)->create();
+        $user1 = factory(User::class)->create();
 
         $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
-        // EXECUTE
-        $response = $this->json('PUT', '/api/v1/users/' . $user->id, [
+        $response = $this->json('PUT', '/api/v1/users/' . $user1->id, [
             'name' => $newName = 'NOU NOM'
         ]);
 
-        // ASSERT
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('users', [
-            'id' => $user->id,
+            'id' => $user1->id,
             'name' => $newName
         ]);
 
         $this->assertDatabaseMissing('users', [
-            'id' => $user->id,
+            'id' => $user1->id,
             'name' => $user->name,
         ]);
 
-        $this->assertDatabaseMissing('users',[
-            'id' =>  $user->id,
+        $response->assertJson([
+            'id' => $user1->id,
             'name' => $newName
         ]);
     }

@@ -12,9 +12,16 @@ class CreateTaskCommandTest extends TestCase
     use RefreshDatabase;
     /**
      * A basic test example.
-     *
+     * @test
      * @return void
      */
+
+    public function setUp()
+    {
+        parent::setUp();
+        //   App::setLocale('en');
+        //$this->withoutExceptionHandling();
+    }
     public function testItCreatesNewTask()
     {
 

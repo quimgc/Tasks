@@ -16,7 +16,8 @@ class TaskController extends Controller
     {
 
         $tasks = Task::all();
-        return view('tasks',['tasks' => json_encode($tasks)]);
+        //return view('tasks',['tasks' => json_encode($tasks)]);
+        return view('tasks_php',['tasks' => $tasks]);
     }
 
     /**
@@ -54,9 +55,12 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        Task::list([
-        'task'=>$task->name
-    ]);
+//        Task::list([
+//        'task'=>$task->name
+//    ]);
+
+        return view('show_task',['task' => $task]);
+
     }
 
     /**
@@ -90,6 +94,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+
+        //$task->delete();
 //        Task::destroy([
 //            'id'=> $task->id
 //        ]);
