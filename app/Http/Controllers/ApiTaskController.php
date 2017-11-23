@@ -31,7 +31,7 @@ class ApiTaskController extends Controller
      * @param Task $task
      * @return Task
      */
-    public function show(ShowTask $task)
+    public function show(ShowTask $request, Task $task)
     {
         //return $this->Object->show($task); això era per retornar el nom, es fara més avant.
         return $task;
@@ -41,7 +41,7 @@ class ApiTaskController extends Controller
     //La funció del request s'anomena injeccio de dependències.
 
     /**
-     * @param StoreTask $request
+     * @param StoreTask $request a mida, quines normes de validació a de complir aquella request.
      * @return mixed
      */
     public function store(StoreTask $request)
