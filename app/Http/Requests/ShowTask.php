@@ -15,7 +15,6 @@ class ShowTask extends FormRequest
     public function authorize()
     {
         return Auth::user()->HasPermissionTo('show-tasks');
-
     }
 
     /**
