@@ -5,16 +5,15 @@ namespace Tests\Feature;
 use App\Task;
 use App\User;
 use Faker\Factory;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ApiTasksControllerTest extends TestCase
 {
-use RefreshDatabase;
+    use RefreshDatabase;
 
     /**
      * Set up tests.
-     *
      */
     public function setUp()
     {
@@ -22,19 +21,20 @@ use RefreshDatabase;
 
         initialize_task_permissions();
 
-     //   App::setLocale('en');
+        //   App::setLocale('en');
        //$this->withoutExceptionHandling();
     }
 
     /**
      * @return mixed
      */
-    protected function loginAndAuthorize(){
+    protected function loginAndAuthorize()
+    {
         $user = factory(User::class)->create();
         $user->assignRole('task-manager');
-        $this->actingAs($user,'api');
-        return $user;
+        $this->actingAs($user, 'api');
 
+        return $user;
     }
 
     /**
@@ -42,11 +42,11 @@ use RefreshDatabase;
      */
     public function can_list_tasks()
     {
-        factory(Task::class,3)->create();
+        factory(Task::class, 3)->create();
 
         $this->loginAndAuthorize();
 
-        $response = $this->json('GET','/api/v1/tasks');
+        $response = $this->json('GET', '/api/v1/tasks');
 
         $response->assertSuccessful();
 
@@ -54,9 +54,8 @@ use RefreshDatabase;
             'id',
             'name',
             'created_at',
-            'updated_at'
+            'updated_at',
         ]]);
-
     }
 
     /**
@@ -67,7 +66,7 @@ use RefreshDatabase;
         $this->loginAndAuthorize();
 
         //EXECUTE
-        $response = $this->json('POST','/api/v1/tasks');
+        $response = $this->json('POST', '/api/v1/tasks');
 
         //Assert
         $response->assertStatus(422);
@@ -80,17 +79,15 @@ use RefreshDatabase;
     {
         $faker = Factory::create();
 
-
         //EXECUTE
 
-        $response = $this->json('POST','/api/v1/tasks',[
-            'name' => $name = $faker->word
+        $response = $this->json('POST', '/api/v1/tasks', [
+            'name' => $name = $faker->word,
         ]);
 
         //Assert
         $response->assertStatus(401);
     }
-    
 
     /**
      * @test
@@ -103,27 +100,28 @@ use RefreshDatabase;
 
         // EXECUTE
         $response = $this->json('POST', '/api/v1/tasks', [
-            'name' => $name = $faker->word,
-            'user_id' => $user->id
+            'name'    => $name = $faker->word,
+            'user_id' => $user->id,
         ]);
 
         // ASSERT
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('tasks', [
-            'name' => $name
+            'name' => $name,
         ]);
 
 //        $response->dump();
 
         $response->assertJson([
-            'name' => $name
+            'name' => $name,
         ]);
     }
 
     /**
      * @test
      */
+
     /**
      * @test
      */
@@ -132,16 +130,13 @@ use RefreshDatabase;
         $task = factory(Task::class)->create();
         $this->loginAndAuthorize();
 
-
-
-
-        $response = $this->json('DELETE','/api/v1/tasks/' . $task->id);
+        $response = $this->json('DELETE', '/api/v1/tasks/'.$task->id);
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseMissing('tasks',[
-            'id' =>  $task->id,
-            'name' => $task->name
+        $this->assertDatabaseMissing('tasks', [
+            'id'   => $task->id,
+            'name' => $task->name,
         ]);
     }
 
@@ -152,11 +147,10 @@ use RefreshDatabase;
     {
         $this->loginAndAuthorize();
 
-        $response = $this->json('DELETE','/api/v1/tasks/1');
+        $response = $this->json('DELETE', '/api/v1/tasks/1');
 
         $response->assertStatus(404);
     }
-
 
     /**
      * @test
@@ -169,27 +163,26 @@ use RefreshDatabase;
         $this->loginAndAuthorize();
 
         // EXECUTE
-        $response = $this->json('PUT', '/api/v1/tasks/' . $task->id, [
-            'name' => $newName = 'NOU NOM'
+        $response = $this->json('PUT', '/api/v1/tasks/'.$task->id, [
+            'name' => $newName = 'NOU NOM',
         ]);
 
         // ASSERT
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('tasks', [
-            'id' => $task->id,
-            'name' => $newName
+            'id'   => $task->id,
+            'name' => $newName,
         ]);
 
         $this->assertDatabaseMissing('tasks', [
-            'id' => $task->id,
+            'id'   => $task->id,
             'name' => $task->name,
         ]);
 
         $response->assertJson([
-            'id' => $task->id,
-            'name' => $newName
+            'id'   => $task->id,
+            'name' => $newName,
         ]);
     }
-
 }

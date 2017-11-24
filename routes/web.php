@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
 //    });
 
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-    #adminlte_routes
+    //adminlte_routes
 //
 //    Route::get('/tasks',function(){
 //
@@ -29,19 +29,15 @@ Route::group(['middleware' => 'auth'], function () {
 //
 //    });
 
-
     //JS  + AJAX/AXIOS
-    Route::view('/tokens','tokens');
-    Route::view('/tasks','tasks');
-
+    Route::view('/tokens', 'tokens');
+    Route::view('/tasks', 'tasks');
 
     //route_php
 
-    Route::get('tasks_php','TaskController@index');
-    Route::get('tasks_php/{task}','TaskController@show');
-    Route::post('tasks_php','TaskController@store');
-
-
+    Route::get('tasks_php', 'TaskController@index');
+    Route::get('tasks_php/{task}', 'TaskController@show');
+    Route::post('tasks_php', 'TaskController@store');
 
 //
 //
@@ -51,7 +47,4 @@ Route::group(['middleware' => 'auth'], function () {
 //    Route::delete('/tasks','TaskController@destroy');
 
 //Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
-
-
 });
-
