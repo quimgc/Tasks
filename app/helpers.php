@@ -1,6 +1,7 @@
 <?php
 
 
+use App\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -24,4 +25,23 @@ if(! function_exists('initialize_task_permissions')){
         $role -> givePermissionTo('update-tasks');
         $role -> givePermissionTo('destroy-tasks');
     }
+}
+
+if(! function_exists('create_user')){
+
+    function create_user(){
+        factory(User::class)->create([
+            'name' => env('TASKS_USER_NAME','Quim González Colat'),
+            'email' => env('TASKS_USER_EMAIL','quimgonzalez@iesebre.com'),
+            'password' => bcrypt(env('TASKS_USER_PASSWORD'))
+        ]);
+    }
+}
+
+if(! function_exists('first_user_as_task_manager')){
+
+    function first_user_as_task_manager(){
+        User::all()->first()->assignRole('task-manager');
+    }
+
 }

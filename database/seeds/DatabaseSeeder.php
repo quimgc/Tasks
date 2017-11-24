@@ -13,7 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(Task::class,50)->create();
+
+
+
+        create_user();
+
+        initialize_task_permissions();
+
+        first_user_as_task_manager();
+
+
         Artisan::call('passport:install');
+
+        factory(Task::class,50)->create();
+
     }
 }

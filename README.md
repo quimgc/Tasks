@@ -1,5 +1,7 @@
 # Tasks
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/quimgc/Tasks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/quimgc/Tasks/?branch=master)
+
 ## Error de moustachs amb PHP
 
 Per solucionar l'error dels {{ variable }} del vue a l'interior d'un fixer .php, la solució està en posar **@** al devant de {{ variable }}
@@ -116,5 +118,6 @@ Per diferenciar entre URL i URI és:
 
 - Si ens diu com arribar a aquella cosa és URL.
 - Si identifica alguna cosa és URI.
+
 
 
