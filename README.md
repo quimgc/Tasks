@@ -1,6 +1,13 @@
 # Tasks
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/quimgc/Tasks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/quimgc/Tasks/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/quimgc/tasks/v/stable)](https://packagist.org/packages/quimgc/tasks)
+[![Total Downloads](https://poser.pugx.org/quimgc/tasks/downloads)](https://packagist.org/packages/quimgc/tasks)
+[![Latest Unstable Version](https://poser.pugx.org/quimgc/tasks/v/unstable)](https://packagist.org/packages/quimgc/tasks)
+[![License](https://poser.pugx.org/quimgc/tasks/license)](https://packagist.org/packages/quimgc/tasks)
+[![Monthly Downloads](https://poser.pugx.org/quimgc/tasks/d/monthly)](https://packagist.org/packages/quimgc/tasks)
+[![Daily Downloads](https://poser.pugx.org/quimgc/tasks/d/daily)](https://packagist.org/packages/quimgc/tasks)
+[![composer.lock](https://poser.pugx.org/quimgc/tasks/composerlock)](https://packagist.org/packages/quimgc/tasks)
 
 ## Error de moustachs amb PHP
 
