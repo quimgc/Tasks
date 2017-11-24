@@ -15,7 +15,6 @@ class UpdateTask extends FormRequest
     public function authorize()
     {
         return Auth::user()->HasPermissionTo('update-tasks');
-
     }
 
     /**

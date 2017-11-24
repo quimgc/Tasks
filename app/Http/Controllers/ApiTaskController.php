@@ -11,24 +11,23 @@ use App\Task;
 use Illuminate\Http\Request;
 
 /**
- * Class ApiTaskController
- * @package App\Http\Controllers
+ * Class ApiTaskController.
  */
 class ApiTaskController extends Controller
 {
     /**
      * @param ListTask $request
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index(ListTask $request)
     {
-
-
         return Task::all();
     }
 
     /**
      * @param Task $task
+     *
      * @return Task
      */
     public function show(ShowTask $request, Task $task)
@@ -37,28 +36,29 @@ class ApiTaskController extends Controller
         return $task;
     }
 
-
     //La funció del request s'anomena injeccio de dependències.
 
     /**
      * @param StoreTask $request a mida, quines normes de validació a de complir aquella request.
+     *
      * @return mixed
      */
     public function store(StoreTask $request)
     {
         $request->validate([
-            'name' => 'required',
-            'user_id' => 'required'
+            'name'    => 'required',
+            'user_id' => 'required',
         ]);
 
-        $task = Task::create($request->only(['name','user_id']));
+        $task = Task::create($request->only(['name', 'user_id']));
 
         return $task;
     }
 
     /**
      * @param DestroyTask $request
-     * @param Task $task
+     * @param Task        $task
+     *
      * @return Task
      */
     public function destroy(DestroyTask $request, Task $task)
@@ -68,25 +68,23 @@ class ApiTaskController extends Controller
         $task->delete();
 
         return $task;
-
     }
 
     /**
      * @param UpdateTask $request
-     * @param Task $task
+     * @param Task       $task
+     *
      * @return Task
      */
     public function update(UpdateTask $request, Task $task)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $task->name = $request->name;
         $task->save();
 
         return $task;
-
     }
-
 }

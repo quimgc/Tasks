@@ -41,19 +41,13 @@ class ListTaskCommand extends Command
 
         //$headers = ['id','name','created_at','updated_at'];
 
-
-        try{
+        try {
             $tasks = Task::all()->toArray();
             $headers = array_keys($tasks[0]);
 
-            $this->table($headers,$tasks);
-
-        }catch (exception $e){
-            $this->error('Error: ' . $e);
+            $this->table($headers, $tasks);
+        } catch (exception $e) {
+            $this->error('Error: '.$e);
         }
-
-
-
-
     }
 }

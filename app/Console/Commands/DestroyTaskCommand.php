@@ -15,8 +15,6 @@ class DestroyTaskCommand extends Command
      */
     protected $signature = 'task:destroy {id? : The Task id}';
 
-
-
     /**
      * The console command description.
      *
@@ -41,27 +39,21 @@ class DestroyTaskCommand extends Command
      */
     public function handle()
     {
-
-        try{
-
+        try {
             $id = $this->argument('id') ? $this->argument('id') : $this->ask('Event id?');
-           $count = Task::destroy($id);
-
+            $count = Task::destroy($id);
 
 //            Task::destroy([
 //                'id'=>$this->argument('id') ? $this->argument('id') : $this->ask('Event id?')
 //
 //            ]);
-
-
-        } catch ( Exception $e) {
-            $this->error('error' . $e);
+        } catch (Exception $e) {
+            $this->error('error'.$e);
         }
-        if($count == 0){
-           $this->alert("Task does not exist");
-        }else {
+        if ($count == 0) {
+            $this->alert('Task does not exist');
+        } else {
             $this->info('Task has been deleted to database succesfully');
         }
-
     }
 }

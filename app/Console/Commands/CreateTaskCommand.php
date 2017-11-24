@@ -15,7 +15,7 @@ class CreateTaskCommand extends Command
      */
     //nom de la comanda quan s'executa.
     //També es definieix el format de la comanda, entre {} s'ha de posar els noms dels paràmetres
-    protected $signature = "task:create {name? : The Task name}";
+    protected $signature = 'task:create {name? : The Task name}';
 
     /**
      * The console command description.
@@ -44,15 +44,12 @@ class CreateTaskCommand extends Command
     {
         //todo fer que aparegui l'error!
 
-
-
-        try{
-
+        try {
             Task::create([
-                'name'=>$this->argument('name') ? $this->argument('name') : $this->ask('Event name?')
+                'name'=> $this->argument('name') ? $this->argument('name') : $this->ask('Event name?'),
             ]);
-        } catch ( Exception $e) {
-            $this->error('error' . $e);
+        } catch (Exception $e) {
+            $this->error('error'.$e);
         }
 
         $this->info('Task has been added to database succesfully');
