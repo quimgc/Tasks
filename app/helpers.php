@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 if (!function_exists('initialize_task_permissions')) {
     function initialize_task_permissions()
     {
-        //Permission::create(['name'=>'list-tasks']);
+
         //Crea només si no existeix
         Permission::firstOrCreate(['name'=>'list-tasks']);
         Permission::firstOrCreate(['name'=>'show-tasks']);

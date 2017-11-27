@@ -13,9 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        create_user();
 
         initialize_task_permissions();
+
+        create_user();
 
         first_user_as_task_manager();
 
