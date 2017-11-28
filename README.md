@@ -105,7 +105,10 @@ S'ha de fer un npm install.
 Per crear:
 
     php artisan make:request nom
-    
+
+Els requests ha de complir:
+
+- Validacions.
 
 
 # URL
@@ -127,5 +130,22 @@ Per diferenciar entre URL i URI és:
 - Si identifica alguna cosa és URI.
 
 
+# Helpers
 
-# Updates
+Al composer.json s'ha de canviar l'autoload apuntant al fitxer helpers.php, d'aquesta forma s'aconsegueix que tothom pugui utilitzar aquest fitxer.
+
+
+       "autoload": {
+           ...
+            "files" : [
+             "app/helpers.php"
+            ]
+        },
+        
+
+Tot seguit s'executa:
+    
+    composer dumpautoload
+
+       
+        

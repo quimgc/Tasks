@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        initialize_task_permissions();
+        Artisan::call('passport:install');
 
         create_user();
 
-        first_user_as_task_manager();
+        initialize_task_permissions();
 
-        Artisan::call('passport:install');
+        first_user_as_task_manager();
 
         factory(Task::class, 50)->create();
     }

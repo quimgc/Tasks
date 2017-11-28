@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <multiselect :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
+        <multiselect @select="select" :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
 
     </div>
 </template>
@@ -16,7 +16,6 @@
 
   export default {
     components: { Multiselect },
-
     name: 'users',
     data () {
       return {
@@ -24,15 +23,26 @@
         users: [],
       }
     },
-    props: ['id','name'],
+    props: ['id','name','value'],
     computed: {
       numUsers() {
         return this.users.length
       }
 
   },
+    watch: {
+      value(newValue) {
+        console.log('newValue: ' + newValue);
+        this.user = this.users.find(user => {
+          return user.id == newValue;
+        });
+      }
+    },
 
     methods: {
+      select(user) {
+        this.$emit('select',user);
+      },
       customLabel( user ){
         return `${user.name} - ${user.email}`
       }
@@ -41,10 +51,14 @@
 
     mounted () {
 
-      //Les promises són codi asincron.
 
+      //Les promises són codi asincron.
+    //TODO mirar
       axios.get('api/v1/users').then( (response)=>{
             this.users = response.data
+        this.user = this.users.find(user => {
+          return user.id == this.value;
+        });
         }
 
       ).catch( error => {

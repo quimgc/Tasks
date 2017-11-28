@@ -21,8 +21,11 @@ class CreateTaskCommandTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        initialize_events_permissions();
+
         //   App::setLocale('en');
         //$this->withoutExceptionHandling();
+
     }
 
     public function testItCreatesNewTask()

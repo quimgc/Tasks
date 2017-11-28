@@ -27,15 +27,21 @@
 
                 </li>
             </ul>
-            <div class="form-group">
+            <div class="form-group has-feedback" :class="{'has-error': form.errors.has('user_id')}">
                 <label for="user_id">User</label>
+                <transition name="fade">
+                    <span v-text="form.errors.get('user_id')" v-if="form.errors.has('user_id')" class="help-block"></span>
+                </transition>
                 <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">-->
-                <users id="user_id" name="user_id"></users>
+                <users @select="userSelected" id="user_id" name="user_id" v-model="form.user_id" :value="form.user_id"></users>
             </div>
 
             <div class="form-group has-feedback" :class="{'has-error': form.errors.has('name')}">
                 <label for="form.name">Task Name</label>
-                <input class="form-control" type="text" v-model="form.name" id="form.name" @keyup.enter="addTask">
+                <transition name="fade">
+                    <span v-text="form.errors.get('name')" v-if="form.errors.has('name')" class="help-block"></span>
+                </transition>
+                <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" id="name" name="name" @keyup.enter="addTask">
             </div>
 
 
@@ -54,11 +60,12 @@
 
         </div>
 
-        <p slot="footer"></p>
-        <button :disabled="form.submitting" id="add" @click="addTask" class="btn btn-primary">
-            <i class="fa fa-refresh fa-spin fa-lg" v-if="form.submitting"></i>
-            Afegir Tasca
-        </button>
+        <p slot="footer">
+            <button :disabled="form.submitting || form.errors.any()" id="add" @click="addTask" class="btn btn-primary">
+                <i class="fa fa-refresh fa-spin fa-lg" v-if="form.submitting"></i>
+                Afegir Tasca
+            </button>
+        </p>
     </widget>
 
     <message title="Message" message="" color="info"></message>
@@ -76,6 +83,15 @@
 
     li.active {
         background-color: #cdffe4;
+    }
+
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .fade-enter, .fade-leave-to{
+        opacity: 0;
     }
 
 </style>
@@ -119,13 +135,12 @@
                 editedTask: null,
                 filter: 'all',
                 tasks: [],
-               // updating: false,
                 taskBeingDeleted: null,
                 modifyTask: '',
-              form: new Form({user_id:'', name: ''})
+              form: new Form({user_id:'', name: 'Change Task name'})
             }
         },
-        props: ['id','name'],
+
         computed: {
             filteredTasks() {
                 return filters[this.filter](this.tasks)
@@ -142,6 +157,11 @@
             }
         },
         methods: {
+
+        userSelected(user) {
+
+          this.form.user_id = user.id;
+        },
             show(filter) {
                 this.filter = filter
             },
@@ -149,7 +169,7 @@
 
                 let url = '/api/v1/tasks'
 
-                this.form.post(url ).then((response) =>  {
+                this.form.post(url).then((response) =>  {
                     this.tasks.push({ name : this.form.name, user_id: this.form.user_id, completed : false})
                     this.form.name=''
 
@@ -209,13 +229,7 @@
             }
         },
         mounted() {
-//        this.tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]')
 
-            // TODO Connectat a Internet i agafam la llista de tasques
-//        this.tasks = ???
-
-            // HTTP CLIENT
-          //TODO refactor url api/v1/tasks
             let url = '/api/v1/tasks'
 
             // PROMISES

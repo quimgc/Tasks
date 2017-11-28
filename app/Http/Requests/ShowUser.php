@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 
-class StoreTask extends FormRequest
+class ShowUser extends FormRequest
 {
     use ChecksPermissions;
     /**
@@ -16,10 +15,8 @@ class StoreTask extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('store-tasks')) return true;
-        if (Auth::user()->id === $this->user_id) return true;
+        if ($this->hasPermissionTo('show-users')) return true;
         return false;
-        //return Auth::user()->HasPermissionTo('store-tasks');
     }
 
     /**
@@ -29,10 +26,8 @@ class StoreTask extends FormRequest
      */
     public function rules()
     {
-        return[
-            'name'    => 'required',
-            'user_id' => 'required',
+        return [
+            //
         ];
-
     }
 }

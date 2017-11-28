@@ -4,9 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 
 class ShowTask extends FormRequest
 {
+    use ChecksPermissions;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,7 +16,10 @@ class ShowTask extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->HasPermissionTo('show-tasks');
+        if($this->HasPermissionTo('show-tasks')) return true;
+        if ($this->owns('tasks')) return true;
+        return false;
+        //return Auth::user()->HasPermissionTo('show-tasks');
     }
 
     /**
