@@ -10,8 +10,7 @@
                     <input type="text" id="editedTask" v-if="editedTask==task"
                            v-model="modifyTask"
                            @keydown.enter="updateTask(task)"
-                           @keyup.esc="cancelEdit(task)"
-                           @keyup.enter="doneEdit(task)">
+                           @keyup.esc="cancelEdit(task)">
 
 
                     <div v-else>
@@ -138,7 +137,7 @@
                 tasks: [],
                 taskBeingDeleted: null,
                 modifyTask: '',
-              form: new Form({user_id:'', name: 'Change Task name'})
+              form: new Form({user_id:'', name: '', id: ''})
             }
         },
 
@@ -167,11 +166,12 @@
                 this.filter = filter
             },
             addTask() {
-
-                let url = '/api/v1/tasks'
-
+          console.log("addTask");
+                let pos = (this.tasks.length)+1;
+                let url = API_URL
+              console.log("pos " + pos);
                 this.form.post(url).then((response) =>  {
-                    this.tasks.push({ name : this.form.name, id: this.pos ,user_id: this.form.user_id, completed : false})
+                    this.tasks.push({ name : this.form.name, id: pos, user_id: this.form.user_id, completed : false})
                     this.form.name=''
 
                 }).catch((error) => {
@@ -203,7 +203,7 @@
                 console.log(task);
                 axios.put(url, {name: this.modifyTask }).then((response) =>  {
                   var pos =   this.tasks.indexOf(task);
-                  console.log("pos "+ pos);
+                  console.log("indexOf(task) "+ pos);
 
                   this.tasks[pos].name = this.modifyTask;
                   console.log(this.tasks[pos].name );
