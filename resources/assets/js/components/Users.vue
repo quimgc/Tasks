@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <multiselect @select="select" :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
+        <multiselect track-by="id" @select="select" :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
 
     </div>
 </template>
@@ -50,10 +50,7 @@
     },
 
     mounted () {
-
-
       //Les promises són codi asincron.
-    //TODO mirar
       axios.get('api/v1/users').then( (response)=>{
             this.users = response.data
         this.user = this.users.find(user => {
@@ -66,7 +63,6 @@
         console.log(error)
 
       }).then()
-
 
     }
   }

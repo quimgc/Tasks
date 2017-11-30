@@ -16,8 +16,8 @@ if(!function_exists('assignPermission')){
      */
     function assignPermission($role, $permission){
 
-        if(! $role->HasPermissionTo($permission)){
-            $role->HasPermissionTo($permission);
+        if(! $role->hasPermissionTo($permission)){
+            $role->givePermissionTo($permission);
         }
     }
 }

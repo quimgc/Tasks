@@ -29,9 +29,12 @@ trait ChecksPermissions
      * @param $model
      * @return bool
      */
-    protected function owns($model,$field = 'user_id')
+
+
+    protected function owns($model, $field = 'user_id')
     {
         //todo
+
         if (Auth::user()->id == $this->$model->$field) return true;
         return false;
     }

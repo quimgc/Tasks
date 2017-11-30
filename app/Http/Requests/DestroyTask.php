@@ -3,13 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
+use Illuminate\Support\Facades\Auth;
 
 class DestroyTask extends FormRequest
 {
 
-    use ChecksPermissions;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -18,9 +17,10 @@ class DestroyTask extends FormRequest
     public function authorize()
     {
 
-        if($this->HasPermissionTo('destroy-tasks')) return true;
-        if ($this->owns('tasks')) return true;
-        return false;
+//        if($this->HasPermissionTo('destroy-tasks')) return true;
+//        if ($this->owns('tasks')) return true;
+//        return false;
+        return Auth::user()->hasPermissionTo('list-tasks');
 
         //return Auth::user()->HasPermissionTo('destroy-tasks');
     }

@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         Artisan::call('passport:install');
 
         create_user();

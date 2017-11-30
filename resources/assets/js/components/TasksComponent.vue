@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group has-feedback" :class="{'has-error': form.errors.has('name')}">
-                <label for="form.name">Task Name</label>
+                <label for="name">Task Name</label>
                 <transition name="fade">
                     <span v-text="form.errors.get('name')" v-if="form.errors.has('name')" class="help-block"></span>
                 </transition>
@@ -110,6 +110,7 @@
         pending : function (tasks) {
             return tasks.filter(function (task) {
                 return !task.completed
+
             })
         },
         completed: function (tasks) {
@@ -170,7 +171,7 @@
                 let url = '/api/v1/tasks'
 
                 this.form.post(url).then((response) =>  {
-                    this.tasks.push({ name : this.form.name, user_id: this.form.user_id, completed : false})
+                    this.tasks.push({ name : this.form.name, id: this.pos ,user_id: this.form.user_id, completed : false})
                     this.form.name=''
 
                 }).catch((error) => {
@@ -195,13 +196,17 @@
                 )
             },
              updateTask(task){
-
+                console.log("update");
                 this.updating = true
-                let url = '/api/v1/tasks/' + task.id
+                let url = '/api/v1/tasks/'+task.id
+               console.log(url);
+                console.log(task);
                 axios.put(url, {name: this.modifyTask }).then((response) =>  {
                   var pos =   this.tasks.indexOf(task);
+                  console.log("pos "+ pos);
 
                   this.tasks[pos].name = this.modifyTask;
+                  console.log(this.tasks[pos].name );
                   this.modifyTask = ''
 
 		    this.editedTask = null
