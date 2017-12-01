@@ -5,10 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 
-
 class ListUser extends FormRequest
 {
     use ChecksPermissions;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -16,7 +16,10 @@ class ListUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('list-users')) return true;
+        if ($this->hasPermissionTo('list-users')) {
+            return true;
+        }
+
         return false;
     }
 

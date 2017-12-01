@@ -8,6 +8,7 @@ use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 class ShowUser extends FormRequest
 {
     use ChecksPermissions;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,7 +16,10 @@ class ShowUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('show-users')) return true;
+        if ($this->hasPermissionTo('show-users')) {
+            return true;
+        }
+
         return false;
     }
 

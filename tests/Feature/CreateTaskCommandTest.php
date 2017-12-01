@@ -25,7 +25,6 @@ class CreateTaskCommandTest extends TestCase
 
         //   App::setLocale('en');
         //$this->withoutExceptionHandling();
-
     }
 
     public function testItCreatesNewTask()
