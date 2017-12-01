@@ -8,15 +8,15 @@ use Spatie\Permission\Models\Role;
 //funció creada per veure si el rol ja te assignat un permís, si el te no fem res, sino li assignem.
 // si no es fa així provoca error:
 //Illuminate\Database\QueryException with message 'SQLSTATE[23000]: Integrity constraint violation: 19 UNIQUE constraint failed: role_has_permissions.permission_id, role_has_permissions.role_id (SQL: insert into "role_has_permissions" ("permission_id", "role_id") values (1, 1))'
-if(!function_exists('assignPermission')){
+if (!function_exists('assignPermission')) {
 
     /**
      * @param $role
      * @param $permission
      */
-    function assignPermission($role, $permission){
-
-        if(! $role->hasPermissionTo($permission)){
+    function assignPermission($role, $permission)
+    {
+        if (!$role->hasPermissionTo($permission)) {
             $role->givePermissionTo($permission);
         }
     }
@@ -35,11 +35,11 @@ if (!function_exists('initialize_task_permissions')) {
 
         $role = Role::firstOrCreate(['name'=>'task-manager']);
 
-        assignPermission($role,'list-tasks');
-        assignPermission($role,'show-tasks');
-        assignPermission($role,'store-tasks');
-        assignPermission($role,'update-tasks');
-        assignPermission($role,'destroy-tasks');
+        assignPermission($role, 'list-tasks');
+        assignPermission($role, 'show-tasks');
+        assignPermission($role, 'store-tasks');
+        assignPermission($role, 'update-tasks');
+        assignPermission($role, 'destroy-tasks');
 
         Permission::firstOrCreate(['name' => 'list-users']);
         Permission::firstOrCreate(['name' => 'show-users']);
@@ -49,15 +49,13 @@ if (!function_exists('initialize_task_permissions')) {
 
         $role = Role::firstOrCreate(['name' => 'users-manager']);
 
-       assignPermission($role,'list-users');
-       assignPermission($role,'show-users');
-       assignPermission($role,'store-users');
-       assignPermission($role,'update-users');
-       assignPermission($role,'destroy-users');
-
+        assignPermission($role, 'list-users');
+        assignPermission($role, 'show-users');
+        assignPermission($role, 'store-users');
+        assignPermission($role, 'update-users');
+        assignPermission($role, 'destroy-users');
     }
 }
-
 
 if (!function_exists('create_user')) {
     function create_user()

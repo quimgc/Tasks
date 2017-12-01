@@ -8,6 +8,7 @@ use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 class UpdateUser extends FormRequest
 {
     use ChecksPermissions;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,7 +16,10 @@ class UpdateUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('update-users')) return true;
+        if ($this->hasPermissionTo('update-users')) {
+            return true;
+        }
+
         return false;
     }
 

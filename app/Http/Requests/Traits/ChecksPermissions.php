@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * Trait ChecksPermissions.
- *
- * @package Quimgc\Tasks\Http\Requests\Traits
  */
 trait ChecksPermissions
 {
@@ -15,11 +13,15 @@ trait ChecksPermissions
      * Logged as permission to.
      *
      * @param $permission
+     *
      * @return bool
      */
     protected function hasPermissionTo($permission)
     {
-        if (Auth::user()->hasPermissionTo($permission)) return true;
+        if (Auth::user()->hasPermissionTo($permission)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -27,15 +29,17 @@ trait ChecksPermissions
      * Owns model.
      *
      * @param $model
+     *
      * @return bool
      */
-
-
     protected function owns($model, $field = 'user_id')
     {
         //todo
 
-        if (Auth::user()->id == $this->$model->$field) return true;
+        if (Auth::user()->id == $this->$model->$field) {
+            return true;
+        }
+
         return false;
     }
 }

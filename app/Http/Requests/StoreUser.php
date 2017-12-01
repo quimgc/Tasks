@@ -8,6 +8,7 @@ use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 class StoreUser extends FormRequest
 {
     use ChecksPermissions;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,7 +16,10 @@ class StoreUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('store-users')) return true;
+        if ($this->hasPermissionTo('store-users')) {
+            return true;
+        }
+
         return false;
     }
 
@@ -27,7 +31,7 @@ class StoreUser extends FormRequest
     public function rules()
     {
         return [
-        'name' => 'required',
+        'name'  => 'required',
         'email' => 'required|unique:users,email|email',
     ];
     }
