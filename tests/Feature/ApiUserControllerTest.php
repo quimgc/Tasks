@@ -19,9 +19,10 @@ class ApiUserControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        initialize_events_permissions();
+
+        initialize_task_permissions();
         //   App::setLocale('en');
-       //$this->withoutExceptionHandling();
+      // $this->withoutExceptionHandling();
     }
 
     /**

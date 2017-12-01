@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Mockery;
@@ -21,7 +22,7 @@ class CreateTaskCommandTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        initialize_events_permissions();
+        initialize_task_permissions();
 
         //   App::setLocale('en');
         //$this->withoutExceptionHandling();
@@ -33,11 +34,12 @@ class CreateTaskCommandTest extends TestCase
         //prepare
 
         //run
-        $this->artisan('task:create', ['name' => 'Comprar pa']);
+        $user = factory(User::class)->create();
+        $this->artisan('task:create', ['name' => 'Comprar pa', 'user_id' => $user->id]);
 
         $resultAsText = artisan::output();
 
-        $this->assertDatabaseHas('tasks', ['name'=>'Comprar pa']);
+        $this->assertDatabaseHas('tasks', ['name'=>'Comprar pa', 'user_id' => $user->id]);
 
 //        $this->assertTrue(str_contains($resultAsText, 'Task has been added to database succesfully'));
         $this->assertContains('Task has been added to database succesfully', $resultAsText);
@@ -51,16 +53,21 @@ class CreateTaskCommandTest extends TestCase
         $command = Mockery::mock('App\Console\Commands\CreateTaskCommand[ask]');
 
         $command->shouldReceive('ask')
-                ->once()
-                ->with('Event name?')
-                ->andReturn('Comprar llet');
+            ->once()
+            ->with('Task name?')
+            ->andReturn('Comprar llet');
+        $command-> shouldReceive('ask')
+            ->once()
+            ->with('User id?')
+            -> andReturn('1');
+
 
         $this->app['Illuminate\Contracts\Console\Kernel']->registerCommand($command);
 
         // 2) Execució
         $this->artisan('task:create');
 
-        $this->assertDatabaseHas('tasks', ['name' => 'Comprar llet']);
+        $this->assertDatabaseHas('tasks', ['name' => 'Comprar llet', 'user_id'=>'1']);
         // 3) Assert
         $resultAsText = artisan::output();
 

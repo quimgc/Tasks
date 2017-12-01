@@ -39,7 +39,7 @@ describe('Users', () => {
   })
 
   it('contains Users', () => {
-    expect(component.html()).toContain('Users (0):')
+    expect(component.html()).toContain('Users (3):')
   })
 
   it('contains correct number of users after mount', done =>{
