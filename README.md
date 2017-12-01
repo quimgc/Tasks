@@ -1,6 +1,7 @@
 # Tasks
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/quimgc/Tasks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/quimgc/Tasks/?branch=master)
+[![StyleCI](https://styleci.io/repos/107173094/shield?branch=master)](https://styleci.io/repos/107173094)
 [![Latest Stable Version](https://poser.pugx.org/quimgc/tasks/v/stable)](https://packagist.org/packages/quimgc/tasks)
 [![Total Downloads](https://poser.pugx.org/quimgc/tasks/downloads)](https://packagist.org/packages/quimgc/tasks)
 [![Latest Unstable Version](https://poser.pugx.org/quimgc/tasks/v/unstable)](https://packagist.org/packages/quimgc/tasks)
