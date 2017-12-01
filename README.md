@@ -8,7 +8,7 @@
 [![Monthly Downloads](https://poser.pugx.org/quimgc/tasks/d/monthly)](https://packagist.org/packages/quimgc/tasks)
 [![Daily Downloads](https://poser.pugx.org/quimgc/tasks/d/daily)](https://packagist.org/packages/quimgc/tasks)
 [![composer.lock](https://poser.pugx.org/quimgc/tasks/composerlock)](https://packagist.org/packages/quimgc/tasks)
-
+[![Build Status](https://travis-ci.org/quimgc/Tasks.svg?branch=master)](https://travis-ci.org/quimgc/Tasks)
 ## Error de moustachs amb PHP
 
 Per solucionar l'error dels {{ variable }} del vue a l'interior d'un fixer .php, la solució està en posar **@** al devant de {{ variable }}
