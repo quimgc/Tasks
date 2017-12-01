@@ -26,8 +26,9 @@ describe('Users', () => {
   ]
 
   beforeEach(() => {
-    component = mount(Users)
       moxios.install()
+    component = mount(Users)
+
   })
 
   afterEach( () =>{
