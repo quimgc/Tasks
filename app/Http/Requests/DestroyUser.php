@@ -8,6 +8,7 @@ use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
 class DestroyUser extends FormRequest
 {
     use ChecksPermissions;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,7 +16,10 @@ class DestroyUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('destroy-users')) return true;
+        if ($this->hasPermissionTo('destroy-users')) {
+            return true;
+        }
+
         return false;
     }
 
