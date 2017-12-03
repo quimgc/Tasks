@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
-use Quimgc\Tasks\Http\Requests\Traits\ChecksPermissions;
+
 
 class ListUser extends FormRequest
 {
