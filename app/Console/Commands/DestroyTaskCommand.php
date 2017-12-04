@@ -20,7 +20,7 @@ class DestroyTaskCommand extends Command
      *
      * @var string
      */
-    protected $description = 'This command is used to delete a Task';
+    protected $description = 'This command is used to delete a Task.';
 
     /**
      * Create a new command instance.

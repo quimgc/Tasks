@@ -19,7 +19,7 @@ class ListTaskCommand extends Command
      *
      * @var string
      */
-    protected $description = 'List all tasks with a table format';
+    protected $description = 'List all tasks with a table format.';
 
     /**
      * Create a new command instance.

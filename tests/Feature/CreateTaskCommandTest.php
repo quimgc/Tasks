@@ -28,6 +28,9 @@ class CreateTaskCommandTest extends TestCase
         //$this->withoutExceptionHandling();
     }
 
+    /**
+     * @test
+     */
     public function testItCreatesNewTask()
     {
 
@@ -45,6 +48,9 @@ class CreateTaskCommandTest extends TestCase
         $this->assertContains('Task has been added to database succesfully', $resultAsText);
     }
 
+    /**
+     * @test
+     */
     public function testItAsksForATaskNameAndThenCreateNewTask()
     {
 

@@ -22,7 +22,7 @@ class ShowTaskCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Show a Task by id';
+    protected $description = 'Show a Task by id.';
 
     /**
      * Create a new command instance.
