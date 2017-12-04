@@ -150,3 +150,27 @@ Tot seguit s'executa:
 
        
 
+# PLUCK
+
+Aquest mètode agafa tots els valors a partir d'una clau passada com a paràmetre.
+
+    $collection = collect([
+        ['product_id' => 'prod-100', 'name' => 'Desk'],
+        ['product_id' => 'prod-200', 'name' => 'Chair'],
+    ]);
+    
+    
+    $plucked = $collection->pluck('name');
+    
+    $plucked->all();
+    
+    // ['Desk', 'Chair']
+    
+    
+ També es pot fer:
+ 
+        $plucked = $collection->pluck('name', 'product_id');
+        
+        $plucked->all();
+        
+        // ['prod-100' => 'Desk', 'prod-200' => 'Chair']
