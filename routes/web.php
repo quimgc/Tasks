@@ -35,16 +35,23 @@ Route::group(['middleware' => 'auth'], function () {
 
     //route_php
 
-    Route::get('tasks_php', 'TaskController@index');
-    Route::get('tasks_php/{task}', 'TaskController@show');
-    Route::post('tasks_php', 'TaskController@store');
+//    Route::get('tasks_php', 'TaskController@index');
+//    Route::get('tasks_php/edit/{task}', 'TaskController@edit');
+//    //Route::get('tasks_php/{task}', 'TaskController@show');
+//    Route::post('/tasks_php/{task}', 'TaskController@show');
+//
+//    Route::get('tasks_php/{task}', 'TaskController@show');
+//
+//    Route::post('tasks_php', 'TaskController@store');
 
-//
-//
-//    Route::get('/tasks','TaskController@index');
-//
-//    Route::post('/tasks','TaskController@store');
-//    Route::delete('/tasks','TaskController@destroy');
+    Route::get('tasks_php', 'TaskController@index');
+    Route::get('tasks_php/create', 'TaskController@create');
+    Route::get('tasks_php/edit/{task}', 'TaskController@edit');
+    Route::get('tasks_php/{task}', 'TaskController@show');
+    Route::post('tasks_php/{task}', 'TaskController@show');
+    Route::post('tasks_php', 'TaskController@store');
+    Route::put('tasks_php/{task}', 'TaskController@update');
+    Route::delete('tasks_php/{task}', 'TaskController@destroy');
 
 //Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
 });
