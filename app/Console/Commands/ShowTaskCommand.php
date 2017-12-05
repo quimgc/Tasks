@@ -45,8 +45,7 @@ class ShowTaskCommand extends Command
         $id = $this->argument('id') ? $this->argument('id') : $this->askForTasks();
         $task = Task::findOrFail($id);
 
-        try{
-
+        try {
             $headers = ['Key', 'Value'];
             $info = [
                 ['id', $task->id],
@@ -54,15 +53,10 @@ class ShowTaskCommand extends Command
                 ['User_id', $task->user_id],
                 ['Description', $task->description],
 
-
-
             ];
-            $this->table($headers,$info);
-
-        }catch(Exception $e){
-
-            $this->error('error' . $e);
+            $this->table($headers, $info);
+        } catch (Exception $e) {
+            $this->error('error'.$e);
         }
-
     }
 }

@@ -62,11 +62,10 @@ class CreateTaskCommandTest extends TestCase
             ->once()
             ->with('Task name?')
             ->andReturn('Comprar llet');
-        $command-> shouldReceive('ask')
+        $command->shouldReceive('ask')
             ->once()
             ->with('User id?')
-            -> andReturn('1');
-
+            ->andReturn('1');
 
         $this->app['Illuminate\Contracts\Console\Kernel']->registerCommand($command);
 

@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class ListUser extends FormRequest
 {
     use ChecksPermissions;
