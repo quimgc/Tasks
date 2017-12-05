@@ -43,10 +43,7 @@ class DestroyTaskCommand extends Command
             $id = $this->argument('id') ? $this->argument('id') : $this->ask('Event id?');
             $count = Task::destroy($id);
 
-//            Task::destroy([
-//                'id'=>$this->argument('id') ? $this->argument('id') : $this->ask('Event id?')
-//
-//            ]);
+
         } catch (Exception $e) {
             $this->error('error'.$e);
         }
