@@ -71,21 +71,16 @@ if (!function_exists('create_user')) {
             'email'    => env('TASKS_USER_EMAIL_PROF', 'sergiturbadenas@gmail.com'),
             'password' => bcrypt(env('TASKS_USER_PASSWORD_PROF')),
         ]);
-
-
     }
 }
 
 if (!function_exists('first_user_as_task_manager')) {
     function first_user_as_task_manager()
     {
-
         User::all()->first()->assignRole('task-manager');
         User::all()->first()->assignRole('users-manager');
 
         User::findOrFail(2)->assignRole('task-manager');
         User::findOrFail(2)->assignRole('users-manager');
-
-
     }
 }

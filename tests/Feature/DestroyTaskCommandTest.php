@@ -17,7 +17,6 @@ class DestroyTaskCommandTest extends TestCase
      */
     use RefreshDatabase;
 
-
     public function testItDestroyTask()
     {
         $task = factory(Task::class)->create();
@@ -30,8 +29,6 @@ class DestroyTaskCommandTest extends TestCase
 
         $this->assertContains('Task has been deleted to database succesfully', $resultAsText);
     }
-
-
 
     public function testItAsksForAtaskIdAndThenDeleteTask()
     {

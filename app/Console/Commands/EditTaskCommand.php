@@ -46,15 +46,14 @@ class EditTaskCommand extends Command
 
         $task = Task::findOrFail($id);
 
-        try{
+        try {
             $task->update([
                 'name'        => $this->argument('name') ? $this->argument('name') : $this->ask('Task name?'),
                 'user_id'     => $this->argument('user_id') ? $this->argument('user_id') : $this->ask('User id?'),
                 'description' => $this->argument('description') ? $this->argument('description') : $this->ask('Task description?'),
             ]);
-
-        }catch(Exception $e){
-            $this->error('error' . $e);
+        } catch (Exception $e) {
+            $this->error('error'.$e);
         }
         $this->info('Task has been edited succesfully');
     }

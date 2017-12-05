@@ -46,7 +46,7 @@ class CreateTaskCommand extends Command
 
         try {
             Task::create([
-                'name'=> $this->argument('name') ? $this->argument('name') : $this->ask('Task name?'),
+                'name'    => $this->argument('name') ? $this->argument('name') : $this->ask('Task name?'),
                 'user_id' => $this->argument('user_id') ? $this->argument('user_id') : $this->ask('User id?'),
 
             ]);
