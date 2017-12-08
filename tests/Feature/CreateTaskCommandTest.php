@@ -15,18 +15,18 @@ class CreateTaskCommandTest extends TestCase
     /**
      * A basic test example.
      *
-     * @test
+     *
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        initialize_task_permissions();
-
-        //   App::setLocale('en');
-        //$this->withoutExceptionHandling();
-    }
+//    public function setUp()
+//    {
+//        parent::setUp();
+//        initialize_task_permissions();
+//
+//        //   App::setLocale('en');
+//        //$this->withoutExceptionHandling();
+//    }
 
     /**
      * @test
