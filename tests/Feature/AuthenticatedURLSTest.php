@@ -37,7 +37,6 @@ class AuthenticatedURLSTest extends TestCase
             ['put','/api/v1/users/1'],
             ['delete','/api/v1/users/1'],
 
-            ['get','/api/v1/user/tasks'],
         ];
     }
 

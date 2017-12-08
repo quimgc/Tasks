@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Task;
 use App\User;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,6 +22,7 @@ class APIAuthorizedURLsTest extends TestCase
         factory(User::class)->create();
         factory(Task::class)->create();
         initialize_task_permissions();
+        Artisan::call('passport:install');
         $this->actingAs( $user,'api');
 //        $this->withoutExceptionHandling();
     }
@@ -39,10 +41,10 @@ class APIAuthorizedURLsTest extends TestCase
             ['put','/api/v1/tasks/1'],
             ['delete','/api/v1/tasks/1'],
             ['get','/api/v1/users'],
-            ['get','/api/v1/users/2'],
+            ['get','/api/v1/users/1'],
             ['post','/api/v1/users'],
-            ['put','/api/v1/users/2'],
-            ['delete','/api/v1/users/2'],
+            ['put','/api/v1/users/1'],
+            ['delete','/api/v1/users/1'],
         ];
     }
 
