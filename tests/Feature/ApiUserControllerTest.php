@@ -44,7 +44,7 @@ class ApiUserControllerTest extends TestCase
     {
         factory(User::class, 3)->create();
 
-       $this->loginAsAuthorizedUser();
+        $this->loginAsAuthorizedUser();
 
         $response = $this->json('GET', '/api/v1/users');
 
@@ -130,7 +130,7 @@ class ApiUserControllerTest extends TestCase
     {
         // PREPARE
         $faker = Factory::create();
-       $this->loginAsAuthorizedUser();
+        $this->loginAsAuthorizedUser();
 
         // EXECUTE
         $response = $this->json('POST', '/api/v1/users', [
@@ -178,8 +178,6 @@ class ApiUserControllerTest extends TestCase
 //            'id'   => $user->id,
 //        ]);
 //    }
-
-
 
     /**
      * @test

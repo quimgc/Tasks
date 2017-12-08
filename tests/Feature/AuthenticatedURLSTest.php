@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AuthenticatedURLSTest extends TestCase
 {
@@ -26,16 +26,16 @@ class AuthenticatedURLSTest extends TestCase
     public function authenticatedURIs()
     {
         return [
-            ['get','/api/v1/tasks'],
-            ['get','/api/v1/tasks/1'],
-            ['post','/api/v1/tasks'],
-            ['put','/api/v1/tasks/1'],
-            ['delete','/api/v1/tasks/1'],
-            ['get','/api/v1/users'],
-            ['get','/api/v1/users/1'],
-            ['post','/api/v1/users'],
-            ['put','/api/v1/users/1'],
-            ['delete','/api/v1/users/1'],
+            ['get', '/api/v1/tasks'],
+            ['get', '/api/v1/tasks/1'],
+            ['post', '/api/v1/tasks'],
+            ['put', '/api/v1/tasks/1'],
+            ['delete', '/api/v1/tasks/1'],
+            ['get', '/api/v1/users'],
+            ['get', '/api/v1/users/1'],
+            ['post', '/api/v1/users'],
+            ['put', '/api/v1/users/1'],
+            ['delete', '/api/v1/users/1'],
 
         ];
     }
@@ -46,11 +46,9 @@ class AuthenticatedURLSTest extends TestCase
      * @test
      * @dataProvider authenticatedURIs
      */
-    public function uri_requires_authenticated_user($method , $uri)
+    public function uri_requires_authenticated_user($method, $uri)
     {
         $response = $this->json($method, $uri);
         $response->assertStatus(401);
     }
-
-
 }
