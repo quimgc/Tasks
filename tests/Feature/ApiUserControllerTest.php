@@ -31,7 +31,7 @@ class ApiUserControllerTest extends TestCase
     public function loginAsAuthorizedUser()
     {
         $user = factory(User::class)->create();
-        $user->assignRole('user-manager');
+        $user->assignRole('users-manager');
         $this->actingAs($user, 'api');
         return $user;
     }
