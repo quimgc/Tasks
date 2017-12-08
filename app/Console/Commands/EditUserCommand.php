@@ -16,7 +16,6 @@ class EditUserCommand extends Command
      */
     protected $signature = 'user:edit {id? : The User id} {name? : The User name} {email? : The user email}';
 
-
     /**
      * The console command description.
      *
@@ -49,12 +48,11 @@ class EditUserCommand extends Command
         try {
             $user->update([
                 'name'        => $this->argument('name') ? $this->argument('name') : $this->ask('User name?'),
-                'email'     => $this->argument('email') ? $this->argument('user_id') : $this->ask('User email?'),
+                'email'       => $this->argument('email') ? $this->argument('user_id') : $this->ask('User email?'),
             ]);
         } catch (Exception $e) {
             $this->error('error'.$e);
         }
         $this->info('User has been edited succesfully');
-
     }
 }

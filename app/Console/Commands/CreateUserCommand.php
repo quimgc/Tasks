@@ -40,8 +40,8 @@ class CreateUserCommand extends Command
     {
         try {
             User::create([
-                'name'    => $this->argument('name') ? $this->argument('name') : $this->ask('User name?'),
-                'email' => $this->argument('email') ? $this->argument('email') : $this->ask('User email?'),
+                'name'     => $this->argument('name') ? $this->argument('name') : $this->ask('User name?'),
+                'email'    => $this->argument('email') ? $this->argument('email') : $this->ask('User email?'),
                 'password' => $this->argument('password') ? $this->argument('password') : $this->ask('User password?'),
             ]);
         } catch (Exception $e) {
