@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DestroyTask;
 use App\Http\Requests\DestroyUser;
 use App\Http\Requests\ListUser;
 use App\Http\Requests\ShowUser;
@@ -52,7 +51,7 @@ class ApiUserController extends Controller
         return $user;
     }
 
-    public function update(UpdateUser $request,  User $user)
+    public function update(UpdateUser $request, User $user)
     {
         $request->validate([
             'name' => 'required',

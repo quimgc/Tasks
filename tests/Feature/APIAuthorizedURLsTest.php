@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use App\Task;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class APIAuthorizedURLsTest extends TestCase
 {
@@ -23,7 +23,7 @@ class APIAuthorizedURLsTest extends TestCase
         factory(Task::class)->create();
         initialize_task_permissions();
         Artisan::call('passport:install');
-        $this->actingAs( $user,'api');
+        $this->actingAs($user, 'api');
 //        $this->withoutExceptionHandling();
     }
 
@@ -35,16 +35,16 @@ class APIAuthorizedURLsTest extends TestCase
     public function authorizatedURIs()
     {
         return [
-            ['get','/api/v1/tasks'],
-            ['get','/api/v1/tasks/1'],
-            ['post','/api/v1/tasks'],
-            ['put','/api/v1/tasks/1'],
-            ['delete','/api/v1/tasks/1'],
-            ['get','/api/v1/users'],
-            ['get','/api/v1/users/1'],
-            ['post','/api/v1/users'],
-            ['put','/api/v1/users/1'],
-            ['delete','/api/v1/users/1'],
+            ['get', '/api/v1/tasks'],
+            ['get', '/api/v1/tasks/1'],
+            ['post', '/api/v1/tasks'],
+            ['put', '/api/v1/tasks/1'],
+            ['delete', '/api/v1/tasks/1'],
+            ['get', '/api/v1/users'],
+            ['get', '/api/v1/users/1'],
+            ['post', '/api/v1/users'],
+            ['put', '/api/v1/users/1'],
+            ['delete', '/api/v1/users/1'],
         ];
     }
 
@@ -54,7 +54,7 @@ class APIAuthorizedURLsTest extends TestCase
      * @test
      * @dataProvider authorizatedURIs
      */
-    public function uri_requires_authorizated_user($method , $uri)
+    public function uri_requires_authorizated_user($method, $uri)
     {
         $response = $this->json($method, $uri);
         $response->assertStatus(403);
