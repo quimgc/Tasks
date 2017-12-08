@@ -6,6 +6,7 @@
 
 
 @section('main-content')
+    <a href="/tasks_php/create" class="btn btn-success" role="button" aria-disabled="true">Create Task</a>
 
 <table class="table table-bordered table-striped">
 
