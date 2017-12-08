@@ -6,6 +6,7 @@ use App\Task;
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class ApiTasksControllerTest extends TestCase
@@ -20,6 +21,8 @@ class ApiTasksControllerTest extends TestCase
         parent::setUp();
 
         initialize_task_permissions();
+        create_user();
+        Artisan::call('passport:install');
 
         //   App::setLocale('en');
        //$this->withoutExceptionHandling();

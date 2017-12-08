@@ -21,9 +21,20 @@ class ApiUserControllerTest extends TestCase
         parent::setUp();
 
         initialize_task_permissions();
+        create_user();
+        Artisan::call('passport:install');
         //   App::setLocale('en');
       // $this->withoutExceptionHandling();
     }
+
+    public function loginAsAuthorizedUser()
+    {
+        $user = factory(User::class)->create();
+        $user->assignRole('user-manager');
+        $this->actingAs($user, 'api');
+        return $user;
+    }
+
 
     /**
      * @test
@@ -68,9 +79,12 @@ class ApiUserControllerTest extends TestCase
      */
     public function cannot_add_user_if_no_name_provided()
     {
-        $user = factory(User::class)->create();
+        $this->loginAsAuthorizedUser();
 
-        $this->actingAs($user, 'api');
+        
+        //$user = factory(User::class)->create();
+
+        //$this->actingAs($user, 'api');
 
         //EXECUTE
 
@@ -85,6 +99,7 @@ class ApiUserControllerTest extends TestCase
      */
     public function cannot_add_user_if_not_logged()
     {
+        $this->
         $faker = Factory::create();
 
         //EXECUTE
