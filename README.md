@@ -2,6 +2,8 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/quimgc/Tasks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/quimgc/Tasks/?branch=master)
 [![StyleCI](https://styleci.io/repos/107173094/shield?branch=master)](https://styleci.io/repos/107173094)
+[![Dependency Status](https://www.versioneye.com/user/projects/5a1845d00fb24f20f940ac8d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a1845d00fb24f20f940ac8d)
+[![Build Status](https://travis-ci.org/quimgc/Tasks.svg?branch=master)](https://travis-ci.org/quimgc/Tasks)
 [![Latest Stable Version](https://poser.pugx.org/quimgc/tasks/v/stable)](https://packagist.org/packages/quimgc/tasks)
 [![Total Downloads](https://poser.pugx.org/quimgc/tasks/downloads)](https://packagist.org/packages/quimgc/tasks)
 [![Latest Unstable Version](https://poser.pugx.org/quimgc/tasks/v/unstable)](https://packagist.org/packages/quimgc/tasks)
@@ -9,7 +11,6 @@
 [![Monthly Downloads](https://poser.pugx.org/quimgc/tasks/d/monthly)](https://packagist.org/packages/quimgc/tasks)
 [![Daily Downloads](https://poser.pugx.org/quimgc/tasks/d/daily)](https://packagist.org/packages/quimgc/tasks)
 [![composer.lock](https://poser.pugx.org/quimgc/tasks/composerlock)](https://packagist.org/packages/quimgc/tasks)
-[![Build Status](https://travis-ci.org/quimgc/Tasks.svg?branch=master)](https://travis-ci.org/quimgc/Tasks)
 ## Error de moustachs amb PHP
 
 Per solucionar l'error dels {{ variable }} del vue a l'interior d'un fixer .php, la solució està en posar **@** al devant de {{ variable }}
