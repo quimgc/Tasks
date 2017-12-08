@@ -100,7 +100,7 @@ class ApiUserControllerTest extends TestCase
      */
     public function cannot_add_user_if_not_logged()
     {
-        $this->
+        $this->loginAsAuthorizedUser();
         $faker = Factory::create();
 
         //EXECUTE
