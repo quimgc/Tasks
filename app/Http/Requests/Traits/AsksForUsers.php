@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Traits;
 
-
 use App\User;
 
 /**
