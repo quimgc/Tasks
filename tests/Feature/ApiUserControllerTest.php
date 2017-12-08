@@ -33,9 +33,9 @@ class ApiUserControllerTest extends TestCase
         $user = factory(User::class)->create();
         $user->assignRole('users-manager');
         $this->actingAs($user, 'api');
+
         return $user;
     }
-
 
     /**
      * @test
@@ -81,7 +81,6 @@ class ApiUserControllerTest extends TestCase
     public function cannot_add_user_if_no_name_provided()
     {
         $this->loginAsAuthorizedUser();
-
 
         //$user = factory(User::class)->create();
 
