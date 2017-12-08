@@ -6,6 +6,7 @@ use App\Task;
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -81,7 +82,7 @@ class ApiUserControllerTest extends TestCase
     {
         $this->loginAsAuthorizedUser();
 
-        
+
         //$user = factory(User::class)->create();
 
         //$this->actingAs($user, 'api');
