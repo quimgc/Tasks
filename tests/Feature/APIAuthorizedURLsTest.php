@@ -33,11 +33,11 @@ class APIAuthorizedURLsTest extends TestCase
     public function authorizatedURIs()
     {
         return [
-            ['get','/api/v1/events'],
-            ['get','/api/v1/events/1'],
-            ['post','/api/v1/events'],
-            ['put','/api/v1/events/1'],
-            ['delete','/api/v1/events/1'],
+            ['get','/api/v1/tasks'],
+            ['get','/api/v1/tasks/1'],
+            ['post','/api/v1/tasks'],
+            ['put','/api/v1/tasks/1'],
+            ['delete','/api/v1/tasks/1'],
             ['get','/api/v1/users'],
             ['get','/api/v1/users/2'],
             ['post','/api/v1/users'],

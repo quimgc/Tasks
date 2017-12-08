@@ -26,18 +26,18 @@ class AuthenticatedURLSTest extends TestCase
     public function authenticatedURIs()
     {
         return [
-            ['get','/api/v1/events'],
-            ['get','/api/v1/events/1'],
-            ['post','/api/v1/events'],
-            ['put','/api/v1/events/1'],
-            ['delete','/api/v1/events/1'],
+            ['get','/api/v1/tasks'],
+            ['get','/api/v1/tasks/1'],
+            ['post','/api/v1/tasks'],
+            ['put','/api/v1/tasks/1'],
+            ['delete','/api/v1/tasks/1'],
             ['get','/api/v1/users'],
             ['get','/api/v1/users/1'],
             ['post','/api/v1/users'],
             ['put','/api/v1/users/1'],
             ['delete','/api/v1/users/1'],
 
-            ['get','/api/v1/user/events'],
+            ['get','/api/v1/user/tasks'],
         ];
     }
 
