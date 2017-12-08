@@ -17,6 +17,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
+
         return view('tasks_php', ['tasks' => $tasks]);
     }
 
@@ -74,7 +75,6 @@ class TaskController extends Controller
         $users = User::all();
 
         return view('edit_task', ['task' => $task, 'users' => $users]);
-
     }
 
     /**
@@ -87,7 +87,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $task->update($request->only([ 'name', 'user_id', 'description']));
+        $task->update($request->only(['name', 'user_id', 'description']));
+
         return Redirect::to("/tasks_php/edit/$task->id");
     }
 
@@ -100,8 +101,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-
         $task->delete();
+
         return Redirect::to('/tasks_php');
 //        Task::destroy([
 //            'id'=> $task->id

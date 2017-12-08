@@ -53,5 +53,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('tasks_php/{task}', 'TaskController@update');
     Route::delete('tasks_php/{task}', 'TaskController@destroy');
 
-//Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
+    //Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
 });
