@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
@@ -30,6 +29,7 @@ class TaskController extends Controller
     public function create()
     {
         $users = User::all();
+
         return view('create_task', ['users' => $users]);
     }
 
@@ -44,12 +44,12 @@ class TaskController extends Controller
     //
     public function store(Request $request)
     {
-
         Task::create([
             'name'          => $request->name,
             'description'   => $request->description,
             'user_id'       => $request->user_id,
         ]);
+
         return Redirect::to('/tasks_php/');
     }
 

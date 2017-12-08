@@ -4,10 +4,9 @@ namespace Tests\Feature;
 
 use App\Task;
 use App\User;
-use Illuminate\Support\Facades\View;
-use function Sodium\crypto_box_publickey_from_secretkey;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\View;
+use Tests\TestCase;
 
 class TaskControllerTest extends TestCase
 {
@@ -20,16 +19,14 @@ class TaskControllerTest extends TestCase
         //$this->withoutExceptionHandling();
     }
 
-
     public function loginAsTaskManager()
     {
         $user = factory(User::class)->create();
 
-       $user->assignRole('task-manager');
+        $user->assignRole('task-manager');
         $this->actingAs($user);
 
-        View::share('user',$user);
-
+        View::share('user', $user);
     }
 
     /**
@@ -59,7 +56,6 @@ class TaskControllerTest extends TestCase
 
         $response = $this->get('/tasks_php');
         $response->assertRedirect('login');
-
     }
 
     /**
@@ -87,9 +83,7 @@ class TaskControllerTest extends TestCase
      */
     public function showCreateTask()
     {
-        
         $this->loginAsTaskManager();
-
 
         factory(User::class, 5)->create();
 
@@ -101,8 +95,6 @@ class TaskControllerTest extends TestCase
         $response->assertViewHas('users', $users);
 
         $response->assertSeeText('Create Task:');
-
-
     }
 
     /**
@@ -126,8 +118,6 @@ class TaskControllerTest extends TestCase
             'description' => 'descrip',
             'user_id'     => $user->id,
         ]);
-
-
     }
 
     /**
@@ -141,14 +131,11 @@ class TaskControllerTest extends TestCase
 
         $response = $this->delete('tasks_php/'.$task->id);
 
-        $this->assertDatabaseMissing('tasks',[
-            'name' => $task->name,
-            'description'=>$task->description
+        $this->assertDatabaseMissing('tasks', [
+            'name'       => $task->name,
+            'description'=> $task->description,
             ]);
 
         $response->assertRedirect('tasks_php');
-
     }
-
-
 }
