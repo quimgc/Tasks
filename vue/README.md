@@ -149,3 +149,10 @@ Exemple:
 ```
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 ```
+
+
+# COMANDES 
+
+Per reparar espais automàticament:
+
+    npm runt  int --    

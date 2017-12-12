@@ -1,31 +1,79 @@
 <template>
     <div>
+        <div class="box-body">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-description">
+                Launch Default Modal
+            </button>
+        </div>
+        <div class="modal fade" id="modal-description">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Description</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="editor">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aliquid architecto dolores eum exercitationem expedita explicabo facere facilis iure libero, maiores, minima recusandae reprehenderit repudiandae sequi sit sunt temporibus!
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
     <widget :loading="loading">
         <p slot="title">Tasques</p>
         <div v-cloak>
-            <ul>
-                <li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"
-                    @dblclick="editTask(task)">
 
-                    <input type="text" id="editedTask" v-if="editedTask==task"
-                           v-model="modifyTask"
-                           @keydown.enter="updateTask(task)"
-                           @keyup.esc="cancelEdit(task)">
+            <table class="table table-bordered table-hover">
+                <tbody><tr>
+                    <th style="width: 10px">#</th>
+                    <th>Task</th>
+                    <th>Completed</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+                <tr v-for="(task, index) in filteredTasks">
+                    <td>{{ index + 1}}</td>
+                    <td>{{ task.name }}</td>
+                    <td>TODO</td>
+                    <td class="description">{{ task.description}}</td>
+                    <td>Action</td>
+
+                </tr>
+
+                </tbody></table>
 
 
-                    <div v-else>
+            <!--<ul>-->
+                <!--<li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"-->
+                    <!--@dblclick="editTask(task)">-->
 
-                        {{task.name}}
+                    <!--<input type="text" id="editedTask" v-if="editedTask==task"-->
+                           <!--v-model="modifyTask"-->
+                           <!--@keydown.enter="updateTask(task)"-->
+                           <!--@keyup.esc="cancelEdit(task)">-->
 
-                        <i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>
-                        <i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>
-                        <i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>
-                        <i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>
 
-                    </div>
+                    <!--<div v-else>-->
 
-                </li>
-            </ul>
+                        <!--{{task.name}}-->
+
+                        <!--<i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>-->
+                        <!--<i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>-->
+                        <!--<i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>-->
+                        <!--<i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>-->
+
+                    <!--</div>-->
+
+                <!--</li>-->
+            <!--</ul>-->
             <div class="form-group has-feedback" :class="{'has-error': form.errors.has('user_id')}">
                 <label for="user_id">User</label>
                 <transition name="fade">
@@ -73,6 +121,8 @@
     </div>
 </template>
 
+<style src="quill/dist/quill.snow.css"></style>
+
 <style>
 
     [v-cloak] { display: none; }
@@ -92,13 +142,21 @@
     .fade-enter, .fade-leave-to{
         opacity: 0;
     }
+    .description{
 
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+    }
 </style>
 
 
 <script>
     import Users from './Users'
     import Form from 'acacha-forms'
+    import Quill from 'quill'
 
 
     // visibility filters
@@ -234,6 +292,9 @@
             }
         },
         mounted() {
+          var quill = new Quill('#editor', {
+            theme: 'snow'
+          });
 
             let url = '/api/v1/tasks'
 

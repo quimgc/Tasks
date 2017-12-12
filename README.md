@@ -175,3 +175,9 @@ Aquest mètode agafa tots els valors a partir d'una clau passada com a paràmetr
         $plucked->all();
         
         // ['prod-100' => 'Desk', 'prod-200' => 'Chair']
+        
+
+# SCOPED
+
+Assegura que només s'apliquen els canvis al style que es vol i no en general.
+
