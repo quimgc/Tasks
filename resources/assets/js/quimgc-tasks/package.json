@@ -1,0 +1,12 @@
+{
+  "name": "quimgc-tasks",
+  "version": "1.0.0",
+  "description": "Quimgc Tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Quim González Colat <quimgonzalezcolat@gmail.com> (http://github.com/quimgc)",
+  "license": "ISC"
+}

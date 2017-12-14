@@ -52,6 +52,7 @@ class ShowTaskCommand extends Command
                 ['Name', $task->name],
                 ['User_id', $task->user_id],
                 ['Description', $task->description],
+                ['Completed', $task->completed],
 
             ];
             $this->table($headers, $info);
