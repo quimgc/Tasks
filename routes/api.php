@@ -41,4 +41,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     //Route::post('/tasks/{task}/completed','ApiTaskController@completed');
     //Route::post('/tasks/{task}/incompleted','ApiTaskController@incompleted');
 
+    Route::post('/completed-tasks/{task}' ,      'ApiCompletedTasksController@store');
+    Route::delete('/completed-tasks/{task}' ,    'ApiCompletedTasksController@destroy');
+
 });
