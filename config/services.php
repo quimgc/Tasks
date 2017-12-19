@@ -43,6 +43,12 @@ return [
     */
     #llum_services
 
+    'google' => [
+        'client_id' => env('GOOGLE_OAUTH_APP_ID'),
+        'client_secret' => env('GOOGLE_OAUTH_APP_SECRET'),
+        'redirect' => env('GOOGLE_OAUTH_APP_REDIRECT_URL'),
+    ],
+
     'facebook' => [
         'client_id' => env('FACEBOOK_OAUTH_APP_ID'),
         'client_secret' => env('FACEBOOK_OAUTH_APP_SECRET'),
