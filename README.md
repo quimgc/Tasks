@@ -181,3 +181,5 @@ Aquest mètode agafa tots els valors a partir d'una clau passada com a paràmetr
 
 Assegura que només s'apliquen els canvis al style que es vol i no en general.
 
+
+# SPA
