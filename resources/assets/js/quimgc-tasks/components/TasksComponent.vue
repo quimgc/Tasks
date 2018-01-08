@@ -44,7 +44,7 @@
                 <tr v-for="(task, index) in filteredTasks">
                     <td>{{ index + 1}}</td>
                     <td>{{ task.name }}</td>
-                    <td><toggle-button :value="true"/> </td>
+                    <td> <toggle-button :value="true"/> </td>
                     <td class="description">{{ task.description}}</td>
                     <td>Action</td>
 

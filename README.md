@@ -183,3 +183,38 @@ Assegura que només s'apliquen els canvis al style que es vol i no en general.
 
 
 # SPA
+
+
+# Toggle button
+
+Primer que tot s'ha d'instal·lar:
+
+https://github.com/euvl/vue-js-toggle-button
+
+Tot seguit a l'**/home/quim/Code/Tasks/resources/assets/js/quimgc-tasks/index.js** s'ha d'afegir:
+
+    import ToggleButton from 'vue-js-toggle-button'
+    Vue.use(ToggleButton)
+
+
+Un cop fet això, el que s'ha de fer és **wrapper**, al fitxer **Task.php** s'ha d'afegir:
+
+    public function toArray()
+        {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'description' => $this->description,
+                'user_id' => $this->user_id,
+                'completed' => $this->completed? true:false,
+                'created_at' => $this->created_at."",
+                'updated_at' => $this->updated_at."",
+            ];
+        }
+        
+        
+Amb això sobreescrivim el mèotode toArray per canviar el 0 o 1 per false o true.
+
+
+#Laravel Dusk
+
