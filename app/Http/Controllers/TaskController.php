@@ -85,6 +85,7 @@ class TaskController extends Controller
     {
         $users = User::all();
 
+
         return view('edit_task', ['task' => $task, 'users' => $users]);
     }
 
@@ -100,6 +101,8 @@ class TaskController extends Controller
     {
         $task->update($request->only(['name', 'user_id', 'description']));
 
+        Session::flash('status', 'Edited ok!');
+
         return Redirect::to("/tasks_php/edit/$task->id");
     }
 
@@ -113,6 +116,9 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
+
+        Session::flash('status', 'Task was deleted successful!');
+
 
         return Redirect::to('/tasks_php');
 //        Task::destroy([

@@ -6,6 +6,23 @@
 
 
 @section('main-content')
+    @if (Session::get('status') )
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+            {{ Session::get('status') }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="/tasks_php/{{ $task->id }}" method="POST">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -19,8 +36,8 @@
         <input type="hidden" name="_method" value="PUT">
         {{ csrf_field() }}
 
-        <h3>User id</h3>
-        <select name="user_id" id="user_id" class="form-control">
+        <h3>User</h3>
+        <select name="user_id" id="user_id" class="form-control" dusk="user_id">
             @foreach ($users as $user)
                 @if ( $task->user_id == $user->id )
                     <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
@@ -30,9 +47,9 @@
             @endforeach
         </select>
         <h3>Task name</h3>
-        <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="{{ $task->name }}">
+        <input dusk="name" type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="{{ $task->name }}">
         <h3>Description</h3>
-        <input type="text" class="form-control" placeholder="Enter description" name="description" value="{{ $task->description }}">
+        <input dusk="description" type="text" class="form-control" placeholder="Enter description" name="description" value="{{ $task->description }}">
         <br>
             <button type="submit" class="btn btn-primary">Save Changes</button>
 
