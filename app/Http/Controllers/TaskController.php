@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTask;
 use App\Task;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
@@ -42,13 +44,16 @@ class TaskController extends Controller
      */
 
     //
-    public function store(Request $request)
+    public function store(StoreTask $request)
     {
+
         Task::create([
             'name'          => $request->name,
             'description'   => $request->description,
             'user_id'       => $request->user_id,
         ]);
+
+        Session::flash('status', 'Created ok!');
 
         return Redirect::to('/tasks_php/');
     }

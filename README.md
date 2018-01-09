@@ -218,3 +218,75 @@ Amb això sobreescrivim el mèotode toArray per canviar el 0 o 1 per false o tru
 
 #Laravel Dusk
 
+https://laravel.com/docs/5.5/dusk
+
+S'han de crear tests de tipus **Browser** seguint les tres fases:
+
+- Preparació
+
+- Executar
+
+- Comprovar
+
+## Instal·lació
+
+    composer require --dev laravel/dusk
+    php artisan dusk:install
+
+La última comanda crea una carpeta on s'emmagatzemen imatges del moment que ha fallat per poder veure l'error a posteriori.
+
+Per crear un test:
+
+    php artisan dusk:make nomTest
+    
+Per executar un test no es pot fer amb shit + f10, s'ha de fer per terminal:
+
+    php artisan dusk /ruta/fins/al/test
+    
+Però també s'ha de tenir un servidor obert per poder executar el test.
+
+Si es comenta una linia del fitxer **DuskTestCase.php** es pot veure com s'executa el test:
+
+     protected function driver()
+        {
+            $options = (new ChromeOptions)->addArguments([
+                '--disable-gpu',
+                //'--headless' linia a comentar
+            ]);
+    
+            return RemoteWebDriver::create(
+                'http://localhost:9515', DesiredCapabilities::chrome()->setCapability(
+                    ChromeOptions::CAPABILITY, $options
+                )
+            );
+        }
+
+
+
+Per configurar el port del test és a **.env.dusk.local**:
+
+Recomanació: Separar els entorns (Bd, Ports, Controladors,...) per cada cosa.
+
+
+    ...
+    APP_URL=http://localhost:8090
+    
+    DB_CONNECTION=sqlite_dusk_testing
+    ...
+
+Estem indicant que per als test s'utilitzarà el port 8090 i la bd sqlite_dusk_testing.
+
+
+Modificar també amb la mateix configuració **.env.dusk.testing**.
+
+S'ha de tenir en compte que s'ha d'obrir un servidor escoltant pel mateix port que s'executarà el test:
+
+    php artisan serve --port=8090
+
+També s'ha de modificar el fitxer **database.php** i afeigr:
+
+    'sqlite_dusk_testing' => [
+                'driver'   => 'sqlite',
+                'database' => env('DB_DATABASE_TESTING', database_path('nom.bd.creada')),
+                'prefix'   => '',
+            ],

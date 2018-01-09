@@ -11,3 +11,5 @@ npm-debug.log
 yarn-error.log
 .env
 .env.production
+.env.backup
+.env.backup_20180108

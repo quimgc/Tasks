@@ -6,6 +6,26 @@
 
 @section('main-content')
 
+    @if (Session::get('status') )
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+            {{ Session::get('status') }}
+        </div>
+    @endif
+
+    <a href="/tasks_php" class="btn btn-success" role="button" aria-disabled="true">Back</a>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Create Task:</h3>

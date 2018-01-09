@@ -38,9 +38,9 @@
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="btn-group">
-                                <a href="/tasks_php" class="btn btn-info" role="button" aria-disabled="true">Back</a>
-                                <a href="/tasks_php/edit/{{ $task->id}}" class="btn btn-warning" role="button" aria-disabled="true">Edit</a>
-                                <button type="submit" class="btn btn-danger" role="button" aria-disabled="true">Delete</button>
+                                <a id="back-task-{{ $task->id}}" href="/tasks_php" class="btn btn-info" role="button" aria-disabled="true">Back</a>
+                                <a id="edit-task-{{ $task->id}}" href="/tasks_php/edit/{{ $task->id}}" class="btn btn-warning" role="button" aria-disabled="true">Edit</a>
+                                <button id="delete-task-{{ $task->id}}" type="submit" class="btn btn-danger" role="button" aria-disabled="true">Delete</button>
 
                             </div>
                         </form>
