@@ -290,3 +290,14 @@ També s'ha de modificar el fitxer **database.php** i afeigr:
                 'database' => env('DB_DATABASE_TESTING', database_path('nom.bd.creada')),
                 'prefix'   => '',
             ],
+            
+            
+           
+# Comunicació entre pare i fill
+
+Per parlar del fill al pare;
+
+- És necessita events.
+- Propietats.
+
+

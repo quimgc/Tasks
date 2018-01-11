@@ -8,23 +8,16 @@
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="#" method="post">
+            <form @submit.prevent="submit" method="post">
                 <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" class="form-control" placeholder="Email" v-model="email">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" v-model="password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox"> Remember Me
-                            </label>
-                        </div>
-                    </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
@@ -33,20 +26,6 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
-                    Sign in using
-                    Facebook</a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>
-                    Sign in using
-                    Google+</a>
-            </div>
-            <!-- /.social-auth-links -->
-
-            <a href="#">I forgot my password</a><br>
-            <a href="#" class="text-center">Register a new membership</a>
-
         </div>
         <!-- /.login-box-body -->
     </div>
@@ -54,17 +33,39 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'Example',
     data () {
       return {
-        data: 'Start creating your amazing application!'
+        email: '',
+        password: ''
       }
     },
     mounted () {
       console.log('Mounted ok')
+    },
+
+    methods: {
+      submit () {
+        axios.post('http://localhost:8081/oauth/token', {
+          'grant_type': 'password',
+          'client_id': 2,
+          'client_secret': 'jxKEmfJSrT6CB4DbqougBbN8oQUTM29ecVmJ1kX4',
+          'username': this.email,
+          'password': this.password
+        }).then(response => {
+          console.log('HEY!!!!!!!')
+          console.log(response)
+          console.log(response.data)
+        }).catch(error => {
+          console.log('ERROR:' + error)
+          console.log('SHIT!!!!!!!!!!!!!')
+        })
+      }
     }
   }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

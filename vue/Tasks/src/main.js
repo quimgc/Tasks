@@ -3,13 +3,25 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store/store'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
+if (window.localStorage) {
+  let token = window.localStorage.getItem('token') || 'null'
+
+  if (token) {
+    store.setTokenAction(token)
+  }
+}
+
 new Vue({
   el: '#app',
   router,
+  store: store,
+  // store, és el mateix que store: store
   template: '<App/>',
   components: { App }
 })
