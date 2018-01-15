@@ -301,3 +301,21 @@ Per parlar del fill al pare;
 - Propietats.
 
 
+# VUE CUSTOM-UI
+
+Enllaç wiki acacha:
+- http://acacha.org/mediawiki/CSS#.WljKDk3Wx-U
+
+S'ha creat un nou projecte vue:
+
+    vue init webpack nomPlantilla
+    
+S'ha executat **npm run dev** per executar i veure les modificacions al navegador.
+
+
+- CSS Normalize per evitar els css dels user agents:
+https://necolas.github.io/normalize.css/
+
+
+Per veure la disponibilitat de les etiquetes CSS als diferents navegadors:
+- https://caniuse.com/

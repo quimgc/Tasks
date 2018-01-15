@@ -44,8 +44,8 @@
                 <tr v-for="(task, index) in filteredTasks">
                     <td>{{ index + 1}}</td>
                     <td>{{ task.name }}</td>
-                    <td> <toggle-button :value="true"/> </td>
-                    <td class="description">{{ task.description}}</td>
+                    <td> <toggle-button :value="task.completed" @change="completTask(task)" v-model="task.completed"/> </td>
+                    <td class="description" @dblclick="editDescription(task.description)"> {{ task.description}} </td>
                     <td>Action</td>
 
                 </tr>
@@ -243,6 +243,12 @@
             isCompleted(task) {
                 return task.completed
             },
+            completTask(task) {
+
+                //TODO
+                console.log('completTask');
+                console.log(task);
+            },
 
             deleteTask(task) {
 
@@ -261,17 +267,16 @@
                 console.log("update");
                 this.updating = true
                 let url = '/api/v1/tasks/'+task.id
-               console.log(url);
+                console.log(url);
                 console.log(task);
                 axios.put(url, {name: this.modifyTask }).then((response) =>  {
-                  var pos =   this.tasks.indexOf(task);
-                  console.log("indexOf(task) "+ pos);
+                var pos =   this.tasks.indexOf(task);
+                console.log("indexOf(task) "+ pos);
 
-                  this.tasks[pos].name = this.modifyTask;
-                  console.log(this.tasks[pos].name );
-                  this.modifyTask = ''
-
-		    this.editedTask = null
+                this.tasks[pos].name = this.modifyTask;
+                console.log(this.tasks[pos].name );
+                this.modifyTask = ''
+                this.editedTask = null
 		}).catch((error) => {
                     flash(error.message)
                 }).then(()=>{
@@ -283,7 +288,14 @@
             editTask(task){
                 this.editedTask = task;
                 this.modifyTask = task.name;
-                },
+                console.log("edit");
+            },
+
+            editDescription(desc) {
+                console.log(desc);
+
+            },
+
             cancelEdit(){
                 this.editedTask = null;
                 this.modifyTask = ''
