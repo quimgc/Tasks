@@ -15,9 +15,10 @@ class Task extends Model
             'name' => $this->name,
             'description' => $this->description,
             'user_id' => $this->user_id,
+//            'completed' => (Boolean) $this->completed, aquesta linia fa el mateix que la següent.
             'completed' => $this->completed? true:false,
-            'created_at' => $this->created_at."",
-            'updated_at' => $this->updated_at."",
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="box-body">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-description">
-                Launch Default Modal
-            </button>
-        </div>
+        <!--<div class="box-body">-->
+            <!--<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-description">-->
+                <!--Launch Default Modal-->
+            <!--</button>-->
+        <!--</div>-->
         <div class="modal fade" id="modal-description">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -14,15 +14,16 @@
                         <h4 class="modal-title">Description</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="editor">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aliquid architecto dolores eum exercitationem expedita explicabo facere facilis iure libero, maiores, minima recusandae reprehenderit repudiandae sequi sit sunt temporibus!
-                        </div>
 
+                        <quill-editor v-model="descriptionTask">
+
+                        </quill-editor>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="editing=!editing">Update</button>
+                    <!--@click="editing=!editing" -->
+                        <button type="button" class="btn btn-primary" @click="changeDescriptionTask(descriptionTask)">Update</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -45,7 +46,7 @@
                     <td>{{ index + 1}}</td>
                     <td>{{ task.name }}</td>
                     <td> <toggle-button :value="task.completed" @change="completTask(task)" v-model="task.completed"/> </td>
-                    <td class="description" @dblclick="editDescription(task.description)"> {{ task.description}} </td>
+                    <td class="description" @click="editDescription(task.description)" data-toggle="modal" data-target="#modal-description"> {{ task.description}} </td>
                     <td>Action</td>
 
                 </tr>
@@ -160,6 +161,12 @@
     import Form from 'acacha-forms'
     import Quill from 'quill'
 
+    // require styles
+    import 'quill/dist/quill.core.css'
+    import 'quill/dist/quill.snow.css'
+    import 'quill/dist/quill.bubble.css'
+
+    import { quillEditor } from 'vue-quill-editor'
 
     // visibility filters
     var filters = {
@@ -187,7 +194,7 @@
 
 
     export default {
-      components: { Users },
+      components: { Users, quillEditor },
 
         data() {
             return {
@@ -197,6 +204,7 @@
               tasks: [],
               taskBeingDeleted: null,
               modifyTask: '',
+              descriptionTask: '',
               editing: false,
               form: new Form({user_id:'', name: '', id: ''})
             }
@@ -292,9 +300,13 @@
             },
 
             editDescription(desc) {
-                console.log(desc);
+
+                this.descriptionTask = desc;
 
             },
+          changeDescriptionTask(a){
+             console.log(a);
+          },
 
             cancelEdit(){
                 this.editedTask = null;
@@ -308,9 +320,9 @@
             }
         },
         mounted() {
-          var quill = new Quill('#editor', {
-            theme: 'snow'
-          });
+          //var quill = new Quill('#editor', {
+            //theme: 'snow'
+          //});
 
             let url = '/api/v1/tasks'
 

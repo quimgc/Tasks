@@ -319,3 +319,8 @@ https://necolas.github.io/normalize.css/
 
 Per veure la disponibilitat de les etiquetes CSS als diferents navegadors:
 - https://caniuse.com/
+
+
+# VUE QUILL EDITOR
+
+https://github.com/surmon-china/vue-quill-editor
