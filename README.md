@@ -324,3 +324,9 @@ Per veure la disponibilitat de les etiquetes CSS als diferents navegadors:
 # VUE QUILL EDITOR
 
 https://github.com/surmon-china/vue-quill-editor
+
+# CREAR CONTROLADORS
+
+    php artisan make:controller nomControlador
+  
+Automàticament apareixerà a l'apartat de controladors del nostre projecte.

@@ -1,5 +1,8 @@
 <template>
+
+
     <div>
+
         <!--<div class="box-body">-->
             <!--<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-description">-->
                 <!--Launch Default Modal-->
@@ -15,15 +18,15 @@
                     </div>
                     <div class="modal-body">
 
-                        <quill-editor v-model="descriptionTask">
+                        <quill-editor v-model="taskForEditDescription.description">
 
                         </quill-editor>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <!--@click="editing=!editing" -->
-                        <button type="button" class="btn btn-primary" @click="changeDescriptionTask(descriptionTask)">Update</button>
+                    <!--@click="editing=!editing" això estava al button de Update nse quina funcionalitat tenia xd  -->
+                        <button type="button" class="btn btn-primary" @click="changeDescriptionTask(taskForEditDescription)">Update</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -45,13 +48,14 @@
                 <tr v-for="(task, index) in filteredTasks">
                     <td>{{ index + 1}}</td>
                     <td>{{ task.name }}</td>
-                    <td> <toggle-button :value="task.completed" @change="completTask(task)" v-model="task.completed"/> </td>
-                    <td class="description" @click="editDescription(task.description)" data-toggle="modal" data-target="#modal-description"> {{ task.description}} </td>
+                    <td> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
+                    <td class="description" @click="editDescription(task)" v-html="task.description" data-toggle="modal" data-target="#modal-description"> </td>
                     <td>Action</td>
 
                 </tr>
 
-                </tbody></table>
+                </tbody>
+            </table>
 
 
             <!--<ul>-->
@@ -205,7 +209,8 @@
               taskBeingDeleted: null,
               modifyTask: '',
               descriptionTask: '',
-              editing: false,
+              //editing: false,
+              taskForEditDescription: [],
               form: new Form({user_id:'', name: '', id: ''})
             }
         },
@@ -251,11 +256,23 @@
             isCompleted(task) {
                 return task.completed
             },
-            completTask(task) {
+            isCompletedTask(task) {
 
-                //TODO
+                //TODO quan faig clic a COMPLETED, només surt el tic verd al primer!!!!!
                 console.log('completTask');
                 console.log(task);
+
+              let url = '/api/v1/completed-tasks/'+task.id
+              axios.put(url, {completed: task.completed }).then((response) =>  {
+                var pos =   this.tasks.indexOf(task);
+                this.tasks[pos].completed = task.completed;
+
+              }).catch((error) => {
+                flash(error.message)
+              }).then(()=>{
+                this.$emit('loading',false)
+              })
+
             },
 
             deleteTask(task) {
@@ -299,13 +316,22 @@
                 console.log("edit");
             },
 
-            editDescription(desc) {
+            editDescription(task) {
 
-                this.descriptionTask = desc;
+                this.taskForEditDescription = task;
 
             },
-          changeDescriptionTask(a){
-             console.log(a);
+          changeDescriptionTask(task){
+            let url = '/api/v1/description-tasks/'+task.id
+            axios.put(url, {description: task.description }).then((response) =>  {
+              var pos =   this.tasks.indexOf(task);
+              this.tasks[pos].description = task.description;
+              this.taskForEditDescription = []
+            }).catch((error) => {
+              flash(error.message)
+            }).then(()=>{
+              this.$emit('loading',false)
+            })
           },
 
             cancelEdit(){
