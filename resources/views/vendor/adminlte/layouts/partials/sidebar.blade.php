@@ -37,6 +37,7 @@
             {{--<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
             <li><a href="/tasks"><i class='fa fa-link'></i> <span>Tasks Vue</span></a></li>
             <li><a href="/tasks_php"><i class='fa fa-link'></i> <span>Tasks PHP</span></a></li>
+            <li><a href="/test_send_email"><i class='fa fa-link'></i> <span>Mail</span></a></li>
             <li class="header">Settings</li>
             <li><a href="/tokens"><i class='fa fa-link'></i> <span>Tokens</span></a></li>
 

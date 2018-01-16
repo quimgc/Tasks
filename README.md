@@ -330,3 +330,12 @@ https://github.com/surmon-china/vue-quill-editor
     php artisan make:controller nomControlador
   
 Automàticament apareixerà a l'apartat de controladors del nostre projecte.
+
+# EMAIL
+
+https://laravel.com/docs/5.5/mail
+
+Per crear un OrderShiped:
+    
+    php artisan make:mail OrderShipped
+

@@ -11,6 +11,11 @@
 |
 */
 
+use App\Mail\Hello;
+use App\Mail\HelloUser;
+use App\User;
+use Illuminate\Support\Facades\Mail;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -54,4 +59,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('tasks_php/{task}', 'TaskController@destroy');
 
     //Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
+
+    //proves
+    Route::get('/test_send_email',function(){
+
+        $user = User::find(1);
+        $hello = new Hello($user);
+        Mail::to($user)->send($hello);
+
+    });
+
+    Route::get('/test_send_email2',function(){
+
+        $user = User::find(1);
+        $hello = new HelloUser($user);
+        Mail::to($user)->send($hello);
+
+    });
 });

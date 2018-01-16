@@ -120,4 +120,8 @@ return [
         ],
     ],
 
+//    'to' => [
+//        'address' => 'quimgonzalez@iesebre.com',
+//        'name' => 'Quim'
+//    ],
 ];
