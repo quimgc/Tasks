@@ -2,3 +2,10 @@ Index que aparegui la plantilla,
 
 post per enviar el email.
 	S'ha de fer una vista en format md i posar capçalera i cos i s'ha de posar {{ body }}, perqe es passa i s'ha de fer lligaments etc blabla
+
+
+
+
+------17 de gener-----
+
+S'haurà de fer login.
