@@ -216,7 +216,7 @@ Un cop fet això, el que s'ha de fer és **wrapper**, al fitxer **Task.php** s'h
 Amb això sobreescrivim el mèotode toArray per canviar el 0 o 1 per false o true.
 
 
-#Laravel Dusk
+# Laravel Dusk
 
 https://laravel.com/docs/5.5/dusk
 
