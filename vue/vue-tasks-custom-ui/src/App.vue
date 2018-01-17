@@ -155,13 +155,11 @@ export default {
     background-color: #3c8dbb;
     color: #fff;
     display: flex;
-
   }
 
   nav ul {
 
     display: flex;
-    /*margin-left: auto;*/
     margin: 0px 0px 0px auto;
 
   }
@@ -169,7 +167,7 @@ export default {
   nav ul li {
     /*display: flex;*/
     border: 1px solid black;
-
+    /*padding-top: 20%;*/
   }
 
 
