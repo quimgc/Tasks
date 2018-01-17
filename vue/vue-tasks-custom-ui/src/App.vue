@@ -10,6 +10,7 @@
             <!--<i class="da fa-address-card"></i>-->
             <a href=""><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg></a>
             <ul>
+              <li><a href="">Emails</a></li>
               <li><a href="">Notifications</a></li>
               <li><a href="">Tasks</a></li>
               <li><a href="">Logged User</a></li>
@@ -153,6 +154,7 @@ export default {
     grid-column: 2/4;
     background-color: #3c8dbb;
     color: #fff;
+    display: flex;
 
   }
 
