@@ -339,3 +339,22 @@ Per crear un OrderShiped:
     
     php artisan make:mail OrderShipped
 
+## Crear la plantilla amb la que s'envia el mail (markdown)
+
+https://laravel.com/docs/5.5/mail#markdown-mailables
+
+# MAIL EXPLOTACIÓ
+
+Des d'explotació s'ha d'enviar correctament el correu al seu destinatari. Es pot usar els següents drivers:
+
+- Si s'utilitza gmail a username i password s'ha de posar el de gmail.
+
+
+# NOTES
+
+Amb $browser->script("es pot executar qualsevol codi JS");
+
+# EVENTS
+
+https://laravel.com/docs/5.5/events
+

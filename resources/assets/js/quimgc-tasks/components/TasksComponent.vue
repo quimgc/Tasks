@@ -236,9 +236,11 @@
 
           this.form.user_id = user.id;
         },
-            show(filter) {
-                this.filter = filter
-            },
+        show(filter) {
+
+            this.filter = filter
+
+        },
             addTask() {
           console.log("addTask");
                 let pos = (this.tasks.length)+1;
