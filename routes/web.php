@@ -11,10 +11,13 @@
 |
 */
 
+use App\Mail\customMail;
 use App\Mail\Hello;
 use App\Mail\HelloUser;
 use App\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,6 +61,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('tasks_php/{task}', 'TaskController@update');
     Route::delete('tasks_php/{task}', 'TaskController@destroy');
 
+    //email
+    Route::get('/email', function(){
+        return view('/emails/email');
+    });
+
+    Route::post('/sendmail',function(Request $request){
+        $sendTo = $request->emailto;
+        $subject = $request->subject;
+        $body = $request->body;
+        $mail = new customMail($subject, $body);
+        Mail::to($sendTo)->send($mail);
+    });
+
+
     //Els api s'ha de passar a api.php i refactoritzar tests per a que estiguin autenticats, per autenticar:    $this->actingAs($user,'api');
 
     //proves
@@ -76,4 +93,9 @@ Route::group(['middleware' => 'auth'], function () {
         Mail::to($user)->send($hello);
 
     });
+
+
+
+
+
 });
