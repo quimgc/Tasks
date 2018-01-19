@@ -4,14 +4,12 @@ namespace Tests\Browser;
 
 use App\Task;
 use App\User;
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 /**
  * Class PHPTasksTest.
- *
- * @package Tests\Browser
  */
 class PHPTasksTest extends DuskTestCase
 {
@@ -44,11 +42,12 @@ class PHPTasksTest extends DuskTestCase
      * List tasks.
      *
      * @test
+     *
      * @return void
      */
     public function list_tasks()
     {
-        $this->browse(function (Browser $browser)  {
+        $this->browse(function (Browser $browser) {
             $tasks = factory(Task::class, 3)->create();
             $browser->maximize();
 //            $browser->resize(1920, 1080);
@@ -60,18 +59,17 @@ class PHPTasksTest extends DuskTestCase
             $browser->assertMissing('.alert');
             $browser->assertSeeLink('Create Task');
 
-
             foreach ($tasks as $task) {
                 $browser->assertSee($task->id);
                 $browser->assertSee($task->user_id);
                 $browser->assertSee($task->name);
                 $browser->assertSee($task->description);
-                $browser->assertVisible('#show-task-' . $task->id);
-                $this->assertContains('Show',$browser->text('#show-task-' . $task->id));
-                $browser->assertVisible('#edit-task-' . $task->id);
-                $this->assertContains('Edit',$browser->text('#edit-task-' . $task->id));
-                $browser->assertVisible('#delete-task-' . $task->id);
-                $this->assertContains('Delete',$browser->text('#delete-task-' . $task->id));
+                $browser->assertVisible('#show-task-'.$task->id);
+                $this->assertContains('Show', $browser->text('#show-task-'.$task->id));
+                $browser->assertVisible('#edit-task-'.$task->id);
+                $this->assertContains('Edit', $browser->text('#edit-task-'.$task->id));
+                $browser->assertVisible('#delete-task-'.$task->id);
+                $this->assertContains('Delete', $browser->text('#delete-task-'.$task->id));
             }
 
             $browser->assertVisible('table');
@@ -83,6 +81,7 @@ class PHPTasksTest extends DuskTestCase
      * Create tasks.
      *
      * @test
+     *
      * @return void
      */
     public function create_task()
@@ -115,7 +114,6 @@ class PHPTasksTest extends DuskTestCase
             // Assert see select/dropdown for user
             $browser->assertVisible('.box form select[name=user_id]');
 
-
 //            $browser->pause(500000);
 
             //See box footer
@@ -129,7 +127,7 @@ class PHPTasksTest extends DuskTestCase
 
             //Create task
             $browser->type('name', 'Buy bread');
-            $browser->type('description',"for lunch");
+            $browser->type('description', 'for lunch');
             //Select a random user in users dropdown
             $browser->select('user_id');
             $browser->press('Create');
@@ -137,17 +135,17 @@ class PHPTasksTest extends DuskTestCase
             $browser->waitFor('.alert');
             $browser->waitForText('Created ok!');
             $browser->assertSee('Created ok!');
-            $browser->assertSee("Buy bread");
-            $browser->assertSee("for lunch");
-
-
+            $browser->assertSee('Buy bread');
+            $browser->assertSee('for lunch');
         });
     }
 
     /**
      * Show task.
+     *
      * @group current
      * @test
+     *
      * @return void
      */
     public function show_task()
@@ -173,17 +171,16 @@ class PHPTasksTest extends DuskTestCase
             $browser->clickLink('Edit');
 //            $browser->click('#show-task-1');
 
-            $browser->assertPathIs("/tasks_php/edit/1");
-            $browser->assertSeeLink("Back");
-            $browser->clickLink("Back");
-            $browser->assertPathIs("/tasks_php");
-        //$browser->pause(3000);
+            $browser->assertPathIs('/tasks_php/edit/1');
+            $browser->assertSeeLink('Back');
+            $browser->clickLink('Back');
+            $browser->assertPathIs('/tasks_php');
+            //$browser->pause(3000);
 
             //Test delete button
-            $browser->assertSee("Delete");
+            $browser->assertSee('Delete');
             $browser->press('Delete');
-            $browser->assertMissing("#show-task-1");
-
+            $browser->assertMissing('#show-task-1');
         });
     }
 
@@ -200,8 +197,8 @@ class PHPTasksTest extends DuskTestCase
 
             $browser->visit('/tasks_php');
             $browser->assertSee($tasks[0]->name);
-            $browser->assertSeeLink("Edit");
-            $browser->click("#edit-task-1");
+            $browser->assertSeeLink('Edit');
+            $browser->click('#edit-task-1');
 
             $value = $browser->value('@user_id');
             $this->assertContains(strval($tasks[0]->user_id), $value);
@@ -211,9 +208,9 @@ class PHPTasksTest extends DuskTestCase
             $value = $browser->value('@description');
             $this->assertContains($tasks[0]->description, $value);
 
-            $browser->select('user_id',$tasks[1]->user_id);
-            $browser->type('name','Comprar pa');
-            $browser->type('description','Per canviar alguna cosa');
+            $browser->select('user_id', $tasks[1]->user_id);
+            $browser->type('name', 'Comprar pa');
+            $browser->type('description', 'Per canviar alguna cosa');
 
             $browser->press('Save Changes');
             $browser->waitFor('.alert');
@@ -226,10 +223,8 @@ class PHPTasksTest extends DuskTestCase
             $browser->assertSee($tasks[0]->user_id);
             $browser->assertSee('Comprar pa');
             $browser->assertSee('Per canviar alguna cosa');
-
-
         });
-        }
+    }
 
     /**
      * @group prova
@@ -237,25 +232,22 @@ class PHPTasksTest extends DuskTestCase
      */
     public function delete_task()
     {
-
-        $this->browse(function(Browser $browser) {
+        $this->browse(function (Browser $browser) {
             $tasks = factory(Task::class, 3)->create();
             $browser->maximize();
             $this->loginAndAuthorize($browser);
 
             $task = $tasks[0];
             $browser->visit('/tasks_php');
-            $browser->assertVisible('#delete-task-' . $task->id);
-            $this->assertContains('Delete',$browser->text('#delete-task-' . $task->id));
+            $browser->assertVisible('#delete-task-'.$task->id);
+            $this->assertContains('Delete', $browser->text('#delete-task-'.$task->id));
 
             $browser->click('#delete-task-'.$task->id);
             $browser->waitFor('.alert');
             $browser->waitForText('Task was deleted successful');
             $browser->assertSee('Task was deleted successful');
-            
-            $browser->assertMissing('#delete-task-'.$task->id);
 
+            $browser->assertMissing('#delete-task-'.$task->id);
         });
-        
-        }
+    }
 }

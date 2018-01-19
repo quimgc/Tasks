@@ -179,7 +179,7 @@ return [
          */
         Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class,
         Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class,
-        #llum_providers
+        //llum_providers
 
         /*
          * Package Service Providers...
@@ -256,7 +256,7 @@ return [
          *
          * See: https://github.com/acacha/llum
          */
-        #llum_aliases
+        //llum_aliases
 
     ],
 

@@ -23,11 +23,9 @@ class StoreCompletedTask extends FormRequest
      * @return array
      */
     public function rules()
-
     {
         return[
             'completed'    => 'required',
         ];
     }
-
 }

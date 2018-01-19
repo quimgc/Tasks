@@ -14,9 +14,7 @@ class UpdateDescriptionTask extends FormRequest
      */
     public function authorize()
     {
-
         return Auth::user()->hasPermissionTo('list-tasks');
-
     }
 
     /**

@@ -41,26 +41,24 @@ return [
     | See: https://github.com/acacha/llum
     |
     */
-    #llum_services
+    //llum_services
 
     'twitter' => [
-        'client_id' => env('TWITTER_OAUTH_APP_ID'),
+        'client_id'     => env('TWITTER_OAUTH_APP_ID'),
         'client_secret' => env('TWITTER_OAUTH_APP_SECRET'),
-        'redirect' => env('TWITTER_OAUTH_APP_REDIRECT_URL'),
+        'redirect'      => env('TWITTER_OAUTH_APP_REDIRECT_URL'),
     ],
-
 
     'google' => [
-        'client_id' => env('GOOGLE_OAUTH_APP_ID'),
+        'client_id'     => env('GOOGLE_OAUTH_APP_ID'),
         'client_secret' => env('GOOGLE_OAUTH_APP_SECRET'),
-        'redirect' => env('GOOGLE_OAUTH_APP_REDIRECT_URL'),
+        'redirect'      => env('GOOGLE_OAUTH_APP_REDIRECT_URL'),
     ],
 
-
     'facebook' => [
-        'client_id' => env('FACEBOOK_OAUTH_APP_ID'),
+        'client_id'     => env('FACEBOOK_OAUTH_APP_ID'),
         'client_secret' => env('FACEBOOK_OAUTH_APP_SECRET'),
-        'redirect' => env('FACEBOOK_OAUTH_APP_REDIRECT_URL'),
+        'redirect'      => env('FACEBOOK_OAUTH_APP_REDIRECT_URL'),
     ],
 
 //    'facebook' => [
@@ -70,9 +68,9 @@ return [
 //    ],
 
     'github' => [
-        'client_id' => env('GITHUB_OAUTH_APP_ID'),
+        'client_id'     => env('GITHUB_OAUTH_APP_ID'),
         'client_secret' => env('GITHUB_OAUTH_APP_SECRET'),
-        'redirect' => env('GITHUB_OAUTH_APP_REDIRECT_URL'),
+        'redirect'      => env('GITHUB_OAUTH_APP_REDIRECT_URL'),
     ],
 //
 //    'github' => [
@@ -92,7 +90,6 @@ return [
 //        'client_secret' => env('GITHUB_OAUTH_APP_SECRET'),
 //        'redirect' => env('GITHUB_OAUTH_APP_REDIRECT_URL'),
 //    ],
-
 
     /*
     | Acacha Llum services...
