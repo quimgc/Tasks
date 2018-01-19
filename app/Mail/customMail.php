@@ -5,13 +5,14 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class customMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject, $body;
+    public $subject;
+    public $body;
+
     /**
      * Create a new message instance.
      *
@@ -32,7 +33,7 @@ class customMail extends Mailable
     {
         return $this->markdown('emails.customMail', [
             'subject' => $this->subject,
-            'body'=> $this->body
+            'body'    => $this->body,
 
         ]);
     }

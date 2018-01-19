@@ -41,13 +41,10 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     //Route::post('/tasks/{task}/completed','ApiTaskController@completed');
     //Route::post('/tasks/{task}/incompleted','ApiTaskController@incompleted');
 
-
     //task->completed?true:false
-    Route::put('/completed-tasks/{task}' ,      'ApiCompletedTasksController@update');
+    Route::put('/completed-tasks/{task}', 'ApiCompletedTasksController@update');
 //    Route::delete('/completed-tasks/{task}' ,    'ApiCompletedTasksController@destroy');
 
-
     //task->change description
-    Route::put('/description-tasks/{task}',       'ApiDescriptionTasksController@update');
-
+    Route::put('/description-tasks/{task}', 'ApiDescriptionTasksController@update');
 });

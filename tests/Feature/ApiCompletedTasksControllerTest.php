@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 /**
  * Class APIAttendedEventControllerTest.
- *
- * @package Tests\Feature
  */
 class ApiCompletedTasksControllerTest extends TestCase
 {
@@ -52,24 +50,24 @@ class ApiCompletedTasksControllerTest extends TestCase
         $this->loginAndAuthorize();
         $task = factory(Task::class)->create();
 
-        $response = $this->json('POST', '/api/v1/completed-tasks/' . $task->id);
+        $response = $this->json('POST', '/api/v1/completed-tasks/'.$task->id);
 
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('tasks', [
-            'id' => $task->id,
-            'name' => $task->name,
-            'completed' => true,
+            'id'          => $task->id,
+            'name'        => $task->name,
+            'completed'   => true,
             'description' => $task->description,
-            'user_id' => $task->user->id
+            'user_id'     => $task->user->id,
         ]);
 
         $response->assertJson([
-            'id' => $task->id,
-            'name' => $task->name,
-            'completed' => true,
+            'id'          => $task->id,
+            'name'        => $task->name,
+            'completed'   => true,
             'description' => $task->description,
-            'user_id' => $task->user->id
+            'user_id'     => $task->user->id,
         ]);
     }
 
@@ -81,34 +79,33 @@ class ApiCompletedTasksControllerTest extends TestCase
     protected function destroy()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
         $task = factory(Task::class)->create();
 
-        $response = $this->json('DELETE','/api/v1/completed-tasks/' . $task->id);
+        $response = $this->json('DELETE', '/api/v1/completed-tasks/'.$task->id);
 
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('tasks', [
-            'id' => $task->id,
-            'name' => $task->name,
-            'completed' => false,
+            'id'          => $task->id,
+            'name'        => $task->name,
+            'completed'   => false,
             'description' => $task->description,
-            'user_id' => $task->user->id
+            'user_id'     => $task->user->id,
         ]);
 
         $response->assertJson([
-            'id' => $task->id,
-            'name' => $task->name,
-            'completed' => false,
+            'id'          => $task->id,
+            'name'        => $task->name,
+            'completed'   => false,
             'description' => $task->description,
-            'user_id' => $task->user->id
+            'user_id'     => $task->user->id,
         ]);
 
         $response->assertJson([
-            'id' => $task->id,
-            'name' => $task->name
+            'id'   => $task->id,
+            'name' => $task->name,
         ]);
     }
-
 }
