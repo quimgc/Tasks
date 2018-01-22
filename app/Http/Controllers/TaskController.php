@@ -46,7 +46,6 @@ class TaskController extends Controller
     //
     public function store(StoreTask $request)
     {
-
         Task::create([
             'name'          => $request->name,
             'user_id'       => $request->user_id,
@@ -86,7 +85,6 @@ class TaskController extends Controller
     {
         $users = User::all();
 
-
         return view('edit_task', ['task' => $task, 'users' => $users]);
     }
 
@@ -119,7 +117,6 @@ class TaskController extends Controller
         $task->delete();
 
         Session::flash('status', 'Task was deleted successful!');
-
 
         return Redirect::to('/tasks_php');
 //        Task::destroy([

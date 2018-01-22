@@ -11,12 +11,12 @@ class Task extends Model
     public function toArray()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id'          => $this->id,
+            'name'        => $this->name,
             'description' => $this->description,
-            'user_id' => $this->user_id,
+            'user_id'     => $this->user_id,
 //            'completed' => (Boolean) $this->completed, aquesta linia fa el mateix que la següent.
-            'completed' => $this->completed? true:false,
+            'completed'  => $this->completed ? true : false,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];
