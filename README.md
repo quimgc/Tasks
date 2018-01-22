@@ -358,3 +358,37 @@ Amb $browser->script("es pot executar qualsevol codi JS");
 
 https://laravel.com/docs/5.5/events
 
+
+# VUETIFY
+
+https://vuetifyjs.com/vuetify/quick-start
+
+Primer que tot es crea la plantilla:
+    
+    $ z Tasks
+    $ cd vue
+    $ vue init vuetifyjs/webpack vuetify-tasks
+    
+Apareix el següent wizard:
+
+    ? Project name vuetify-tasks
+    ? Project description A Vue.js project
+    ? Author quimgc <quimgonzalez@iesebre.com>
+    ? Vue build standalone
+    ? Install vue-router? Yes
+    ? Use ESLint to lint your code? Yes
+    ? Pick an ESLint preset Standard
+    ? Set up unit tests Yes
+    ? Pick a test runner karma
+    ? Setup e2e tests with Nightwatch? Yes
+    ? Use a-la-carte components? No
+    ? Use custom theme? No
+    ? Should we run `npm install` for you after the project has been created? (recommended) npm
+
+    
+Un cop creat s'entra dins del directori creat i s'executa:
+
+    npm run dev
+    
+**drawer** -> calaixera de navegació.
+

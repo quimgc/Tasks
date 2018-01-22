@@ -22,6 +22,7 @@
 
                         </quill-editor>
 
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -34,7 +35,6 @@
             <!-- /.modal-dialog -->
         </div>
 
-        <!--<medium-editor :text='myText' :options='options' custom-tag='h2' v-on:edit='applyTextEdit'> </medium-editor>-->
 
 
         <widget :loading="loading">
@@ -54,7 +54,9 @@
                     <td>{{ task.name }}</td>
                     <td> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
                     <td v-if="editor == 'quill'" class="description" @click="editDescription(task)" v-html="task.description" data-toggle="modal" data-target="#modal-description"> </td>
-                    <!--<td v-if="editor == 'medium-editor'"> medium-editor</td>-->
+                    <!--v-if="editor == 'medium-editor'" -->
+                    <td v-if="editor == 'medium-editor'" @click="editDescription(task)"> <medium-editor :text='task.description' v-on:edit='changeDescriptionTask'></medium-editor></td>
+
                     <!--<td  v-else> {{ task.description }} </td>-->
                     <td>Action</td>
 
@@ -65,27 +67,27 @@
 
 
             <!--<ul>-->
-                <!--<li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"-->
-                    <!--@dblclick="editTask(task)">-->
+            <!--<li v-for="task in filteredTasks" v-bind:class="{completed : isCompleted(task) }"-->
+            <!--@dblclick="editTask(task)">-->
 
-                    <!--<input type="text" id="editedTask" v-if="editedTask==task"-->
-                           <!--v-model="modifyTask"-->
-                           <!--@keydown.enter="updateTask(task)"-->
-                           <!--@keyup.esc="cancelEdit(task)">-->
+            <!--<input type="text" id="editedTask" v-if="editedTask==task"-->
+            <!--v-model="modifyTask"-->
+            <!--@keydown.enter="updateTask(task)"-->
+            <!--@keyup.esc="cancelEdit(task)">-->
 
 
-                    <!--<div v-else>-->
+            <!--<div v-else>-->
 
-                        <!--{{task.name}}-->
+            <!--{{task.name}}-->
 
-                        <!--<i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>-->
-                        <!--<i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>-->
-                        <!--<i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>-->
-                        <!--<i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>-->
+            <!--<i class="fa fa-pencil" aria-hidden="true" @click="updateTask(task)"></i>-->
+            <!--<i class="fa fa-refresh fa-spin fa-lg" v-if="task.id === taskBeingDeleted"></i>-->
+            <!--<i class="fa fa-times" v-else aria-hidden="true" @click="deleteTask(task)"></i>-->
+            <!--<i class="fa fa-check" aria-hidden="true" @click="doneTask(task)"></i>-->
 
-                    <!--</div>-->
+            <!--</div>-->
 
-                <!--</li>-->
+            <!--</li>-->
             <!--</ul>-->
             <div class="form-group has-feedback" :class="{'has-error': form.errors.has('user_id')}">
                 <label for="user_id">User</label>
@@ -101,7 +103,15 @@
                 <transition name="fade">
                     <span v-text="form.errors.get('name')" v-if="form.errors.has('name')" class="help-block"></span>
                 </transition>
-                <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" id="name" name="name" @keyup.enter="addTask">
+                <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" id="name" name="name">
+            </div>
+
+            <div class="form-group has-feedback" :class="{'has-error': form.errors.has('description')}">
+                <label for="description">Task Description</label>
+                <transition name="fade">
+                    <span v-text="form.errors.get('description')" v-if="form.errors.has('description')" class="help-block"></span>
+                </transition>
+                <input @input="form.errors.clear('description')" class="form-control" type="text" v-model="form.description" id="description" name="description" @keydown.enter="addTask">
             </div>
 
 
@@ -120,15 +130,15 @@
 
         </div>
 
-        <p slot="footer">
-            <button :disabled="form.submitting || form.errors.any()" id="add" @click="addTask" class="btn btn-primary">
-                <i class="fa fa-refresh fa-spin fa-lg" v-if="form.submitting"></i>
-                Afegir Tasca
-            </button>
-        </p>
-    </widget>
+            <p slot="footer">
+                <button :disabled="form.submitting || form.errors.any()" id="add" @click="addTask" class="btn btn-primary">
+                    <i class="fa fa-refresh fa-spin fa-lg" v-if="form.submitting"></i>
+                    Afegir Tasca
+                </button>
+            </p>
+        </widget>
 
-    <message title="Message" message="" color="info"></message>
+        <message title="Message" message="" color="info"></message>
 
 
     </div>
@@ -170,223 +180,235 @@
 
 <script>
 
-    import Users from './Users'
-    import Form from 'acacha-forms'
+  import Users from './Users'
+  import Form from 'acacha-forms'
 
-    //editors
-    import Quill from 'quill'
-    import { quillEditor } from 'vue-quill-editor'
-    import MediumEditor from 'medium-editor'
-    import editor from 'vue2-medium-editor'
+  //editors
+  import Quill from 'quill'
+  import { quillEditor } from 'vue-quill-editor'
+  import MediumEditor from 'medium-editor'
+  import editor from 'vue2-medium-editor'
 
-    // require styles
-    import 'quill/dist/quill.core.css'
-    import 'quill/dist/quill.snow.css'
-    import 'quill/dist/quill.bubble.css'
-
-
-    //importo fitxer de conf. per escollir l'editor
-    import { config } from '../config/tasks.js'
+  // require styles
+  import 'quill/dist/quill.core.css'
+  import 'quill/dist/quill.snow.css'
+  import 'quill/dist/quill.bubble.css'
 
 
-    // visibility filters
-    var filters = {
-        all: function (tasks) {
-            return tasks
-        },
-        pending : function (tasks) {
-            return tasks.filter(function (task) {
-                return !task.completed
+  //importo fitxer de conf. per escollir l'editor
+  import { config } from '../config/tasks.js'
 
-            })
-        },
-        completed: function (tasks) {
-            return tasks.filter(function (task) {
-                return task.completed
-            })
-        }
+
+  // visibility filters
+  var filters = {
+    all: function (tasks) {
+      return tasks
+    },
+    pending : function (tasks) {
+      return tasks.filter(function (task) {
+        return !task.completed
+
+      })
+    },
+    completed: function (tasks) {
+      return tasks.filter(function (task) {
+        return task.completed
+      })
     }
+  }
 
-    const API_URL = '/api/v1/tasks';
-    const LOCAL_STORAGE_KEY = 'TASKS';
-
-
-    import { wait } from './utils.js'
+  const API_URL = '/api/v1/tasks';
+  const LOCAL_STORAGE_KEY = 'TASKS';
 
 
-    export default {
-      components: { Users, quillEditor },
+  import { wait } from './utils.js'
 
-        data() {
-            return {
-              loading: false,
-              editedTask: null,
-              filter: 'all',
-              tasks: [],
-              taskBeingDeleted: null,
-              modifyTask: '',
-              descriptionTask: '',
-              //editing: false,
-              editor: config.editor,
-              taskForEditDescription: [],
-              form: new Form({user_id:'', name: '', id: ''})
-            }
-        },
 
-        computed: {
-            filteredTasks() {
-                return filters[this.filter](this.tasks)
-            },
-            pendingTaskCounter: function(){
-                return filters.pending(this.tasks).length
+  export default {
+    components: { Users, quillEditor, 'medium-editor': editor },
 
-            }
+    data() {
+      return {
+        loading: false,
+        editedTask: null,
+        filter: 'all',
+        tasks: [],
+        taskBeingDeleted: null,
+        modifyTask: '',
+        descriptionTask: '',
+        //editing: false,
+        editor: config.editor,
+        taskForEditDescription: [],
+        form: new Form({user_id:'', name: '', id: '', description: ''})
+      }
+    },
 
-        },
-        watch: {
-            tasks: function() {
+    computed: {
+      filteredTasks() {
+        return filters[this.filter](this.tasks)
+      },
+      pendingTaskCounter: function(){
+        return filters.pending(this.tasks).length
+
+      }
+
+    },
+    watch: {
+      tasks: function() {
 //          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.tasks))
-            }
-        },
-        methods: {
+      }
+    },
+    methods: {
 
-        userSelected(user) {
+      userSelected(user) {
 
-          this.form.user_id = user.id;
-        },
-        show(filter) {
+        this.form.user_id = user.id;
+      },
+      show(filter) {
 
-            this.filter = filter
+        this.filter = filter
 
-        },
-            addTask() {
-          console.log("addTask");
-                let pos = (this.tasks.length)+1;
-                let url = API_URL
-              console.log("pos " + pos);
-                this.form.post(url).then((response) =>  {
-                    this.tasks.push({ name : this.form.name, id: pos, user_id: this.form.user_id, completed : false})
-                    this.form.name=''
+      },
+      addTask() {
 
-                }).catch((error) => {
-                    flash(error.message)
-                })
+        let pos = (this.tasks.length)+1;
+        let url = API_URL
+        this.form.post(url).then((response) =>  {
 
-            },
-            isCompleted(task) {
-                return task.completed
-            },
-            isCompletedTask(task) {
-
-                //TODO quan faig clic a COMPLETED, només surt el tic verd al primer!!!!!
-                console.log('completTask');
-                console.log(task);
-
-              let url = '/api/v1/completed-tasks/'+task.id
-              axios.put(url, {completed: task.completed }).then((response) =>  {
-                var pos =   this.tasks.indexOf(task);
-                this.tasks[pos].completed = task.completed;
-
-              }).catch((error) => {
-                flash(error.message)
-              }).then(()=>{
-                this.$emit('loading',false)
-              })
-
-            },
-
-            deleteTask(task) {
+          this.tasks.push({ name : this.form.name, id: pos, user_id: this.form.user_id, description: this.form.description, completed : false})
+          this.form.name=''
+          this.form.description=''
 
 
-                let url = '/api/v1/tasks/' + task.id
-                this.taskBeingDeleted = task.id
-                axios.delete(url).then( (response) => {
-                    this.tasks.splice( this.tasks.indexOf(task) , 1 )
-                }).catch( (error) => {
-                    flash(error.message)
-                }).then(
-                    this.taskBeingDeleted = null
-                )
-            },
-             updateTask(task){
-                console.log("update");
-                this.updating = true
-                let url = '/api/v1/tasks/'+task.id
-                console.log(url);
-                console.log(task);
-                axios.put(url, {name: this.modifyTask }).then((response) =>  {
-                var pos =   this.tasks.indexOf(task);
-                console.log("indexOf(task) "+ pos);
+        }).catch((error) => {
+          flash(error.message)
+        })
 
-                this.tasks[pos].name = this.modifyTask;
-                console.log(this.tasks[pos].name );
-                this.modifyTask = ''
-                this.editedTask = null
-		}).catch((error) => {
-                    flash(error.message)
-                }).then(()=>{
-                    this.$emit('loading',false)
-                    this.updating = false
-             })
+      },
+      isCompleted(task) {
+        return task.completed
+      },
+      isCompletedTask(task) {
+        let url = '/api/v1/completed-tasks/'+task.id
+        axios.put(url, {completed: task.completed }).then((response) =>  {
+          var pos =   this.tasks.indexOf(task);
+          this.tasks[pos].completed = task.completed;
+        }).catch((error) => {
+          flash(error.message)
+        }).then(()=>{
+          this.$emit('loading',false)
+        })
 
-            },
-            editTask(task){
-                this.editedTask = task;
-                this.modifyTask = task.name;
-                console.log("edit");
-            },
+      },
 
-            editDescription(task) {
+      deleteTask(task) {
 
-                this.taskForEditDescription = task;
+        let url = '/api/v1/tasks/' + task.id
+        this.taskBeingDeleted = task.id
+        axios.delete(url).then( (response) => {
+          this.tasks.splice( this.tasks.indexOf(task) , 1 )
+        }).catch( (error) => {
+          flash(error.message)
+        }).then(
+          this.taskBeingDeleted = null
+        )
+      },
+      updateTask(task){
+        console.log("update");
+        this.updating = true
+        let url = '/api/v1/tasks/'+task.id
+        console.log(url);
+        console.log(task);
+        axios.put(url, {name: this.modifyTask }).then((response) =>  {
+          var pos =   this.tasks.indexOf(task);
+          console.log("indexOf(task) "+ pos);
 
-            },
-          changeDescriptionTask(task){
-            let url = '/api/v1/description-tasks/'+task.id
-            axios.put(url, {description: task.description }).then((response) =>  {
-              var pos =   this.tasks.indexOf(task);
-              this.tasks[pos].description = task.description;
-              this.taskForEditDescription = []
-            }).catch((error) => {
-              flash(error.message)
-            }).then(()=>{
-              this.$emit('loading',false)
-            })
-          },
+          this.tasks[pos].name = this.modifyTask;
+          console.log(this.tasks[pos].name );
+          this.modifyTask = ''
+          this.editedTask = null
+        }).catch((error) => {
+          flash(error.message)
+        }).then(()=>{
+          this.$emit('loading',false)
+          this.updating = false
+        })
 
-            cancelEdit(){
-                this.editedTask = null;
-                this.modifyTask = ''
-            }, doneTask(task){
-                 var pos =   this.tasks.indexOf(task);
+      },
+      editTask(task){
+        this.editedTask = task;
+        this.modifyTask = task.name;
+        console.log("edit");
+      },
 
-                    this.tasks[pos].completed = true;
+      editDescription(task) {
 
-                task.completed = true
-            }
-        },
-        mounted() {
-          //var quill = new Quill('#editor', {
-            //theme: 'snow'
-          //});
+        this.taskForEditDescription = task;
 
-            let url = '/api/v1/tasks'
+      },
+      changeDescriptionTask(task){
 
-            // PROMISES
-          //this.$emit('loading',true)
+        if(this.editor == "quill"){
 
-            this.loading = true;
-            //.then(wait(5000))
-            axios.get(url).then((response) =>  {
-                this.tasks = response.data;
+          let url = '/api/v1/description-tasks/'+task.id
+          axios.put(url, {description: task.description }).then((response) =>  {
+            var pos =   this.tasks.indexOf(task);
+            this.tasks[pos].description = task.description;
+            this.taskForEditDescription = []
+          }).catch((error) => {
+            flash(error.message)
+          }).then(()=>{
+            this.$emit('loading',false)
+          })
 
-            }).catch((error) => {
-                 flash(error.message)
-            }).then(()=>{
-
-                this.loading = false
-            })
+        } else if(this.editor == "medium-editor") {
+          var description = task.api.origElements.innerHTML;
+          console.log(description);
+          let url = '/api/v1/description-tasks/'+this.taskForEditDescription.id
+          axios.put(url, {description: description }).catch((error) => {
+            flash(error.message)
+          }).then(()=>{
+            this.$emit('loading',false)
+          })
 
         }
+      },
+
+
+      cancelEdit(){
+        this.editedTask = null;
+        this.modifyTask = ''
+      }, doneTask(task){
+        var pos =   this.tasks.indexOf(task);
+
+        this.tasks[pos].completed = true;
+
+        task.completed = true
+      }
+    },
+    mounted() {
+      //var quill = new Quill('#editor', {
+      //theme: 'snow'
+      //});
+
+      let url = '/api/v1/tasks'
+
+      // PROMISES
+      //this.$emit('loading',true)
+
+      this.loading = true;
+      //.then(wait(5000))
+      axios.get(url).then((response) =>  {
+        this.tasks = response.data;
+
+      }).catch((error) => {
+        flash(error.message)
+      }).then(()=>{
+
+        this.loading = false
+      })
+
     }
+  }
 </script>
+<!--<td v-if="editor == 'medium-editor'"><medium-editor v-html="task.description" v-bind:id="'desc'+task.id" :text='task.description' v-on:edit='changeDescriptionTask(task.description)'></medium-editor></td>-->

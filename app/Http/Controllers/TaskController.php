@@ -49,8 +49,9 @@ class TaskController extends Controller
 
         Task::create([
             'name'          => $request->name,
-            'description'   => $request->description,
             'user_id'       => $request->user_id,
+            'description'   => $request->description,
+
         ]);
 
         Session::flash('status', 'Created ok!');
