@@ -14,6 +14,7 @@
                 value="true"
                 v-for="(item, i) in items"
                 :key="i"
+                :to="item.path"
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
@@ -77,16 +78,19 @@
         drawer: true,
         fixed: false,
         items: [{
-          icon: 'bubble_chart',
-          title: 'Inspire'
+          icon: 'home',
+          title: 'Landing',
+          path: '/landing'
         },
         {
           icon: 'web',
-          title: 'Tasques'
+          title: 'Tasques',
+          path: '/tasks'
         },
         {
-          icon: 'cheveron-up',
-          title: 'Other'
+          icon: 'done',
+          title: 'Hello',
+          path: '/hello'
         },
         {
           icon: 'cheveron-up',
