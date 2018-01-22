@@ -54,10 +54,9 @@
                     <td>{{ task.name }}</td>
                     <td> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
                     <td v-if="editor == 'quill'" class="description" @click="editDescription(task)" v-html="task.description" data-toggle="modal" data-target="#modal-description"> </td>
-                    <!--v-if="editor == 'medium-editor'" -->
-                    <td v-if="editor == 'medium-editor'" @click="editDescription(task)"> <medium-editor :text='task.description' v-on:edit='changeDescriptionTask'></medium-editor></td>
+                    <td v-if="editor == 'medium-editor'" class="description" @click="editDescription(task)"> <medium-editor :text='task.description' v-on:edit='changeDescriptionTask'></medium-editor></td>
 
-                    <!--<td  v-else> {{ task.description }} </td>-->
+                    <td  v-if="editor != 'quill' && editor !='medium-editor'" class="description" v-html="task.description"> </td>
                     <td>Action</td>
 
                 </tr>
