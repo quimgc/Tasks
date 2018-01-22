@@ -33,7 +33,11 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-    <widget :loading="loading">
+
+        <!--<medium-editor :text='myText' :options='options' custom-tag='h2' v-on:edit='applyTextEdit'> </medium-editor>-->
+
+
+        <widget :loading="loading">
         <p slot="title">Tasques</p>
         <div v-cloak>
 
@@ -49,7 +53,9 @@
                     <td>{{ index + 1}}</td>
                     <td>{{ task.name }}</td>
                     <td> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
-                    <td class="description" @click="editDescription(task)" v-html="task.description" data-toggle="modal" data-target="#modal-description"> </td>
+                    <td v-if="editor == 'quill'" class="description" @click="editDescription(task)" v-html="task.description" data-toggle="modal" data-target="#modal-description"> </td>
+                    <!--<td v-if="editor == 'medium-editor'"> medium-editor</td>-->
+                    <!--<td  v-else> {{ task.description }} </td>-->
                     <td>Action</td>
 
                 </tr>
@@ -129,6 +135,8 @@
 </template>
 
 <style src="quill/dist/quill.snow.css"></style>
+<style src="medium-editor/dist/css/medium-editor.min.css"></style>
+<style src="medium-editor/dist/css/themes/default.min.css"></style>
 
 <style>
 
@@ -161,16 +169,25 @@
 
 
 <script>
+
     import Users from './Users'
     import Form from 'acacha-forms'
+
+    //editors
     import Quill from 'quill'
+    import { quillEditor } from 'vue-quill-editor'
+    import MediumEditor from 'medium-editor'
+    import editor from 'vue2-medium-editor'
 
     // require styles
     import 'quill/dist/quill.core.css'
     import 'quill/dist/quill.snow.css'
     import 'quill/dist/quill.bubble.css'
 
-    import { quillEditor } from 'vue-quill-editor'
+
+    //importo fitxer de conf. per escollir l'editor
+    import { config } from '../config/tasks.js'
+
 
     // visibility filters
     var filters = {
@@ -210,6 +227,7 @@
               modifyTask: '',
               descriptionTask: '',
               //editing: false,
+              editor: config.editor,
               taskForEditDescription: [],
               form: new Form({user_id:'', name: '', id: ''})
             }
