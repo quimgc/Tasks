@@ -9,3 +9,9 @@ post per enviar el email.
 ------17 de gener-----
 
 S'haurà de fer login.
+
+--------------MP08 entrega 29 de gener-----------------
+
+- Posar tots els metodes axios a tasks.js
+- ESTAVA FENT QUE QUAN FAIG CLICK A SHOW SURTO UN DIALEG I MOSTRO LA INFO DE LA TASK
+- APROFITAR EDITING PER SI ESTÀ EDITANT O NO

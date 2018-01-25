@@ -392,3 +392,30 @@ Un cop creat s'entra dins del directori creat i s'executa:
     
 **drawer** -> calaixera de navegació.
 
+# REDIS
+
+Instal·lar al servidor:
+
+    composer require predis/predis
+    sudo apt-get install redis-server
+    
+Al .env posar QUEUE_DRIVER=redis
+
+
+També instal·lar:
+        
+    sudo apt-get install supervisor
+    cd /etc/supervisor/conf.d
+    sudo nano tasks-laravel-worker.conf
+    
+Afegir tot això al fitxer de configuració (compte amb els paths):
+
+        [program:tasks-laravel-worker]
+        process_name=%(program_name)s_%(process_num)02d
+        command=php /home/quim/Code/Tasks/artisan queue:work redis --sleep=3 --tries=3
+        autostart=true
+        autorestart=true
+        user=quim
+        numprocs=8
+        redirect_stderr=true
+        stdout_logfile=/home/quim/Code/Tasks/storage/logs/worker.log
