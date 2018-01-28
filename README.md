@@ -281,7 +281,7 @@ Modificar també amb la mateix configuració **.env.dusk.testing**.
 
 S'ha de tenir en compte que s'ha d'obrir un servidor escoltant pel mateix port que s'executarà el test:
 
-    php artisan serve --port=8090
+    php artisan serve --port=8090 --env=dusk.local
 
 També s'ha de modificar el fitxer **database.php** i afeigr:
 

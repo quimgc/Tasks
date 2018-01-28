@@ -3,11 +3,7 @@
 
     <div>
 
-
-
-
         <!--Show or Edit Task-->
-
 
         <div class="modal fade" id="modal-task">
             <div class="modal-dialog">
@@ -20,28 +16,39 @@
                 <div class="modal-body">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><b>{{ taskForEdit.task.name }}</b></h3>
+                            <h3 class="box-title"><b v-html="taskForEdit.task.name"></b></h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
 
+                        <!--<select @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
+                            <option v-for="user in users" :value="user.id">{{user.name}}</option>
+                        </select>-->
                             <div v-if="taskForEdit.editing == false" class="box-body">
+
                                 <div class="form-group">
-                                    <label>User id</label>
-                                    <input readonly type="text" class="form-control":value="taskForEdit.task.user_id">
+                                    <label>Task ID</label>
+                                    <td type="text" class="form-control" v-html="taskForEdit.task.id"></td>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Owner</label>
+                                    <td type="text" class="form-control" v-html="taskForEdit.owner"></td>
                                 </div>
                                 <div class="form-group">
                                     <label>Task name</label>
-                                    <input readonly type="text" class="form-control":value="taskForEdit.task.name">
+                                    <td type="text" class="form-control" v-html="taskForEdit.task.name"></td>
+                                    <!--<input readonly >-->
                                 </div>
                                 <div class="form-group">
                                     <label>Completed</label>
-                                    <input readonly type="text" class="form-control":value="taskForEdit.task.completed">
+                                    <td type="text" class="form-control" v-html="taskForEdit.task.completed"></td>
+
                                 </div>
 
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <td readonly type="text" class="form-control" v-html="taskForEdit.task.description"> </td>
+                                    <td type="text" class="form-control" v-html="taskForEdit.task.description"> </td>
                                 </div>
                             </div>
                             <!-- /.box-body -->
@@ -49,48 +56,48 @@
 
 
 
-                            <div v-if="taskForEdit.editing == true"  class="box-body">
-                                <div class="form-group">
-                                    <label>User id</label>
-                                    <input  type="text" class="form-control" :value="taskForEdit.task.user_id">
-                                </div>
-                                <div class="form-group">
-                                    <label>Task name</label>
-                                    <input type="text" class="form-control" v-model="taskForEdit.task.name">
-                                </div>
-                                <div class="form-group">
-                                    <label>Completed</label>
-                                    <toggle-button :value="taskForEdit.task.completed" @change="isCompletedTask(taskForEdit.task)" v-model="taskForEdit.task.completed"/>
+                            <!--<div v-if="taskForEdit.editing == true"  class="box-body">-->
+                                <!--<div class="form-group">-->
+                                    <!--<label>User id</label>-->
+                                    <!--<input  type="text" class="form-control" :value="taskForEdit.task.user_id">-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label>Task name</label>-->
+                                    <!--<input type="text" class="form-control" v-model="taskForEdit.task.name">-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label>Completed</label>-->
+                                    <!--<toggle-button :value="taskForEdit.task.completed" @change="isCompletedTask(taskForEdit.task)" v-model="taskForEdit.task.completed"/>-->
 
-                                    <!--<input type="text" class="form-control" :value="taskForEdit.task.completed">-->
-                                </div>
+                                    <!--&lt;!&ndash;<input type="text" class="form-control" :value="taskForEdit.task.completed">&ndash;&gt;-->
+                                <!--</div>-->
 
-                                <div>
-                                    <label>Description</label>
-                                    <td v-if="editor == 'medium-editor'">
+                                <!--<div>-->
+                                    <!--<label>Description</label>-->
+                                    <!--<td v-if="editor == 'medium-editor'">-->
 
-                                        <medium-editor :text='taskForEdit.task.description' v-on:edit="recordingNewDescription"></medium-editor>
+                                        <!--<medium-editor :text='taskForEdit.task.description' v-on:edit="recordingNewDescription"></medium-editor>-->
 
-                                    </td>
+                                    <!--</td>-->
 
-                                    <td v-if="editor == 'quill'">
+                                    <!--<td v-if="editor == 'quill'">-->
 
-                                        <quill-editor v-model="taskForEdit.task.description">
+                                        <!--<quill-editor v-model="taskForEdit.task.description">-->
 
-                                        </quill-editor>
+                                        <!--</quill-editor>-->
 
-                                    </td>
+                                    <!--</td>-->
 
-                                </div>
+                                <!--</div>-->
 
-                            </div>
+                            <!--</div>-->
 
 
                     </div>
                 </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <button v-if="taskForEdit.editing == true" @click="saveTask" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        <!--<button v-if="taskForEdit.editing == true" @click="saveTask" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>-->
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -98,27 +105,55 @@
         </div>
 
 
+
         <widget :loading="loading">
-        <p slot="title">Tasques</p>
+        <p slot="title">Tasques new</p>
         <div v-cloak>
 
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover" dusk="tasks">
                 <tbody><tr>
                     <th style="width: 10px">#</th>
-                    <th>Task</th>
-                    <th>Owner</th>
-                    <th>Completed</th>
+                    <th class="ellipsis">Task</th>
+                    <th style="width: 150px">Owner</th>
+                    <th style="width: 150px">Completed</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
-                <tr v-for="(task, index) in filteredTasks">
+                <tr v-for="(task, index) in filteredTasks" dusk="tasks" id="tasks">
                     <td>{{index +1 }}</td>
-                    <td>{{task.name}}</td>
-                    <td>{{task.user_id}}</td>
+                    <td v-if="editor == 'medium-editor'" class="ellipsis" @click="takeTaskForEdit(task, index)">
+
+                        <medium-editor :text='task.name' v-on:edit="recordingNewName"></medium-editor>
+
+                    </td>
+
+
+                    <td v-if="editor == 'quill'" class="ellipsis" @click="takeTaskForEdit(task, index, 'name')">
+
+                        <div v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'">
+
+                            <quill-editor v-model="taskForEdit.task.name"> </quill-editor>
+
+                        </div>
+
+                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'description'" v-html="task.name"></div>
+
+                    </td>
+
+                    <!--aquiiiiiiiiii-->
+
+                    <td v-if="taskForEdit.index == index && taskForEdit.field == 'user'">
+                        <select @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
+                            <option v-for="user in users" :value="user.id">{{user.name}}</option>
+                        </select>
+                    </td>
+                    <td v-else @click="takeTaskForEdit(task, index, 'user')">{{task.user_id}}</td>
+
+
                     <td class="align-center"> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
                     <!--<td class="description" @click="takeTaskForEdit(task, index)" v-html="task.description" data-toggle="modal" data-target="#modal-description"></td>-->
 
-                    <td v-if="editor == 'medium-editor'" class="description" @click="takeTaskForEdit(task, index)">
+                    <td v-if="editor == 'medium-editor'" class="ellipsis" @click="takeTaskForEdit(task, index, 'description')">
 
 
                         <medium-editor :text='task.description' v-on:edit="recordingNewDescription"></medium-editor>
@@ -126,31 +161,31 @@
                     </td>
 
 
-                    <td v-if="editor == 'quill'" class="description" @click="takeTaskForEdit(task, index)">
+                    <td v-if="editor == 'quill'" class="ellipsis" @click="takeTaskForEdit(task, index, 'description')">
 
-                        <div v-if="index == taskForEdit.index && taskForEdit.editing == true">
+                        <div v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'description'">
 
                             <quill-editor v-model="taskForEdit.task.description"> </quill-editor>
 
                         </div>
 
-                        <div v-if="taskForEdit.index != index" v-html="task.description"></div>
+                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'name'" v-html="task.description"></div>
 
                     </td>
 
 
                     <td class="action">
                         <div class="align-center btn-group">
-                            <button v-if="index == taskForEdit.index && taskForEdit.editing == true" type="button" @click="saveTask" class="btn btn-default" alt="Save Task">
+                            <button v-if="index == taskForEdit.index && taskForEdit.editing == true " type="button" @click="saveTask(task)" class="btn btn-default" alt="Save Task">
                                 <i class="fa fa-floppy-o"></i>
                             </button>
-                            <button @click="btnShowTask(task)" type="button" data-toggle="modal" data-target="#modal-task" class="btn btn-success">
+                            <button @click="btnShowTask(task)" type="button" data-toggle="modal" data-target="#modal-task" class="btn btn-success" dusk="show">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button @click="btnEditTask(task, index)" data-toggle="modal" data-target="#modal-task" class="btn btn-info">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button @click="proves('drop')" type="button" class="btn btn-danger">
+                            <!--<button @click="btnEditTask(task, index)" data-toggle="modal" data-target="#modal-task" class="btn btn-info">-->
+                                <!--<i class="fa fa-edit"></i>-->
+                            <!--</button>-->
+                            <button @click="btnDeleteTask(task)" type="button" class="btn btn-danger">
                                 <i class="fa fa-trash-o"></i>
                             </button>
                         </div>
@@ -196,7 +231,7 @@
 
             <div class="btn-group">
                 <button @click="show('all')" :class="{active: this.filter =='all'}"> All</button>
-                <button @click="show('completed')" :class="{active: this.filter =='completed'}">Completed</button>
+                <button id="completed" dusk="completed" @click="show('completed')" :class="{active: this.filter =='completed'}">Completed</button>
                 <button @click="show('pending') " :class="{active: this.filter =='pending'}">Pending</button>
 
             </div>
@@ -245,13 +280,18 @@
     .fade-enter, .fade-leave-to{
         opacity: 0;
     }
-    .description{
+    .ellipsis{
 
         max-width: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
 
+    }
+
+    .name {
+
+        width: 70px;
     }
 
     .action{
@@ -309,6 +349,7 @@
   }
 
   const API_URL = '/api/v1/tasks';
+  const API_URL_USERS = '/api/v1/users';
   const LOCAL_STORAGE_KEY = 'TASKS';
 
 
@@ -328,9 +369,14 @@
           index: -1,
           task: [],
           editing: false,
-
+          field: '',
+          user: [],
+          owner: '',
         },
+
+        users: [],
         modifiedDescription: '',
+        modifiedName: '',
 
         form: new Form({user_id:'', name: '', id: '', description: ''})
       }
@@ -362,11 +408,11 @@
 
       addTask() {
 
-        let pos = (this.tasks.length)+1;
+        let id = '';
         let url = API_URL
         this.form.post(url).then((response) =>  {
-
-          this.tasks.push({ name : this.form.name, id: pos, user_id: this.form.user_id, description: this.form.description, completed : false})
+            id = response.data.id;
+          this.tasks.push({ name : this.form.name, id: id, user_id: this.form.user_id, description: this.form.description, completed : false})
           this.form.name=''
           this.form.description=''
 
@@ -377,11 +423,21 @@
 
       },
 
-      takeTaskForEdit(task, index){
+      takeTaskForEdit(task, index, field){
 
         this.taskForEdit.task = task;
         this.taskForEdit.index = index;
         this.taskForEdit.editing = true;
+        this.taskForEdit.field = field;
+        this.taskForEdit.user = this.users[task.user_id];
+
+        if(this.modifiedDescription == '' && this.modifiedName == ''){
+
+          this.modifiedDescription = task.description;
+
+          this.modifiedName = task.name;
+
+        }
       },
 
       recordingNewDescription(task) {
@@ -390,24 +446,31 @@
 
       },
 
-      prova(){
+      recordingNewName(task) {
 
-//        console.log(this.taskForEdit);
-        console.log("alo");
+        this.modifiedName = task.api.origElements.innerHTML;
       },
 
-      saveTask() {
+      prova(task){
+        console.log(task);
+      },
 
+      saveTask(task) {
+        var pos = this.tasks.indexOf(task);
         var description = '';
-        let url = '/api/v1/description-tasks/'+this.taskForEdit.task.id;
-        var pos = this.taskForEdit.index;
+        var name = '';
+        var owner = this.users[task.user_id-1];
+        let url = '/api/v1/description-tasks/'+task.id;
 
+        (this.editor == '') ? name = task.name : (this.editor == 'medium-editor') ? name = this.modifiedName : name = this.taskForEdit.task.name;
 
-        (this.editor == 'medium-editor') ? description = this.modifiedDescription : description = this.taskForEdit.task.description;
+        (this.editor == '') ? description = task.description : (this.editor == 'medium-editor') ? description = this.modifiedDescription : description = this.taskForEdit.task.description;
 
-        axios.put(url, {description: description }).then((response) =>  {
+        axios.put(url, {name: name, description: description, user_id: owner.id }).then((response) =>  {
 
+          this.tasks[pos].name = name;
           this.tasks[pos].description = description;
+          this.tasks[pos].user_id = owner.id;
 
         }).catch((error) => {
 
@@ -417,7 +480,7 @@
           this.taskForEdit.task = [];
           this.taskForEdit.index = -1;
           this.taskForEdit.editing = false;
-
+          this.taskForEdit.field = '';
           this.$emit('loading',false)
 
         })
@@ -448,19 +511,34 @@
 
         this.taskForEdit.task = task;
         this.taskForEdit.editing = false;
+        this.taskForEdit.owner = this.users[task.user_id-1].name;
 
       },
 
       btnEditTask(task, index){
 
-
+        this.usedTask = task;
         this.taskForEdit.task = task;
         this.taskForEdit.index = index;
         this.taskForEdit.editing = true;
       },
 
+      btnDeleteTask(task) {
+
+
+          this.$emit('loading', true)
+          this.taskBeingDeleted = task.id
+          axios.delete('/api/v1/tasks/' + task.id).then(() => {
+            this.tasks.splice(this.tasks.indexOf(task), 1)
+          }).catch((error) => {
+            flash(error.message)
+          }).then(() => {
+            this.$emit('loading', false)
+          })
+        },
 
     },
+
     mounted() {
 
 
@@ -475,6 +553,21 @@
 
         this.loading = false
       })
+
+      this.loading = true;
+
+      axios.get(API_URL_USERS).then((response) =>  {
+        this.users = response.data;
+
+      }).catch((error) => {
+        flash(error.message)
+      }).then(()=>{
+
+        this.loading = false
+        console.log(this.users);
+
+      })
+
 
     }
   }
