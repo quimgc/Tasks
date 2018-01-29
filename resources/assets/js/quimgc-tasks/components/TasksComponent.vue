@@ -101,7 +101,7 @@
                     </td>
 
 
-                    <td class="align-center"> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
+                    <td class="align-center"> <toggle-button :sync="true" :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
                     <!--<td class="description" @click="takeTaskForEdit(task, index)" v-html="task.description" data-toggle="modal" data-target="#modal-description"></td>-->
 
                     <td v-if="editor == 'medium-editor'" class="ellipsis" @click="takeTaskForEdit(task, index, 'description')">
