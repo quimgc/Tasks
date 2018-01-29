@@ -91,7 +91,7 @@
 
                         </div>
 
-                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'description'" v-html="task.name"></div>
+                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'description' || taskForEdit.field == 'user'" v-html="task.name"></div>
 
                     </td>
 
@@ -101,7 +101,13 @@
                             <option v-for="user in users" :value="user.id">{{user.name}}</option>
                         </select>
                     </td>
-                    <td v-else @click="takeTaskForEdit(task, index, 'user')">{{task.user_id}}</td>
+
+                    <td v-else @click="takeTaskForEdit(task, index, 'user')">
+                        <!--<select class="prova" @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">-->
+                            <!--<option v-for="user in users" :value="user.id">{{user.name}}</option>-->
+                        <!--</select>-->
+                        {{users[task.user_id-1].name}}
+                    </td>
 
 
                     <td class="align-center"> <toggle-button :value="task.completed" @change="isCompletedTask(task)" v-model="task.completed"/> </td>
@@ -123,7 +129,7 @@
 
                         </div>
 
-                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'name'" v-html="task.description"></div>
+                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'name' || taskForEdit.field == 'user'" v-html="task.description"></div>
 
                     </td>
 
@@ -259,6 +265,7 @@
         display: flex;
             justify-content: center;
     }
+
 </style>
 
 
@@ -495,19 +502,6 @@
 
     mounted() {
 
-
-      this.loading = true;
-
-      axios.get(API_URL).then((response) =>  {
-        this.tasks = response.data;
-
-      }).catch((error) => {
-        flash(error.message)
-      }).then(()=>{
-
-        this.loading = false
-      })
-
       this.loading = true;
 
       axios.get(API_URL_USERS).then((response) =>  {
@@ -521,6 +515,20 @@
         console.log(this.users);
 
       })
+
+      this.loading = true;
+
+      axios.get(API_URL).then((response) =>  {
+        this.tasks = response.data;
+
+      }).catch((error) => {
+        flash(error.message)
+      }).then(()=>{
+
+        this.loading = false
+      })
+
+
 
 
     }
