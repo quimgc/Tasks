@@ -3,7 +3,7 @@
 
     <div>
 
-        <!--Show or Edit Task-->
+        <!--Show Task-->
 
         <div class="modal fade" id="modal-task">
             <div class="modal-dialog">
@@ -18,12 +18,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title"><b v-html="taskForEdit.task.name"></b></h3>
                         </div>
-                        <!-- /.box-header -->
-                        <!-- form start -->
 
-                        <!--<select @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
-                            <option v-for="user in users" :value="user.id">{{user.name}}</option>
-                        </select>-->
                             <div v-if="taskForEdit.editing == false" class="box-body">
 
                                 <div class="form-group">
@@ -54,50 +49,10 @@
                             <!-- /.box-body -->
 
 
-
-
-                            <!--<div v-if="taskForEdit.editing == true"  class="box-body">-->
-                                <!--<div class="form-group">-->
-                                    <!--<label>User id</label>-->
-                                    <!--<input  type="text" class="form-control" :value="taskForEdit.task.user_id">-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                    <!--<label>Task name</label>-->
-                                    <!--<input type="text" class="form-control" v-model="taskForEdit.task.name">-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                    <!--<label>Completed</label>-->
-                                    <!--<toggle-button :value="taskForEdit.task.completed" @change="isCompletedTask(taskForEdit.task)" v-model="taskForEdit.task.completed"/>-->
-
-                                    <!--&lt;!&ndash;<input type="text" class="form-control" :value="taskForEdit.task.completed">&ndash;&gt;-->
-                                <!--</div>-->
-
-                                <!--<div>-->
-                                    <!--<label>Description</label>-->
-                                    <!--<td v-if="editor == 'medium-editor'">-->
-
-                                        <!--<medium-editor :text='taskForEdit.task.description' v-on:edit="recordingNewDescription"></medium-editor>-->
-
-                                    <!--</td>-->
-
-                                    <!--<td v-if="editor == 'quill'">-->
-
-                                        <!--<quill-editor v-model="taskForEdit.task.description">-->
-
-                                        <!--</quill-editor>-->
-
-                                    <!--</td>-->
-
-                                <!--</div>-->
-
-                            <!--</div>-->
-
-
                     </div>
                 </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <!--<button v-if="taskForEdit.editing == true" @click="saveTask" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>-->
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -140,7 +95,6 @@
 
                     </td>
 
-                    <!--aquiiiiiiiiii-->
 
                     <td v-if="taskForEdit.index == index && taskForEdit.field == 'user'">
                         <select @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
