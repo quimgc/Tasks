@@ -5,6 +5,6 @@
 @endsection
 
 @section('main-content')
-  <tasks></tasks>
+  <tasks id="tasks-component"></tasks>
 @endsection
 

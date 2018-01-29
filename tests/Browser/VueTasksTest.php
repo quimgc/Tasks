@@ -38,43 +38,41 @@ class VueTasksTest extends DuskTestCase
         return factory(User::class)->create();
     }
 
-    /**
-     * Assign role task manager.
-     *
-     * @param $user
-     */
-    protected function assignRoleTaskManager($user)
-    {
-        $user->assignRole('task-manager');
-    }
+
 
     /**
+     * @param $browser
      * @return mixed
      */
     protected function login($browser)
     {
-        $user = $this->createUser();
-        $this->assignRoleTaskManager($user);
+        $user = factory(User::class)->create();
+        $user->assignRole('task-manager');
+        $user->assignRole('users-manager');
         $browser->loginAs($user);
+
         return $user;
     }
 
     /**
      * List tasks.
-     *TODO
+     * @test
      *
      * @return void
      */
     public function list_tasks()
     {
         $this->browse(function (Browser $browser) {
-            $this->login($browser);
-            $tasks = factory(Task::class,5)->create();
+            $tasks = factory(Task::class,2)->create();
             $browser->maximize();
+
+            $this->login($browser);
+
             $browser->visit(new VueTasksPage())
                     ->seeTitle('Tasks')
+                    ->assertVisible('.table')
                     ->dontSeeAlert('Tasques new')
-                    ->seeBox('Tasques new')
+//                    ->seeBox('Tasques new');
                     ->assertVue('tasks', $tasks->toArray(), '@tasks')
                     ->seeTasks($tasks);
         });
@@ -82,8 +80,8 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * Reload.
-     * TODO
-     *
+     * 
+     * @test
      */
     public function reload()
     {
@@ -109,7 +107,7 @@ class VueTasksTest extends DuskTestCase
     /**
      * See completed tasks.
      *
-     * @test
+     *
      *
      */
     public function see_completed_tasks()

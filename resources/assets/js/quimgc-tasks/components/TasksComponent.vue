@@ -60,13 +60,14 @@
         </div>
 
 
-
+        <button @click="reload" type="button" class="btn btn-warning"> Refresh &nbsp;<i class="fa fa-refresh fa-lg"></i></button>
         <widget :loading="loading">
         <p slot="title">Tasques new</p>
         <div v-cloak>
 
             <table class="table table-bordered table-hover" dusk="tasks">
-                <tbody><tr>
+                <tbody>
+                <tr>
                     <th style="width: 10px">#</th>
                     <th style="width: 70px" class="ellipsis">Task</th>
                     <th style="width: 150px">Owner</th>
@@ -74,7 +75,8 @@
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
-                <tr v-for="(task, index) in filteredTasks" dusk="tasks" id="tasks">
+
+                <tr v-for="(task, index) in filteredTasks">
                     <td>{{index +1 }}</td>
 
                     <td v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'" class="ellipsis">
@@ -120,7 +122,7 @@
 
                         </div>
 
-                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'user' || taskForEdit.field == ''" v-html="task.description"></div>
+                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'user' || taskForEdit.field == '' || taskForEdit.field == 'name'" v-html="task.description"></div>
 
                     </td>
 
@@ -189,11 +191,8 @@
 
             <div slot="footer">
 
-                <h2>Tasques pendents: </h2>
+                {{ pendingTaskCounter }} tasks left
 
-                <ul>
-                    {{this.pendingTaskCounter}}
-                </ul>
 
             </div>
 
@@ -202,7 +201,7 @@
 
         </widget>
 
-        <message title="Message" message="" color="info"></message>
+        <message class="alert" title="Message" message="" color="info"></message>
 
 
     </div>
@@ -346,6 +345,10 @@
 
     methods: {
 
+      reload(){
+        this.loadInfo();
+      },
+
       show(filter){
 
         this.filter = filter
@@ -395,9 +398,7 @@
 
       },
 
-      prova(task){
-        console.log(task);
-      },
+
 
       saveTask(task) {
         var pos = this.tasks.indexOf(task);
@@ -479,38 +480,39 @@
           })
         },
 
+      loadInfo(){
+
+        this.loading = true;
+
+        axios.get(API_URL_USERS).then((response) =>  {
+          this.users = response.data;
+
+        }).catch((error) => {
+          flash(error.message)
+        }).then(()=>{
+
+          this.loading = false
+
+        })
+
+        this.loading = true;
+
+        axios.get(API_URL).then((response) =>  {
+          this.tasks = response.data;
+
+        }).catch((error) => {
+          flash(error.message)
+        }).then(()=>{
+
+          this.loading = false
+        })
+      },
+
     },
 
     mounted() {
 
-      this.loading = true;
-
-      axios.get(API_URL_USERS).then((response) =>  {
-        this.users = response.data;
-
-      }).catch((error) => {
-        flash(error.message)
-      }).then(()=>{
-
-        this.loading = false
-        console.log(this.users);
-
-      })
-
-      this.loading = true;
-
-      axios.get(API_URL).then((response) =>  {
-        this.tasks = response.data;
-
-      }).catch((error) => {
-        flash(error.message)
-      }).then(()=>{
-
-        this.loading = false
-      })
-
-
-
+        this.loadInfo();
 
     }
   }

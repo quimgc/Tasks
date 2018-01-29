@@ -74,11 +74,10 @@ class VueTasksPage extends BasePage
      *
      * @param Browser $browser
      */
-    public function seeBox(Browser $browser, $title)
+    public function seeBox(Browser $browser, $tasks)
     {
-        $browser->assertVisible('.box');
-        $browser->assertSeein('.box .box-title',$title);
-        $browser->assertVisible('.box .box-body ul');
+        $browser->assertVisible('.table');
+
     }
 
     /**
@@ -90,11 +89,12 @@ class VueTasksPage extends BasePage
     public function seeTasks(Browser $browser, $tasks)
     {
         foreach ($tasks as $task) {
+
             $this->seeTask($browser, $task);
         }
+
         $browser->assertSee(count($tasks) . ' tasks left');
     }
-
     /**
      * See tasks on page.
      *
