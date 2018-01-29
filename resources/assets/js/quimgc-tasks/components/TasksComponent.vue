@@ -68,7 +68,7 @@
             <table class="table table-bordered table-hover" dusk="tasks">
                 <tbody><tr>
                     <th style="width: 10px">#</th>
-                    <th class="ellipsis">Task</th>
+                    <th style="width: 70px" class="ellipsis">Task</th>
                     <th style="width: 150px">Owner</th>
                     <th style="width: 150px">Completed</th>
                     <th>Description</th>
@@ -76,25 +76,17 @@
                 </tr>
                 <tr v-for="(task, index) in filteredTasks" dusk="tasks" id="tasks">
                     <td>{{index +1 }}</td>
-                    <td v-if="editor == 'medium-editor'" class="ellipsis" @click="takeTaskForEdit(task, index)">
 
-                        <medium-editor :text='task.name' v-on:edit="recordingNewName"></medium-editor>
+                    <td v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'" class="ellipsis">
 
-                    </td>
-
-
-                    <td v-if="editor == 'quill'" class="ellipsis" @click="takeTaskForEdit(task, index, 'name')">
-
-                        <div v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'">
-
-                            <quill-editor v-model="taskForEdit.task.name"> </quill-editor>
-
-                        </div>
-
-                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'description' || taskForEdit.field == 'user'" v-html="task.name"></div>
+                        <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" name="name">
 
                     </td>
 
+                    <td v-else class="ellipsis"  @click="takeTaskForEdit(task, index, 'name')">
+
+                            {{task.name}}
+                    </td>
 
                     <td v-if="taskForEdit.index == index && taskForEdit.field == 'user'">
                         <select @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
@@ -103,10 +95,9 @@
                     </td>
 
                     <td v-else @click="takeTaskForEdit(task, index, 'user')">
-                        <!--<select class="prova" @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">-->
-                            <!--<option v-for="user in users" :value="user.id">{{user.name}}</option>-->
-                        <!--</select>-->
+
                         {{users[task.user_id-1].name}}
+
                     </td>
 
 
@@ -123,13 +114,13 @@
 
                     <td v-if="editor == 'quill'" class="ellipsis" @click="takeTaskForEdit(task, index, 'description')">
 
-                        <div v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'description'">
+                        <div v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'description'" @keydown.esc="takeTaskForEdit(task, index, '')">
 
                             <quill-editor v-model="taskForEdit.task.description"> </quill-editor>
 
                         </div>
 
-                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'name' || taskForEdit.field == 'user'" v-html="task.description"></div>
+                        <div v-if="taskForEdit.index != index || taskForEdit.field == 'user' || taskForEdit.field == ''" v-html="task.description"></div>
 
                     </td>
 
@@ -337,8 +328,6 @@
 
         users: [],
         modifiedDescription: '',
-        modifiedName: '',
-
         form: new Form({user_id:'', name: '', id: '', description: ''})
       }
     },
@@ -392,11 +381,10 @@
         this.taskForEdit.field = field;
         this.taskForEdit.user = this.users[task.user_id];
 
-        if(this.modifiedDescription == '' && this.modifiedName == ''){
+        this.form.name = task.name;
+        if(this.modifiedDescription == ''){
 
           this.modifiedDescription = task.description;
-
-          this.modifiedName = task.name;
 
         }
       },
@@ -407,11 +395,6 @@
 
       },
 
-      recordingNewName(task) {
-
-        this.modifiedName = task.api.origElements.innerHTML;
-      },
-
       prova(task){
         console.log(task);
       },
@@ -419,11 +402,9 @@
       saveTask(task) {
         var pos = this.tasks.indexOf(task);
         var description = '';
-        var name = '';
+        var name = this.form.name;
         var owner = this.users[task.user_id-1];
         let url = '/api/v1/description-tasks/'+task.id;
-
-        (this.editor == '') ? name = task.name : (this.editor == 'medium-editor') ? name = this.modifiedName : name = this.taskForEdit.task.name;
 
         (this.editor == '') ? description = task.description : (this.editor == 'medium-editor') ? description = this.modifiedDescription : description = this.taskForEdit.task.description;
 
