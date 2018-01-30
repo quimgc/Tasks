@@ -104,6 +104,7 @@ class VueTasksPage extends BasePage
     public function dontSeeTasks(Browser $browser, $tasks)
     {
         foreach ($tasks as $task) {
+
             $this->dontSeeTask($browser, $task);
         }
     }
@@ -255,7 +256,7 @@ class VueTasksPage extends BasePage
         //Init delete
         $this->delete($browser, $task);
         //Confirm delete
-        $this->destroy($browser); // No need of task-> only one visible confirm exists
+//        $this->destroy($browser); // No need of task-> only one visible confirm exists
     }
 
     /**
@@ -282,7 +283,8 @@ class VueTasksPage extends BasePage
      */
     public function delete(Browser $browser, $task)
     {
-        $browser->press('@delete-task-' . $task->id);
+
+
     }
 
     /**
