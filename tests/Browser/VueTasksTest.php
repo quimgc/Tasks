@@ -56,7 +56,7 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * List tasks.
-     *
+     * @test
      *
      * @return void
      */
@@ -80,7 +80,7 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * Reload.
-     *
+     * @test
      *
      */
     public function reload()
@@ -97,6 +97,7 @@ class VueTasksTest extends DuskTestCase
 //
             $browser->reload()
                 ->assertVue('loading', true, '@tasks')
+                ->pause(2000)
                 ->assertVue('loading', false, '@tasks')
                 ->seeTask($task);
         });
@@ -105,7 +106,7 @@ class VueTasksTest extends DuskTestCase
     /**
      * See completed tasks.
      *
-     *
+     * @test
      *
      */
     public function see_completed_tasks()
@@ -130,8 +131,8 @@ class VueTasksTest extends DuskTestCase
     /**
      * See pending tasks.
      *
-     *@test
-      *
+     * @test
+     *
      */
     public function see_pending_tasks()
     {
@@ -221,17 +222,23 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * Delete task
-     *@test
+     * @group test
+     * @test
      */
     public function delete_task()
     {
         $this->browse(function (Browser $browser) {
             $this->login($browser);
             $browser->maximize();
-            $task = factory(Task::class)->create();
+            $user = factory(User::class)->create();
+            $tasks = [Task::create(['name' => 'quim', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
+                Task::create(['name' => 'ieeek', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
+
             $browser->visit(new VueTasksPage())
-                ->press('#delete-task-'.$task->id)
-                ->dontSeeTask($task);
+                ->assertSee($tasks[0]->name)
+                ->press('#delete-task-'.$tasks[0]->id)
+                ->pause(1000)
+                ->dontSeeTask($tasks[0]);
         });
     }
 
