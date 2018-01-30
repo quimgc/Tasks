@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
     <!--hola-->
+=======
+<!--hola-->
+>>>>>>> 63532d4b66c5ab4e9f7af1f3a658aade60ff13c7
 
     <div>
 
