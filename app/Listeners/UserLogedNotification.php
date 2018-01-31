@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\LogedUser;
-use App\Mail\customMail;
-use App\Mail\Hello;
 use App\Mail\HelloUser;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -30,7 +28,6 @@ class UserLogedNotification
      */
     public function handle(LogedUser $event)
     {
-
         Log::info('Todo UserLoggedNotification');
 
         $hello = new HelloUser($event->user);
