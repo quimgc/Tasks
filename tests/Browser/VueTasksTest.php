@@ -81,7 +81,7 @@ class VueTasksTest extends DuskTestCase
     /**
      * Reload.
      * @test
-     *
+     * @group test
      */
     public function reload()
     {
@@ -94,7 +94,8 @@ class VueTasksTest extends DuskTestCase
                 ->seeTasks($tasks);
 
             $task = factory(Task::class)->create();
-//
+
+            //
             $browser->reload()
                 ->assertVue('loading', true, '@tasks')
                 ->pause(2000)
@@ -114,12 +115,12 @@ class VueTasksTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $this->login($browser);
             $user = factory(User::class)->create();
-            $tasks = [Task::create(['name' => 'Tasca', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
-                Task::create(['name' => 'Tasca2', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
+            $tasks = [Task::create(['name' => 'pendeeeent', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
+                Task::create(['name' => 'un altre nom', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
 
 
-            $completed_tasks = [Task::create(['name' => 'Tasca completa', 'description' => 'Per al test complet','user_id' => $user->id, 'completed' => true]),
-                Task::create(['name' => 'Tasca completa2', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true])];
+            $completed_tasks = [Task::create(['name' => 'tercer nom', 'description' => 'Per al test complet','user_id' => $user->id, 'completed' => true]),
+                Task::create(['name' => 'quartnom', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true])];
 
             $browser->maximize();
             $browser->visit(new VueTasksPage())
@@ -139,12 +140,12 @@ class VueTasksTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $this->login($browser);
             $user = factory(User::class)->create();
-            $tasks = [Task::create(['name' => 'Tasca', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
-                Task::create(['name' => 'Tasca2', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
+            $tasks = [Task::create(['name' => 'ascaaa', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
+                Task::create(['name' => 'prova', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
 
 
-            $completed_tasks = [Task::create(['name' => 'Tasca completa', 'description' => 'Per al test complet','user_id' => $user->id, 'completed' => true]),
-                Task::create(['name' => 'Tasca completa2', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true])];
+            $completed_tasks = [Task::create(['name' => 'completa', 'description' => 'Per al test complet','user_id' => $user->id, 'completed' => true]),
+                Task::create(['name' => 'tambeestafet', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true])];
 
             $browser->maximize();
             $browser->visit(new VueTasksPage())
@@ -222,7 +223,6 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * Delete task
-     * @group test
      * @test
      */
     public function delete_task()
@@ -231,36 +231,38 @@ class VueTasksTest extends DuskTestCase
             $this->login($browser);
             $browser->maximize();
             $user = factory(User::class)->create();
-            $tasks = [Task::create(['name' => 'quim', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
+            $tasks = [Task::create(['name' => 'fhjoirfhh', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
                 Task::create(['name' => 'ieeek', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
-
+            $task = $tasks[0];
             $browser->visit(new VueTasksPage())
                 ->assertSee($tasks[0]->name)
+                ->pause(1000)
                 ->press('#delete-task-'.$tasks[0]->id)
                 ->pause(1000)
-                ->dontSeeTask($tasks[0]);
+                ->press('#delete-task')
+                ->pause(1000)
+                ->dontSeeTask($task);
         });
     }
 
     /**
-     *
+     * @test
      * Cancel delete task
-     * TODO -> perque no tinc fet l'opció de preguntar si borrar una tasca o no.
      */
-//    public function cancel_delete_task()
-//    {
-//        $this->browse(function (Browser $browser) {
-//            $this->login($browser);
-//            $browser->maximize();
-//            $task = factory(Task::class)->create();
-//            $browser->visit(new VueTasksPage())
-//                ->press('#delete-task-'.$task->id)
-//                ->assertVue('deleting', true, '@tasks') //  Test state
-//                ->cancel_delete() // TODO
-//                ->assertVue('deleting', false, '@tasks') //  Test state
-//                ->seeTask($task);
-//        });
-//    }
+    public function cancel_delete_task()
+    {
+        $this->browse(function (Browser $browser) {
+            $this->login($browser);
+            $browser->maximize();
+            $user = factory(User::class)->create();
+            $task = Task::create(['name' => 'quim', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]);
+            $browser->visit(new VueTasksPage())
+                ->press('#delete-task-'.$task->id)
+                    ->pause(1000)
+                ->cancel_delete()
+                ->seeTask($task);
+        });
+    }
 
     /**
      * Toogle complete task.

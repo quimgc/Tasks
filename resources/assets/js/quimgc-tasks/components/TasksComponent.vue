@@ -5,7 +5,7 @@
 
 
         <widget :loading="loading">
-            <button id="reload" @click="reload" type="button" class="btn btn-warning">
+            <button id="reload" @click="refresh" type="button" class="btn btn-warning">
                 Refresh &nbsp;<i class="fa fa-refresh fa-lg"></i>
             </button>
 
@@ -25,7 +25,7 @@
                                     <h3 class="box-title"><b v-html="taskForEdit.task.name"></b></h3>
                                 </div>
 
-                                <div v-if="taskForEdit.editing == false" class="box-body">
+                                <div v-if="taskForEdit.editing == false || taskForEdit.field == 'delete'" class="box-body">
 
                                     <div class="form-group">
                                         <label>Task ID</label>
@@ -58,8 +58,10 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button id="cancel-delete-task" type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button v-if="taskForEdit.field == 'delete'" id="delete-task"  type="button" @click="btnDeleteTask(taskForEdit.task)" class="btn btn-warning" data-dismiss="modal">Delete</button>
                         </div>
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -82,7 +84,7 @@
                     <tr v-for="(task, index) in filteredTasks">
                         <td>{{index +1 }}</td>
 
-                        <td v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'" class="ellipsis">
+                        <td v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'" class="ellipsis" @keydown.esc="takeTaskForEdit(task, index, '')">
 
                             <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" name="name">
 
@@ -94,7 +96,7 @@
                         </td>
 
                         <td v-if="taskForEdit.index == index && taskForEdit.field == 'user'">
-                            <select @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
+                            <select @keydown.esc="takeTaskForEdit(task, index, '')" @change="takeTaskForEdit(task, index, 'user')" v-model="task.user_id">
                                 <option v-for="user in users" :value="user.id">{{user.name}}</option>
                             </select>
                         </td>
@@ -125,24 +127,31 @@
 
                             </div>
 
-                            <div v-if="taskForEdit.index != index || taskForEdit.field == 'user' || taskForEdit.field == '' || taskForEdit.field == 'name'" v-html="task.description"></div>
+                            <div v-if="taskForEdit.index != index || taskForEdit.field == 'user' || taskForEdit.field == '' || taskForEdit.field == 'name' || taskForEdit.field == 'delete'" v-html="task.description"></div>
 
                         </td>
 
 
                         <td class="action">
+
                             <div class="align-center btn-group">
-                                <button v-if="index == taskForEdit.index && taskForEdit.editing == true " type="button" @click="saveTask(task)" class="btn btn-default" alt="Save Task">
+
+                                <button v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field !='' && taskForEdit.field !='delete' " type="button" @click="saveTask(task)" class="btn btn-default" alt="Save Task">
+
                                     <i class="fa fa-floppy-o"></i>
+
                                 </button>
+
                                 <button @click="btnShowTask(task)" type="button" data-toggle="modal" data-target="#modal-task" class="btn btn-success" dusk="show">
+
                                     <i class="fa fa-eye"></i>
+
                                 </button>
-                                <!--<button @click="btnEditTask(task, index)" data-toggle="modal" data-target="#modal-task" class="btn btn-info">-->
-                                <!--<i class="fa fa-edit"></i>-->
-                                <!--</button>-->
-                                <button :id="'delete-task-'+task.id" @click="btnDeleteTask(task)" type="button" class="btn btn-danger">
+
+                                <button :id="'delete-task-'+task.id" @click="takeTaskForEdit(task, index, 'delete')" data-toggle="modal" data-target="#modal-task"  type="button" class="btn btn-danger">
+
                                     <i class="fa fa-trash-o"></i>
+
                                 </button>
                             </div>
                         </td>
@@ -324,7 +333,6 @@
           task: [],
           editing: false,
           field: '',
-          user: [],
           owner: '',
         },
 
@@ -348,7 +356,7 @@
 
     methods: {
 
-      reload(){
+      refresh(){
         this.loadInfo();
       },
 
@@ -385,7 +393,7 @@
         this.taskForEdit.index = index;
         this.taskForEdit.editing = true;
         this.taskForEdit.field = field;
-        this.taskForEdit.user = this.users[task.user_id];
+        this.taskForEdit.owner = this.users[task.user_id-1].name;
 
         this.form.name = task.name;
         if(this.modifiedDescription == ''){
@@ -461,13 +469,6 @@
 
       },
 
-      btnEditTask(task, index){
-
-        this.usedTask = task;
-        this.taskForEdit.task = task;
-        this.taskForEdit.index = index;
-        this.taskForEdit.editing = true;
-      },
 
       btnDeleteTask(task) {
 
@@ -494,7 +495,7 @@
           flash(error.message)
         }).then(()=>{
 
-          this.loading = false
+          this.loading = false;
 
         })
 

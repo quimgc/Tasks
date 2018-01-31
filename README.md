@@ -419,3 +419,6 @@ Afegir tot això al fitxer de configuració (compte amb els paths):
         numprocs=8
         redirect_stderr=true
         stdout_logfile=/home/quim/Code/Tasks/storage/logs/worker.log
+
+
+Al fitxer .env canviar QUEUE_DRIVER=sync per QUEUE_DRIVER=redis

@@ -29,7 +29,7 @@ class AssignDefaultPermission implements ShouldQueue
     {
         $event->user->assignRole('task-manager');
 
-//        sleep(20);
+        sleep(20);
         Log::info('Todo AssignDefaultPermission');
     }
 }
