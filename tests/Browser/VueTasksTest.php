@@ -4,14 +4,13 @@ namespace Tests\Browser;
 
 use App\Task;
 use App\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\VueTasksPage;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 /**
- * Class VueTasksTest
- * @package Tests\Browser
+ * Class VueTasksTest.
  */
 class VueTasksTest extends DuskTestCase
 {
@@ -38,10 +37,9 @@ class VueTasksTest extends DuskTestCase
         return factory(User::class)->create();
     }
 
-
-
     /**
      * @param $browser
+     *
      * @return mixed
      */
     protected function login($browser)
@@ -56,6 +54,7 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * List tasks.
+     *
      * @test
      *
      * @return void
@@ -63,7 +62,7 @@ class VueTasksTest extends DuskTestCase
     public function list_tasks()
     {
         $this->browse(function (Browser $browser) {
-            $tasks = factory(Task::class,2)->create();
+            $tasks = factory(Task::class, 2)->create();
             $browser->maximize();
 
             $this->login($browser);
@@ -80,6 +79,7 @@ class VueTasksTest extends DuskTestCase
 
     /**
      * Reload.
+     *
      * @test
      * @group test
      */
@@ -87,7 +87,7 @@ class VueTasksTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $this->login($browser);
-            $tasks = factory(Task::class,5)->create();
+            $tasks = factory(Task::class, 5)->create();
             $browser->maximize();
             $browser->visit(new VueTasksPage())
                 ->assertVue('tasks', $tasks->toArray(), '@tasks')
@@ -108,7 +108,6 @@ class VueTasksTest extends DuskTestCase
      * See completed tasks.
      *
      * @test
-     *
      */
     public function see_completed_tasks()
     {
@@ -116,11 +115,10 @@ class VueTasksTest extends DuskTestCase
             $this->login($browser);
             $user = factory(User::class)->create();
             $tasks = [Task::create(['name' => 'pendeeeent', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
-                Task::create(['name' => 'un altre nom', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
+                Task::create(['name' => 'un altre nom', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false]), ];
 
-
-            $completed_tasks = [Task::create(['name' => 'tercer nom', 'description' => 'Per al test complet','user_id' => $user->id, 'completed' => true]),
-                Task::create(['name' => 'quartnom', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true])];
+            $completed_tasks = [Task::create(['name' => 'tercer nom', 'description' => 'Per al test complet', 'user_id' => $user->id, 'completed' => true]),
+                Task::create(['name' => 'quartnom', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true]), ];
 
             $browser->maximize();
             $browser->visit(new VueTasksPage())
@@ -133,7 +131,6 @@ class VueTasksTest extends DuskTestCase
      * See pending tasks.
      *
      * @test
-     *
      */
     public function see_pending_tasks()
     {
@@ -141,11 +138,10 @@ class VueTasksTest extends DuskTestCase
             $this->login($browser);
             $user = factory(User::class)->create();
             $tasks = [Task::create(['name' => 'ascaaa', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
-                Task::create(['name' => 'prova', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
+                Task::create(['name' => 'prova', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false]), ];
 
-
-            $completed_tasks = [Task::create(['name' => 'completa', 'description' => 'Per al test complet','user_id' => $user->id, 'completed' => true]),
-                Task::create(['name' => 'tambeestafet', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true])];
+            $completed_tasks = [Task::create(['name' => 'completa', 'description' => 'Per al test complet', 'user_id' => $user->id, 'completed' => true]),
+                Task::create(['name' => 'tambeestafet', 'description' => 'Per al test pero segona tasca completa', 'user_id' => $user->id, 'completed' => true]), ];
 
             $browser->maximize();
             $browser->visit(new VueTasksPage())
@@ -158,7 +154,7 @@ class VueTasksTest extends DuskTestCase
     /**
      * Add task
      *No el faig perque s'hauria de tocar codi JS per poder aplicar totes les funcionalitats.
-//     */
+     * //     */
 //    public function add_task()
 //    {
 //        $this->browse(function (Browser $browser) {
@@ -175,10 +171,9 @@ class VueTasksTest extends DuskTestCase
 //    }
 
     /**
-     * Edit task
+     * Edit task.
      *
      * No el faig perque s'hauria de tocar codi JS per poder aplicar totes les funcionalitats.
-
      */
 //    public function edit_task()
 //    {
@@ -199,10 +194,10 @@ class VueTasksTest extends DuskTestCase
 //    }
 
     /**
-     * Cancel edit
+     * Cancel edit.
      *
      * No el faig perque s'hauria de tocar codi JS per poder aplicar totes les funcionalitats.
-//     */
+     * //     */
 //    public function cancel_edit()
 //    {
 //        $this->browse(function (Browser $browser) {
@@ -222,7 +217,8 @@ class VueTasksTest extends DuskTestCase
 //    }
 
     /**
-     * Delete task
+     * Delete task.
+     *
      * @test
      */
     public function delete_task()
@@ -232,7 +228,7 @@ class VueTasksTest extends DuskTestCase
             $browser->maximize();
             $user = factory(User::class)->create();
             $tasks = [Task::create(['name' => 'fhjoirfhh', 'description' => 'Per al test', 'user_id' => $user->id, 'completed' => false]),
-                Task::create(['name' => 'ieeek', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false])];
+                Task::create(['name' => 'ieeek', 'description' => 'Per al test pero segona tasca', 'user_id' => $user->id, 'completed' => false]), ];
             $task = $tasks[0];
             $browser->visit(new VueTasksPage())
                 ->assertSee($tasks[0]->name)
@@ -264,7 +260,7 @@ class VueTasksTest extends DuskTestCase
         });
     }
 
-    /**
+    /*
      * Toogle complete task.
      * No el faig perque s'hauria de tocar codi JS per poder aplicar totes les funcionalitats.
 
@@ -288,5 +284,4 @@ class VueTasksTest extends DuskTestCase
 //                ->seeUnCompletedTask($task); //TODO
 //        });
 //    }
-
 }

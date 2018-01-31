@@ -22,12 +22,11 @@ class LaravelPassportPasswordGrantProxyTest extends TestCase
         parent::setUp();
         initialize_task_permissions();
         Artisan::call('passport:install');
-                $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
     }
 
     /**
      * Can proxy password grant.
-     *
      */
     public function can_proxy_password_grant()
     {

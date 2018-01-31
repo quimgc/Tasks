@@ -15,8 +15,8 @@ class ApiDescriptionTasksController extends Controller
     {
         $request->validate([
             'description' => 'required',
-            'name' => 'required',
-            'user_id' => 'required',
+            'name'        => 'required',
+            'user_id'     => 'required',
         ]);
         $task->description = $request->description;
         $task->name = $request->name;

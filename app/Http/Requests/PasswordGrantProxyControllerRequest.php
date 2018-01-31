@@ -6,8 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class PasswordGrantProxyControllerRequest.
- *
- * @package App\Http\Requests
  */
 class PasswordGrantProxyControllerRequest extends FormRequest
 {
@@ -33,5 +31,4 @@ class PasswordGrantProxyControllerRequest extends FormRequest
             'password' => 'required|min:6',
         ];
     }
-
 }
