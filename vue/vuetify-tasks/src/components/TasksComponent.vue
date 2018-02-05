@@ -1,6 +1,5 @@
 <template>
     <div>
-        <li v-for="task in tasks"> {{ task }}</li>
     </div>
 </template>
 
@@ -10,7 +9,8 @@
 
 <script>
 
-import { mapGetters, mapMutations } from 'Vuex'
+import { mapGetters } from 'Vuex'
+import * as actions from '../store/action-types'
 
 export default {
   name: 'Tasks',
@@ -23,8 +23,7 @@ export default {
     }
   },
   mounted () {
-    console.log('Mounted ok')
-    this.$store.dispatch('fetchTasks')
+    this.$store.dispatch(action.)
   }
 }
 </script>
