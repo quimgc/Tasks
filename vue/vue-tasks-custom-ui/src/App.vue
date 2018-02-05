@@ -52,18 +52,20 @@
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/></svg>
                 </button>
             </form>
-            <nav>
+            <nav class="main-menu">
                 <ul>
                     <li class="header">Main menu</li>
                     <li><a href="#dashboard">
                         <svg class="icon-menu"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm-5.6-4.29a9.95 9.95 0 0 1 11.2 0 8 8 0 1 0-11.2 0zm6.12-7.64l3.02-3.02 1.41 1.41-3.02 3.02a2 2 0 1 1-1.41-1.41z"/></svg>
                         Dashboard</a>
+                        <ul>
+                            <li> Prova</li>
+                            <li> Prova2</li>
+                        </ul>
+
                     </li>
 
-                    <ul class="dropdown-menu">
-                        <li> Prova</li>
-                        <li> Prova2</li>
-                    </ul>
+
 
                     <li>
                         <a href="#tasques">
@@ -104,7 +106,7 @@
                     <li><a href="#tasques">Important</a></li>
                     <li><a href="#tasques">Warning</a></li>
                     <li><a href="#tasques">Information</a></li>
-                    <li><a href="#tasques">Premium Templates</a></li>
+                    <li class="premiumTemplates"><a href="#tasques">Premium Templates</a></li>
 
                 </ul>
             </nav>
@@ -180,10 +182,7 @@
 
     }
 
-    /*DROPDOWN MENU*/
-    .dropdown-menu {
-        
-    }
+
 
     .container {
         display: grid;
@@ -349,7 +348,17 @@
         background-color: #367fa9;
     }
 
+    /*Menú desplegable*/
 
+    .main-menu ul li > ul {
+        display: none;
+        transition: width 2s;
+
+    }
+    .main-menu ul li:hover > ul {
+        display:block;
+    }
+    /* Fi Menú Desplegable*/
 
     /* Responsive */
 

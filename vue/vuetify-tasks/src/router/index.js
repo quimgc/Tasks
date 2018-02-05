@@ -5,6 +5,8 @@ import MainLayout from '@/components/layouts/MainLayout'
 import Login from '@/components/Login'
 import Tasks from '@/components/Tasks'
 import Landing from '@/components/Landing'
+import Counter from '@/components/Counter'
+// import Tasks from '@/components/TasksComponent'
 
 Vue.use(Router)
 
@@ -43,6 +45,11 @@ export default new Router({
             description: 'Tasks',
             requiresAuth: true
           }
+        },
+        {
+          path: '/counter',
+          name: 'Counter',
+          component: Counter
         }
       ]
     }
