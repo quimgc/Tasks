@@ -1,9 +1,6 @@
 <template>
 
     <div>
-
-
-
         <widget :loading="loading">
             <button id="reload" @click="refresh" type="button" class="btn btn-warning">
                 Refresh &nbsp;<i class="fa fa-refresh fa-lg"></i>
@@ -498,7 +495,6 @@
 
         axios.get(API_URL_USERS).then((response) =>  {
           this.users = response.data;
-
         }).catch((error) => {
           flash(error.message)
         }).then(()=>{
