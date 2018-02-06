@@ -25,7 +25,7 @@
                                     <h3 class="box-title"><b v-html="taskForEdit.task.name"></b></h3>
                                 </div>
 
-                                <div v-if="taskForEdit.editing == false || taskForEdit.field == 'delete'" class="box-body">
+                                <div v-if="taskForEdit.editing == false" class="box-body">
 
                                     <div class="form-group">
                                         <label>Task ID</label>
@@ -51,6 +51,11 @@
                                         <label>Description</label>
                                         <td type="text" class="form-control" v-html="taskForEdit.task.description"> </td>
                                     </div>
+                                </div>
+                                <div v-if="taskForEdit.field == 'delete'">
+
+                                    <p>Are you sure you want to delete this task?</p>
+
                                 </div>
                                 <!-- /.box-body -->
 
@@ -84,9 +89,10 @@
                     <tr v-for="(task, index) in filteredTasks">
                         <td>{{index +1 }}</td>
 
-                        <td v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'" class="ellipsis" @keydown.esc="takeTaskForEdit(task, index, '')">
 
-                            <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" name="name">
+                        <td v-if="index == taskForEdit.index && taskForEdit.editing == true && taskForEdit.field == 'name'" @keydown.esc="takeTaskForEdit(task, index, '')"  class="ellipsis">
+
+                            <input @keydown.enter="saveTask(task)" @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" name="name">
 
                         </td>
 
@@ -435,6 +441,7 @@
           this.taskForEdit.index = -1;
           this.taskForEdit.editing = false;
           this.taskForEdit.field = '';
+          this.form.name = '';
           this.$emit('loading',false)
 
         })
@@ -481,6 +488,7 @@
           flash(error.message)
         }).then(() => {
           this.$emit('loading', false)
+          this.form.name = ''
         })
       },
 

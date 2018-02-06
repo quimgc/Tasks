@@ -24,5 +24,6 @@ class ApiDescriptionTasksController extends Controller
         $task->save();
 
         return $task;
+
     }
 }
