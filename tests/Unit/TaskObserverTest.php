@@ -41,7 +41,7 @@ use RefreshDatabase;
 
         $this->assertDatabaseHas('task_events',[
             'time' => $time,
-            'type' => 'completed',
+            'type' => 'created',
             'task_name' => $task->name,
             'user_name' => $user->name
 

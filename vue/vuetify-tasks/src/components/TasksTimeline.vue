@@ -1,7 +1,9 @@
 <template>
+
+    <timeline :events="taskEvents"></timeline>
     <div class="timeline">
 
-        <div class="timeline-event">
+        <div class="timeline-event" v-for="event in taskEvents">
 
 
             <div class="timeline-content">
@@ -30,100 +32,6 @@
             </div>
         </div>
 
-        <div class="timeline-event">
-
-
-            <div class="timeline-content">
-
-
-                <v-card>
-                    <!--<v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">-->
-                    <!--</v-card-media>-->
-                    <v-card-title primary-title>
-                        <div>
-                            <h3 class="headline mb-0">Event 2</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum mollitia pariatur praesentium provident quia. Cupiditate maxime necessitatibus quod reiciendis? Ab delectus ex inventore, ipsa maiores nam nobis quis tenetur totam.</div>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn flat color="orange">Share</v-btn>
-                        <v-btn flat color="orange">Explore</v-btn>
-                    </v-card-actions>
-                </v-card>
-
-
-            </div>
-
-            <div class="timeline-badge red">
-
-                <v-icon>more</v-icon>
-
-            </div>
-
-
-        </div>
-
-        <div class="timeline-event">
-
-
-            <div class="timeline-content">
-
-                <v-card>
-                    <!--<v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">-->
-                    <!--</v-card-media>-->
-                    <v-card-title primary-title>
-                        <div>
-                            <h3 class="headline mb-0">Event 2</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam commodi culpa enim nulla odio? Aliquam delectus eius excepturi fugit magnam officiis, omnis quae ratione, repellendus veniam veritatis vitae! Corporis, quidem.</div>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn flat color="orange">Share</v-btn>
-                        <v-btn flat color="orange">Explore</v-btn>
-                    </v-card-actions>
-                </v-card>
-
-            </div>
-
-            <div class="timeline-badge green">
-
-                <v-icon>more</v-icon>
-
-            </div>
-
-        </div>
-
-        <div class="timeline-event">
-
-
-            <div class="timeline-content">
-
-                <v-card>
-                    <!--<v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">-->
-                    <!--</v-card-media>-->
-                    <v-card-title primary-title>
-                        <div>
-                            <h3 class="headline mb-0">Event 2</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem dolorum, et natus officiis sit voluptas! Beatae distinctio, magni nesciunt nostrum quis saepe. Architecto doloribus facilis, molestiae sapiente ullam veritatis.</div>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn flat color="orange">Share</v-btn>
-                        <v-btn flat color="orange">Explore</v-btn>
-                    </v-card-actions>
-                </v-card>
-
-            </div>
-
-
-            <div class="timeline-badge blue">
-
-                <v-icon>more</v-icon>
-
-            </div>
-
-
-        </div>
 
     </div>
 </template>
@@ -271,15 +179,26 @@
 </style>
 
 <script>
-export default {
-  name: 'name',
-  data () {
-    return {
-      data: 'example'
+  import Timeline from './TimelineComponent.vue'
+
+  export default {
+
+    name: 'TasksTimeline',
+    components: { Timeline },
+    data () {
+      return {
+        taskEvents: []
+      }
+    },
+    mounted () {
+      this.taskEvents = [
+        {
+          'time': '',
+          'type': 'created',
+          'task_name': 'taskName',
+          'task_user': 'taskUser'
+        }
+      ]
     }
-  },
-  mounted () {
-    console.log('Mounted ok')
-  }
 }
 </script>

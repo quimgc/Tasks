@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use Acacha\User\GuestUser;
+use App\Observers\TaskObserver;
 use App\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
-use TaskObserver;
 use View;
 
 class AppServiceProvider extends ServiceProvider

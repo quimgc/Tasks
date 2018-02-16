@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Observers;
+
 use App\Task;
 use App\TaskEvent;
 use Carbon\Carbon;
