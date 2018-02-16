@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
 
         first_user_as_task_manager();
 
-        factory(Task::class, 250)->create();
+        factory(Task::class, 50)->create();
     }
 }
