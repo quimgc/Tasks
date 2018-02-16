@@ -23,11 +23,11 @@ class AppServiceProvider extends ServiceProvider
 
             if(Auth::user()){
 
-                $view->with('user', Auth::user());
+                $view->with('user',Auth::user());
 
             } else {
                 //nullObject
-                $view->with('user', new GuestUser());
+                $view->with('user', new GuestUser);
             }
         });
 

@@ -8,6 +8,12 @@ class Task extends Model
 {
     protected $fillable = ['name', 'user_id', 'description', 'completed'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
     public function toArray()
     {
         return [

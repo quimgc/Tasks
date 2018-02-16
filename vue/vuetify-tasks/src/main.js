@@ -12,6 +12,8 @@ Vue.use(Vuetify)
 
 // Store pattern -> state/model
 
+// això serviex per a q no mostri el missatge per consola.
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

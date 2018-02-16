@@ -2,6 +2,16 @@
 
 > A Vue.js project
 
+## 16/02/2018
+
+Comprovar versió del vuetify (actual 1.0.0)
+
+    rm -rf node_modeules
+    npm install
+
+
+
+
 ## Build Setup
 
 ``` bash
@@ -28,3 +38,5 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+

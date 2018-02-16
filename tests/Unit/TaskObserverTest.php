@@ -26,7 +26,7 @@ use RefreshDatabase;
     public function a_created_event_is_logged_when_task_is_created()
     {
 
-        $user = Factory(User::class)->create();
+        $user = factory(User::class)->create();
 
         $time = Carbon::now();
 
@@ -34,7 +34,7 @@ use RefreshDatabase;
 
             'name' => 'Comprar pa',
             'completed' => true,
-            'user_id' => $user->id,
+            'user_id' => $user->id
         ]);
 
         // An event is fired
@@ -42,8 +42,8 @@ use RefreshDatabase;
         $this->assertDatabaseHas('task_events',[
             'time' => $time,
             'type' => 'completed',
-            'task_name' => 'Comprar pa',
-            'user_name' => $user->name,
+            'task_name' => $task->name,
+            'user_name' => $user->name
 
         ]);
 

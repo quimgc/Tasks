@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import Tasks from '@/components/Tasks'
 import Landing from '@/components/Landing'
 import Counter from '@/components/Counter'
+import TasksTimeline from '@/components/TasksTimeline'
 // import Tasks from '@/components/TasksComponent'
 
 Vue.use(Router)
@@ -25,33 +26,36 @@ export default new Router({
     {
       path: '/',
       name: 'MainLayout',
-      component: MainLayout,
-      children: [
-        {
-          path: 'hello',
-          alias: '',
-          component: HelloWorld,
-          name: 'Hello',
-          meta: {
-            description: 'Vue hello World',
-            requiresAuth: true
-          }
-        },
-        {
-          path: 'tasks',
-          name: 'Tasks',
-          component: Tasks,
-          meta: {
-            description: 'Tasks',
-            requiresAuth: true
-          }
-        },
-        {
-          path: '/counter',
-          name: 'Counter',
-          component: Counter
-        }
-      ]
+      component: MainLayout
+    },
+    {
+      path: 'hello',
+      alias: '',
+      component: HelloWorld,
+      name: 'Hello',
+      meta: {
+        description: 'Vue hello World',
+        requiresAuth: true
+      }
+    },
+    {
+      path: 'tasks',
+      name: 'Tasks',
+      component: Tasks,
+      meta: {
+        description: 'Tasks',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/counter',
+      name: 'Counter',
+      component: Counter
+    },
+    {
+      path: '/tasks/timeline',
+      name: '/tasks/timeline',
+      component: TasksTimeline
     }
   ]
 })
