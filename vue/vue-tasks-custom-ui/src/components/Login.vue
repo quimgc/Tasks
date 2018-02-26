@@ -1,8 +1,7 @@
 <template>
     <div class="login">
-        <div class="logo">
-            <p><b>Admin</b>LTE</p>
-        </div>
+
+            <span class="logo"><b>Admin</b>LTE</span>
 
         <div class="login-box">
 
@@ -12,16 +11,16 @@
                 <form action="">
 
                     <div class="form-input-email">
-                        <input type="email">
+                        <input type="email" placeholder="Email">
                     </div>
 
                     <div class="form-input-password">
-                        <input type="password">
+                        <input type="password" placeholder="Password">
                     </div>
 
                     <div class="form-buttons">
-                        <input type="checkbox">
-                        <input type="submit" value="Sign In">
+                            <p><input type="checkbox"> Remember me</p>
+                            <input class="btnSubmit" type="submit" value="Sign In">
                     </div>
 
                 </form>
@@ -44,6 +43,7 @@
 
     body {
 
+        margin-top: 5%;
         background-color: #d2d6de;
         display: flex;
         justify-content: center;
@@ -55,14 +55,14 @@
 
 
     /*logo*/
-    .logo > p {
+    .logo {
         font-size: 35px;
         font-weight: lighter;
         color: #444;
     }
 
 
-    .logo > p > b {
+    .logo  > b {
         font-weight:900;
     }
 
@@ -88,11 +88,16 @@
         padding: 1em;
     }
 
+    .form-input-email > input, .form-input-password > input {
+        width: 350px;
+    }
+
     .form-buttons {
         display: flex;
         padding: 1em;
         justify-content: space-between !important;
     }
+
 
     /*fi formulari login*/
 
@@ -107,6 +112,27 @@
         text-decoration: none;
         font-size: 14px;
         color: #337ab7;
+    }
+
+    .form-buttons > p {
+        width: 66.66666667%;
+        text-align: left;
+    }
+
+    .btnSubmit {
+
+        background-color: #3c8dbc;
+        border: 1px solid #367fa9;
+        color: white;
+        width: 23.33333333%;
+        font-size: 13px;
+
+    }
+
+    .btnSubmit:hover{
+
+        background-color: #367fa9;
+
     }
 
 </style>
