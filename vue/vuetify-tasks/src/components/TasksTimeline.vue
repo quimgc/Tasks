@@ -1,9 +1,9 @@
 <template>
 
-    <timeline :events="taskEvents"></timeline>
     <div class="timeline">
+        <timeline :events="taskEvents"></timeline>
 
-        <div class="timeline-event" v-for="event in taskEvents">
+        <div class="timeline-event">
 
 
             <div class="timeline-content">
@@ -11,10 +11,10 @@
                 <v-card>
                     <!--<v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">-->
                     <!--</v-card-media>-->
-                    <v-card-title primary-title>
+                    <v-card-title primary-title v-for="event in taskEvents">
                         <div>
-                            <h3 class="headline mb-0">Event 1</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto asperiores assumenda eligendi laboriosam totam. Dolorem, dolorum eaque. Blanditiis culpa dicta excepturi explicabo inventore magni nam numquam, quisquam saepe sed vitae?</div>
+                            <h3 class="headline mb-0">{{event.task_name}}</h3>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem doloremque dolorum error fugiat id labore laudantium rem tenetur. Accusamus delectus excepturi iure mollitia nobis officiis possimus qui reiciendis temporibus.</div>
                         </div>
                     </v-card-title>
                     <v-card-actions>
@@ -30,6 +30,8 @@
                 <v-icon>more</v-icon>
 
             </div>
+
+
         </div>
 
 
