@@ -26,7 +26,7 @@
       <h1><a href="#">Acacha Tasks</a></h1>
       <h2>... a wonderful task manager!</h2>
       <button class="btn btn-success">Get started!</button>
-      <img src="../assets/todolist.jpg">
+      <!--<img src="../assets/todolist.jpg">-->
 
     </section>
 
