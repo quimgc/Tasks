@@ -11,6 +11,18 @@
 [![Monthly Downloads](https://poser.pugx.org/quimgc/tasks/d/monthly)](https://packagist.org/packages/quimgc/tasks)
 [![Daily Downloads](https://poser.pugx.org/quimgc/tasks/d/daily)](https://packagist.org/packages/quimgc/tasks)
 [![composer.lock](https://poser.pugx.org/quimgc/tasks/composerlock)](https://packagist.org/packages/quimgc/tasks)
+
+# Laravel Scheduling
+
+https://laravel.com/docs/5.6/scheduling
+
+Al fitxer App\Console\Kernel es pot configurar a la funció shcedule.
+
+Un cop configurar s'ha d'afegir una configuració al cron:
+
+    * * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+
+
 ## Error de moustachs amb PHP
 
 Per solucionar l'error dels {{ variable }} del vue a l'interior d'un fixer .php, la solució està en posar **@** al devant de {{ variable }}
