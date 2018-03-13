@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Mail\CustomEmail;
+use App\Mail\customMail;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -22,8 +22,6 @@ class EmailControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-//        initialize_email_permissions(); //TODO
-//        $this->withoutExceptionHandling();
     }
 
     /**
@@ -32,7 +30,6 @@ class EmailControllerTest extends TestCase
     protected function loginAsEmailManager()
     {
         $user = factory(User::class)->create();
-//        $user->assignRole('email-manager');
         $this->actingAs($user);
         View::share('user', $user);
     }
@@ -42,15 +39,15 @@ class EmailControllerTest extends TestCase
      *
      * @test
      */
-    public function send_and_email()
+    public function send_an_email()
     {
         $this->loginAsEmailManager();
 
         Mail::fake();
 
         $emailto = 'quimgonzalez@iesebre.com';
-        $subject = 'Prova que tal!!!';
-        $body = 'Contingut del email';
+        $subject = 'Correu de test';
+        $body = 'Contingut del correu';
 
         $response = $this->post('/email', [
             'emailto'     => $emailto,
@@ -58,13 +55,10 @@ class EmailControllerTest extends TestCase
             'body'        => $body,
         ]);
 
-//        Mail::assertSent(CustomEmail::class);
-        Mail::assertSent(CustomEmail::class, function ($mail) use ($emailto, $subject, $subject) {
-//            dd($mail);
+        Mail::assertSent(customMail::class, function ($mail) use ($emailto, $subject) {
             return $mail->to[0]['address'] === $emailto && $mail->subject === $subject && $mail->subject === $subject;
         });
 
-//        $response->dump();
         $response->assertStatus(302);
     }
 }

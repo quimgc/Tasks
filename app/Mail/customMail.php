@@ -10,8 +10,9 @@ class customMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $body;
+
     public $subject;
-    public $body;
 
     /**
      * Create a new message instance.
@@ -31,10 +32,8 @@ class customMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.customMail', [
-            'subject' => $this->subject,
-            'body'    => $this->body,
-
-        ]);
+        $body = $this->body;
+        $this->subject($this->subject);
+        return $this->markdown('emails.customMail', compact("body"));
     }
 }

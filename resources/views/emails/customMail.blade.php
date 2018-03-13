@@ -7,6 +7,6 @@
 {{--Go to email--}}
 {{--@endcomponent--}}
 
-Thanks,<br>
-{{ config('app.name') }}
+{{--Thanks,<br>--}}
+{{--{{ config('app.name') }}--}}
 @endcomponent

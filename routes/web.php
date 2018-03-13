@@ -45,9 +45,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('tasks_php/{task}', 'TaskController@destroy');
 
     //email
-    Route::get('/email', function () {
-        return view('/emails/email');
-    });
+//    Route::get('/email', function () {
+//        return view('/emails/email');
+//    });
+    Route::get('/email', 'EmailController@index');
+    Route::post('/email', 'EmailController@store');
 
     Route::post('/sendmail', function (Request $request) {
         $sendTo = $request->emailto;
