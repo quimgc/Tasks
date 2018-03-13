@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use App\TaskEvent;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class TaskEventController extends Controller
      */
     public function index()
     {
-        //
+
+        return Task::all();
     }
 
     /**

@@ -1,15 +1,9 @@
 <?php
 
-/*
- * Taken from
- * https://github.com/laravel/framework/blob/5.3/src/Illuminate/Auth/Console/stubs/make/controllers/HomeController.stub
- */
-
 namespace App\Http\Controllers;
 
-/**
- * Class HomeController.
- */
+use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     /**
@@ -25,7 +19,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {

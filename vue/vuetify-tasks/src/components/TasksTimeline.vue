@@ -36,7 +36,7 @@
         {
           'time': '12/01/2018 12:45:00',
           'type': 'created',
-          'task_name': 'Compra pa',
+          'task_name': 'Compara pa',
           'user_name': 'Quim González'
         }
       ]
