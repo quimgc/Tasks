@@ -28,10 +28,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            Mail::to(User::find(1))->send(new HelloUser());
-
-        });
+//        $schedule->call(function () {
+//            Mail::to(User::find(1))->send(new HelloUser());
+//
+//        });
     }
 
     /**
