@@ -35,7 +35,7 @@
             <!-- /. tools -->
         </div>
         <div class="box-body">
-            <form action="/sendmail" method="post">
+            <form action="#" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <input type="email" class="form-control" name="emailto" placeholder="Email to:">

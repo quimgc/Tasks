@@ -1,12 +1,12 @@
 @component('mail::message')
-# Introduction
+# Welcome
 
-The body of your message.
+Welcome to Quimgc Tasks!!
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+{{--@component('mail::button', ['url' => ''])--}}
+{{--Return to Tasks--}}
+{{--@endcomponent--}}
 
-Thanks,<br>
-{{ config('app.name') }}
+Thanks for registered,<br>
+<b>Quim</b>
 @endcomponent

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\LogedUser;
+use App\Events\RegisteredUser;
 use App\Listeners\AssignDefaultPermission;
+use App\Listeners\RegisteredUserWelcomeNotification;
 use App\Listeners\UserLogedNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -17,8 +19,12 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         LogedUser::class => [
-            AssignDefaultPermission::class,
             UserLogedNotification::class,
+
+        ],
+        RegisteredUser::class => [
+            AssignDefaultPermission::class,
+            RegisteredUserWelcomeNotification::class,
         ],
     ];
 
