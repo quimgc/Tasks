@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Mail\HelloUser;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
@@ -28,10 +29,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-//        $schedule->call(function () {
-//            Mail::to(User::find(1))->send(new HelloUser());
-//
-//        });
+
+        $now = Carbon::now();
+        $dateSendEmail = Carbon::create(2018, 03, 19, 23, 40, 00);
+
+        if($now === $dateSendEmail){
+
+            $schedule->call(function () {
+                Mail::to(User::find(1))->send(new HelloUser());
+
+            })->at($now);
+        }
     }
 
     /**
