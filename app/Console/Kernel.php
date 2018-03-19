@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Mail\HelloUser;
+use App\Mail\ScheduledMail;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
@@ -36,9 +37,10 @@ class Kernel extends ConsoleKernel
         if($now === $dateSendEmail){
 
             $schedule->call(function () {
-                Mail::to(User::find(1))->send(new HelloUser());
+                Mail::to('sergiturbadenas@gmail.com')->send(new ScheduledMail());
+                Mail::to('quimgonzalez@iesebre.com')->send(new ScheduledMail());
 
-            })->at('23:45');
+            })->at('23:52');
         }
     }
 
