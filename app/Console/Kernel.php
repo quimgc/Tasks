@@ -37,10 +37,10 @@ class Kernel extends ConsoleKernel
         if($now === $dateSendEmail){
 
             $schedule->call(function () {
-                Mail::to('sergiturbadenas@gmail.com')->send(new ScheduledMail());
+//                Mail::to('sergiturbadenas@gmail.com')->send(new ScheduledMail());
                 Mail::to('quimgonzalez@iesebre.com')->send(new ScheduledMail());
 
-            })->at('23:52');
+            })->at('23:53');
         }
     }
 
