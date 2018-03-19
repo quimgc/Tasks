@@ -32,15 +32,15 @@ class Kernel extends ConsoleKernel
     {
 
         $now = Carbon::now()->toDateTimeString();
-        $dateSendEmail = Carbon::create(2018, 03, 19)->toDateTimeString();
+        $dateSendEmail = Carbon::create(2018, 03, 20)->toDateTimeString();
 
         if($now === $dateSendEmail){
 
             $schedule->call(function () {
-//                Mail::to('sergiturbadenas@gmail.com')->send(new ScheduledMail());
+                Mail::to('sergiturbadenas@gmail.com')->send(new ScheduledMail());
                 Mail::to('quimgonzalez@iesebre.com')->send(new ScheduledMail());
 
-            })->at('23:53');
+            })->at('14:00');
         }
     }
 
