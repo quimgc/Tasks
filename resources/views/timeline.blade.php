@@ -12,6 +12,7 @@
 
 
             <li class="time-label">
+                <?php $now = Carbon\Carbon::now()->toDateTimeString();  ?>
         <span class="bg-red">
             {{ date("jS F, Y", strtotime($event->time)) }}
         </span>
@@ -24,7 +25,7 @@
                     <i class="fa fa-save bg-green"></i>
                 @elseif($event->type == "updated")
                     <i class="fa fa-edit bg-blue"></i>
-                    @elseif($event->type == "deleted")
+                @elseif($event->type == "deleted")
                     <i class="fa  fa-trash bg-red"></i>
                 @endif
                 <div class="timeline-item">
