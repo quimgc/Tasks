@@ -5,26 +5,6 @@
 @endsection
 
 
-{{--@section('main-content')--}}
-
-    {{--<div>--}}
-        {{--<div class="box-header with-border">--}}
-
-            {{--<h3 class="box-title">Timeline</h3>--}}
-
-        {{--</div>--}}
-
-    {{--</div>--}}
-
-    {{--@foreach($task_events as $event)--}}
-
-        {{--<li>User {{$event->user_name}} {{ $event->type }} task {{ $event->task_name }} at {{ $event->time }}</li>--}}
-
-    {{--@endforeach--}}
-
-
-{{--@endsection--}}
-
 @section('main-content')
     <ul class="timeline">
 
@@ -38,12 +18,18 @@
             </li>
 
             <li>
-
-                <i class="fa fa-clock-o bg-gray"></i>
+                @if ( $event->type == "created")
+                    <i class="fa fa-clock-o bg-blue"></i>
+                @elseif($event->type == "saved")
+                    <i class="fa fa-save bg-blue"></i>
+                @elseif($event->type == "updated")
+                    <i class="fa fa-edit bg-blue"></i>
+                    @elseif($event->type == "deleted")
+                    <i class="fa  fa-trash bg-blue"></i>
+                @endif
                 <div class="timeline-item">
                     <span class="time"><i class="fa fa-clock-o"></i>{{ date('G:i', strtotime($event->time)) }}</span>
-
-                    <h3 class="timeline-header"><a href="/tasks_php/{{$event->id}}">{{ $event->task_name }}</a> </h3>
+                    <h3 class="timeline-header"><a href="/tasks_php/{{ json_decode($event->task)->id }}">{{ $event->task_name }}</a> </h3>
                     <div class="timeline-body">
                         The owner is: <b> {{ $event->user_name }}</b> and the type of task is: <b>{{ $event->type }}</b>.
                     </div>
@@ -59,3 +45,36 @@
 
 
 @endsection
+{{--@section('main-content')--}}
+    {{--<ul class="timeline">--}}
+        {{--@foreach($task_events as $event)--}}
+            {{--<li class="time-label">--}}
+        {{--<span class="bg-red">--}}
+            {{--{{date('j F, Y', strtotime($event->time))}}--}}
+        {{--</span>--}}
+            {{--</li>--}}
+            {{--<li>--}}
+                {{--@if ( $event->type == "created")--}}
+                    {{--<i class="fa fa-clock-o bg-blue"></i>--}}
+                {{--@elseif($event->type == "saved")--}}
+                    {{--<i class="fa fa-save bg-blue"></i>--}}
+                    {{--<option value="{{ $user->id }}" >{{ $user->name }}</option>--}}
+                    {{--@elseif($event->type == "updated")--}}
+                    {{--<i class="fa fa-edit bg-blue"></i>--}}
+
+                {{--@endif--}}
+                {{--<i class="fa fa-envelope bg-blue"></i>--}}
+                {{--<div class="timeline-item">--}}
+                    {{--<span class="time"><i class="fa fa-clock-o"></i>{{date('G:i', strtotime($event->time))}}</span>--}}
+
+                    {{--<h3 class="timeline-header"><a href="/tasks_php/{{$event->id}}">{{ $event->task_name }}</a> </h3>--}}
+
+                    {{--<div class="timeline-body">--}}
+                        {{--The owner is: <b> {{ $event->user_name }}</b> and the type of task is: <b>{{ $event->type }}</b>.--}}
+                    {{--</div>--}}
+
+                {{--</div>--}}
+            {{--</li>--}}
+        {{--@endforeach--}}
+    {{--</ul>--}}
+{{--@endsection--}}

@@ -17,6 +17,7 @@ class TaskEvent extends model
             'type'        => $this->type,
             'task_name'        => $this->task_name,
             'user_name'        => $this->user_name,
+            'task'        => $this->task,
         ];
     }
 }
