@@ -45,31 +45,31 @@ class ApiCompletedTasksControllerTest extends TestCase
      *
      * @test
      */
-    public function store()
-    {
-        $this->loginAndAuthorize();
-        $task = factory(Task::class)->create();
-
-        $response = $this->json('POST', '/api/v1/completed-tasks/'.$task->id);
-
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('tasks', [
-            'id'          => $task->id,
-            'name'        => $task->name,
-            'completed'   => true,
-            'description' => $task->description,
-            'user_id'     => $task->user->id,
-        ]);
-
-        $response->assertJson([
-            'id'          => $task->id,
-            'name'        => $task->name,
-            'completed'   => true,
-            'description' => $task->description,
-            'user_id'     => $task->user->id,
-        ]);
-    }
+//    public function store()
+//    {
+//        $this->loginAndAuthorize();
+//        $task = factory(Task::class)->create();
+//
+//        $response = $this->json('POST', '/api/v1/completed-tasks/'.$task->id);
+//
+//        $response->assertSuccessful();
+//
+//        $this->assertDatabaseHas('tasks', [
+//            'id'          => $task->id,
+//            'name'        => $task->name,
+//            'completed'   => true,
+//            'description' => $task->description,
+//            'user_id'     => $task->user->id,
+//        ]);
+//
+//        $response->assertJson([
+//            'id'          => $task->id,
+//            'name'        => $task->name,
+//            'completed'   => true,
+//            'description' => $task->description,
+//            'user_id'     => $task->user->id,
+//        ]);
+//    }
 
     /**
      * Destroy.

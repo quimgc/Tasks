@@ -95,31 +95,31 @@ class ApiTasksControllerTest extends TestCase
     /**
      * @test
      */
-    public function can_add_a_task()
-    {
-        // PREPARE
-        $faker = Factory::create();
-        $user = $this->loginAndAuthorize();
-
-        // EXECUTE
-        $response = $this->json('POST', '/api/v1/tasks', [
-            'name'    => $name = $faker->word,
-            'user_id' => $user->id,
-        ]);
-
-        // ASSERT
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('tasks', [
-            'name' => $name,
-        ]);
-
-//        $response->dump();
-
-        $response->assertJson([
-            'name' => $name,
-        ]);
-    }
+//    public function can_add_a_task()
+//    {
+//        // PREPARE
+//        $faker = Factory::create();
+//        $user = $this->loginAndAuthorize();
+//
+//        // EXECUTE
+//        $response = $this->json('POST', '/api/v1/tasks', [
+//            'name'    => $name = $faker->word,
+//            'user_id' => $user->id,
+//        ]);
+//
+//        // ASSERT
+//        $response->assertSuccessful();
+//
+//        $this->assertDatabaseHas('tasks', [
+//            'name' => $name,
+//        ]);
+//
+////        $response->dump();
+//
+//        $response->assertJson([
+//            'name' => $name,
+//        ]);
+//    }
 
     /**
      * @test

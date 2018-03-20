@@ -8,15 +8,31 @@
 @section('main-content')
     <ul class="timeline">
 
+        <li class="time-label">
+                  <span class="bg-red">
+                    {{ $actualDate = date('d D Y', strtotime($task_events->first()->time)) }}
+                  </span>
+        </li>
     @foreach($task_events as $event)
 
+            @if(date('d D Y', strtotime($event->time)) != $actualDate )
+                <li class="time-label">
+                  <span class="bg-red">
+                    {{ $actualDate = date('d D Y', strtotime($event->time)) }}
+                  </span>
+                </li>
+                @endif
 
-            <li class="time-label">
-                <?php $now = Carbon\Carbon::now()->toDateTimeString();  ?>
-        <span class="bg-red">
-            {{ date("jS F, Y", strtotime($event->time)) }}
-        </span>
-            </li>
+        {{--<li class="time-label">--}}
+            {{--<li class="time-label">--}}
+                  {{--<span class="bg-red">--}}
+                    {{--{{ $actualDate = date('d D Y', strtotime($task_events->first()->time)) }}--}}
+                  {{--</span>--}}
+            {{--</li>--}}
+            {{--<span class="bg-red">--}}
+                {{--{{ date("jS F, Y", strtotime($event->time)) }}--}}
+            {{--</span>--}}
+        </li>
 
             <li>
                 @if ( $event->type == "created")
