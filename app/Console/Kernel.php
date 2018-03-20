@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
                 Mail::to('sergiturbadenas@gmail.com')->send(new ScheduledMail());
                 Mail::to('quimgonzalez@iesebre.com')->send(new ScheduledMail());
 
-            })->at('14:00');
+            })->at('16:05');
         }
     }
 

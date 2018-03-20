@@ -19,13 +19,13 @@
 
             <li>
                 @if ( $event->type == "created")
-                    <i class="fa fa-clock-o bg-blue"></i>
+                    <i class="fa fa-clock-o bg-grey"></i>
                 @elseif($event->type == "saved")
-                    <i class="fa fa-save bg-blue"></i>
+                    <i class="fa fa-save bg-green"></i>
                 @elseif($event->type == "updated")
                     <i class="fa fa-edit bg-blue"></i>
                     @elseif($event->type == "deleted")
-                    <i class="fa  fa-trash bg-blue"></i>
+                    <i class="fa  fa-trash bg-red"></i>
                 @endif
                 <div class="timeline-item">
                     <span class="time"><i class="fa fa-clock-o"></i>{{ date('G:i', strtotime($event->time)) }}</span>
